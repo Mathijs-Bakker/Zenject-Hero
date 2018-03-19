@@ -1,7 +1,7 @@
 # Ultimate H.E.R.O.
 
 Remember H.E.R.O.? An ancient 8 bit game by Activision made famous on the Atari 2600. [Watch on YouTube](https://www.youtube.com/watch?v=vn8Nn69dkcM).
-Because of the 'simple'game mechanics I choose to recreate this game while learning Zenject.
+Because of the 'simple'game mechanics I chose to recreate this game while learning Zenject.
 
 ## Dependency Inversion in Unity3D with Zenject
 
