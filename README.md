@@ -24,3 +24,7 @@ Download en open in Unity3D.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+
+## Acknowledgments
+
+* Hat tip to the creator of Zenject - [GitHub](https://github.com/modesttree/Zenject)
