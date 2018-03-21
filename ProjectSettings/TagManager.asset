@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Floor
+  - Miner
   layers:
   - Default
   - TransparentFX

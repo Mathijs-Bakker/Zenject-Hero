@@ -1,26 +1,23 @@
-using System;
 using Zenject;
 
 namespace Code
 {
     public class GameInstaller : MonoInstaller
     {
-        [Inject] private Settings _settings;
-        
         public override void InstallBindings()
         {
-            InstallPlayer();
+            InstallGameManager();
         }
 
-        private void InstallPlayer()
+        private void InstallGameManager()
         {
-//            throw new System.NotImplementedException();
-        }
-
-        [Serializable]
-        public class Settings
-        {
-            
+            Container.Bind<GameStateFactory>().AsSingle();
+ 
+            Container.BindInterfacesAndSelfTo<MenuState>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayState>().AsSingle();
+ 
+            Container.BindFactory<MenuState, MenuState.Factory>().WhenInjectedInto<GameStateFactory>();
+            Container.BindFactory<PlayState, PlayState.Factory>().WhenInjectedInto<GameStateFactory>();
         }
     }
 }

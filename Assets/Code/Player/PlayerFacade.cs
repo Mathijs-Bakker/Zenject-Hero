@@ -31,6 +31,11 @@ namespace Code
             {
                 _playerGroundedHandler.PlayerHitFloor(other);
             }
+
+            if (other.collider.CompareTag("Miner"))
+            {
+                Debug.Log("Win!");
+            }
         }
     }
 }        

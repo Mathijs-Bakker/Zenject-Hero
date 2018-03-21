@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212212911197334458}
   - component: {fileID: 95983715380240694}
   - component: {fileID: 50780991495818260}
-  - component: {fileID: 61257360662830714}
+  - component: {fileID: 70875503570142660}
   - component: {fileID: 114171805661564374}
   - component: {fileID: 114708992251805932}
   m_Layer: 8
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1493374419973764}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.04, y: 3.482, z: 0}
+  m_LocalPosition: {x: -4, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4127071111671026}
@@ -94,10 +94,10 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &61257360662830714
-BoxCollider2D:
+--- !u!70 &70875503570142660
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -106,21 +106,11 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 1
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.08, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.08, y: 1.04}
-    newSize: {x: 0.2, y: 0.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.92}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.6, y: 0.9}
+  m_Direction: 0
 --- !u!95 &95983715380240694
 Animator:
   serializedVersion: 3
@@ -169,6 +159,7 @@ MonoBehaviour:
     Rigidbody2D: {fileID: 50780991495818260}
     SpriteRenderer: {fileID: 212212911197334458}
     Animator: {fileID: 95983715380240694}
+    Collider2D: {fileID: 70875503570142660}
 --- !u!114 &114440964296419934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -230,7 +221,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300002, guid: fd8439d41a4a048a2a1353c835df3790, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
