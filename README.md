@@ -6,7 +6,11 @@ Because of the 'simple'game mechanics I chose to recreate this game while learni
 ## Dependency Inversion in Unity3D with Zenject
 
 Dependency Injection (DI) or Inversion of Control (IoC) can be tedious in Unity. 
-Here's Zenject comes in. A framework designed for Unity3D.
+Here's where Zenject comes in. A framework designed for Unity3D.
+
+## What is Zenject?
+Zenject is a lightweight dependency injection framework built specifically to target Unity 3D (however it can be used outside of Unity as well). It can be used to turn your application into a collection of loosely-coupled parts with highly segmented responsibilities. Zenject can then glue the parts together in many different configurations to allow you to easily write, re-use, refactor and test your code in a scalable and extremely flexible way.  
+*Source: [Zenject ReadMe](https://github.com/modesttree/Zenject/blob/master/README.md)*
 
 ## Getting Started
 
