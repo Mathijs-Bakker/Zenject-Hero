@@ -6,12 +6,11 @@ namespace Code.FlipScreen
     {
         public override void InstallBindings()
         {
-            Container.DeclareSignal<PlayerOutOfScreenSignal>();
+            Container.DeclareSignal<PlayerMovedOutOfScreenSignal>();
 
-            Container.BindSignal<ScreenBoundary, PlayerOutOfScreenSignal>()
-                .To<FlipScreenManager>(x => x.LogEnum)
+            Container.BindSignal<ScreenBorder, PlayerMovedOutOfScreenSignal>()
+                .To<FlipScreenManager>(x => x.FlipScreen)
                 .FromComponentInHierarchy();
         }
     }
-   
 }

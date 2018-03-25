@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Code.FlipScreen
 {
-    public enum ScreenBoundary
+    public enum ScreenBorder
     {
         Left,
         Right,
@@ -21,7 +21,6 @@ namespace Code.FlipScreen
         public void Start()
         {
             ResetScreen();
-            
         }
 
         private void ResetScreen()
@@ -29,42 +28,38 @@ namespace Code.FlipScreen
             transform.position = new Vector2(0, 0);
         }
 
-        private float offsetY = 5f;
-        private float offsetX = 13f;
-        
-        public void LogEnum(ScreenBoundary boundary)
+        private const float OffsetY = 5f;
+        private const float OffsetX = 14f;
+
+        public void FlipScreen(ScreenBorder borderPosition)
         {
-            switch (boundary)
+            switch (borderPosition)
             {
-                  case  ScreenBoundary.Top:
+                  case  ScreenBorder.Top:
                       if (Math.Abs(transform.position.y) < 0.1f) break;
                       transform.position = new Vector2(
                           transform.position.x,
-                          transform.position.y + offsetY);
+                          transform.position.y + OffsetY);
                       break;
                   
-                  case ScreenBoundary.Bottom:
+                  case ScreenBorder.Bottom:
                       transform.position = new Vector2(
                           transform.position.x,
-                          transform.position.y - offsetY);
+                          transform.position.y - OffsetY);
                       break;
                   
-                case ScreenBoundary.Left:
+                case ScreenBorder.Left:
                     transform.position = new Vector2(
-                        transform.position.x - offsetX,
+                        transform.position.x - OffsetX,
                         transform.position.y);
                     break;
                 
-                case ScreenBoundary.Right:
+                case ScreenBorder.Right:
                     transform.position = new Vector2(
-                        transform.position.x + offsetX,
+                        transform.position.x + OffsetX,
                         transform.position.y);
                     break;
-                  
-                  default:
-                      throw new InvalidEnumArgumentException();
             }
         }
-
     }
 }
