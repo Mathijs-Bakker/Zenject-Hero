@@ -16,9 +16,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)
@@ -38,9 +38,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)
@@ -61,9 +61,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)
@@ -84,9 +84,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)
@@ -107,9 +107,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)
@@ -130,9 +130,9 @@ namespace Zenject
             item.gameObject.SetActive(false);
         }
 
-        protected override void OnSpawned(TValue item)
+        protected override void OnSpawned(TValue dynamite)
         {
-            item.gameObject.SetActive(true);
+            dynamite.gameObject.SetActive(true);
         }
 
         protected override void OnDespawned(TValue item)

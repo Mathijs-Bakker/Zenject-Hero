@@ -24,10 +24,7 @@ namespace Code
         }
         public void FixedTick()
         {
-            if (_player.IsDead)
-            {
-                return;
-            }
+            if (_player.IsDead) return;
 
             if (_inputState.IsMovingUp)
             {
@@ -38,7 +35,6 @@ namespace Code
             
             if (_inputState.IsMovingDown)
             {
-                // Todo: Change down input action to "Activate Dynamite".
                 _player.AddForce(
                     Vector2.down * _settings.MoveSpeed);
             }

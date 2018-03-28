@@ -207,7 +207,7 @@ namespace Zenject
             // Optional
         }
 
-        protected virtual void OnSpawned(TContract item)
+        protected virtual void OnSpawned(TContract dynamite)
         {
             // Optional
         }

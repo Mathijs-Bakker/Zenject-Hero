@@ -59,6 +59,10 @@ namespace Code.FlipScreen
                         transform.position.x + OffsetX,
                         transform.position.y);
                     break;
+                
+                default:
+                    throw new ArgumentOutOfRangeException(
+                        nameof(borderPosition), borderPosition, null);
             }
         }
     }
