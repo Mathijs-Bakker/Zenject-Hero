@@ -25,7 +25,7 @@ Download and open the project in Unity3D.
 
 ## H.E.R.O.
 
-H.E.R.O. (standing for Helicopter Emergency Rescue Operation) is a video game written by John Van Ryzin[1] and published by Activision for the Atari 2600 in March 1984.[2] It was ported to the Apple II, Atari 5200, Atari 8-bit family, ColecoVision, Commodore 64, MSX, and ZX Spectrum. Sega released a version of the game for its SG-1000 console in Japan in 1985. While the gameplay was identical, Sega changed the backpack from a helicopter to a jetpack.
+H.E.R.O. (standing for Helicopter Emergency Rescue Operation) is a video game written by John Van Ryzin and published by Activision for the Atari 2600 in March 1984. It was ported to the Apple II, Atari 5200, Atari 8-bit family, ColecoVision, Commodore 64, MSX, and ZX Spectrum. Sega released a version of the game for its SG-1000 console in Japan in 1985. While the gameplay was identical, Sega changed the backpack from a helicopter to a jetpack.
 
 The player uses a helicopter backpack and other tools to rescue victims trapped deep in a mine. The mine is made up of multiple screens using a flip screen style.  
   
@@ -42,7 +42,7 @@ Mine shafts may be blocked by cave-ins or magma, which require dynamite to clear
 Some deep mines are flooded, forcing players to hover safely above the water. In later levels, monsters strike out from below the water. Some mine sections are illuminated by lanterns. If the lantern is somehow destroyed, the layout of that section becomes invisible. Exploding dynamite lights up the mine for a brief time.  
   
 Points are scored for each cave-in cleared and each creature destroyed. When the player reaches the miner, points are awarded for the rescue, along with the amount of power remaining in the backpack and for each remaining stick of dynamite. Extra lives are awarded for every 20,000 points scored.  
-*Source: [Wikipedia:](https://en.wikipedia.org/wiki/H.E.R.O.)*
+*Source: [Wikipedia](https://en.wikipedia.org/wiki/H.E.R.O.)*
 
 ## Authors
 
