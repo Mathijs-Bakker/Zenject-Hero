@@ -9101,9 +9101,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1876841750}
+  - component: {fileID: 1876841753}
   - component: {fileID: 1876841751}
   - component: {fileID: 1876841752}
-  - component: {fileID: 1876841753}
   m_Layer: 0
   m_Name: Cave In
   m_TagString: Untagged

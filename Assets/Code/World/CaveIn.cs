@@ -2,10 +2,10 @@
 
 namespace Code
 {
-    public class CaveIn : MonoBehaviour, IDamageable
+    public class CaveIn : Damageable
     {
         [SerializeField] private int _health;
-
+        
         public void Damage(int damageReceived)
         {
             _health -= damageReceived;
@@ -15,7 +15,7 @@ namespace Code
             }
         }
 
-        public void BlowUp()
+        public override void BlowUp()
         {
             Destroy(gameObject);
         }

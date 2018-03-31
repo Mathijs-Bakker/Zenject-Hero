@@ -23,6 +23,7 @@ namespace Code
         {
             if (_player.IsDead) return;
 
+            // Todo: Input.GetKeyDown should be handled in an InputManager
             if (Input.GetKeyDown(KeyCode.DownArrow) && _player.IsGrounded)
             {
                 PlaceDynamite();                

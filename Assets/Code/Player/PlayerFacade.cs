@@ -13,6 +13,8 @@ namespace Code
     {
         private Player _player;
         private PlayerGroundedHandler _playerGroundedHandler;
+        
+        public Vector2 Position { get; }
 
         [Inject]
         public void Construct(
@@ -23,7 +25,13 @@ namespace Code
             _playerGroundedHandler = playerGroundedHandler;
         }
 
-        public Vector2 Position { get; }
+        private void Update()
+        {
+            if (_player.IsDead)
+            {
+                Debug.Log("Player Got Killed");
+            }
+        }
 
         private void OnCollisionEnter2D(Collision2D other)
         {

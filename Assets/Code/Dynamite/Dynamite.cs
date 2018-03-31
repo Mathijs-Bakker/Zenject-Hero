@@ -7,24 +7,25 @@ namespace Code
     public class Dynamite : MonoBehaviour
     {
         [Inject] private Pool _dynamitePool;
+        
+        private readonly List<GameObject> _overlappedGOs = new List<GameObject>();
 
-        private float _detonationTimer;
+        private float _fuseTimer;
         private const float Seconds = 1f;
 
-        private bool _isExploding;
-
+        private Collider2D _collider;
+        
         private void Start()
         {
-            _detonationTimer = Seconds;
+            _fuseTimer = Seconds;
+            _collider = GetComponent<Collider2D>();
         }
 
         private void Update()
         {
-            Debug.Log(_detonationTimer);
-            Debug.Log(_inDamageRange.Count);
-            _detonationTimer -= Time.deltaTime;
+            _fuseTimer -= Time.deltaTime;
             
-            if (_detonationTimer < 0)
+            if (_fuseTimer <= 0)
             {
                 Explode();
             }
@@ -32,52 +33,44 @@ namespace Code
 
         private void Explode()
         {
-            foreach (var gO in _inDamageRange)
+            foreach (var go in _overlappedGOs)
             {
-                Debug.Log(gO.name);
-                
-                if (gO.GetComponent(typeof(IDamageable)))
+                Debug.Log(go.name);
+                Debug.Log(_overlappedGOs.Count);
+                if (go.GetComponent(typeof(Damageable)))
                 {
-                    Debug.Log("Whoot");
-                    _inDamageRange.Remove(gO);
-                    Destroy(gO);
+                    var myVar = go.GetComponent<Damageable>();
+//                    myVar.BlowUp();
+                    myVar.BlowUp();
+                    
+                }
+                
+                Debug.Log(_overlappedGOs.Count);
+                if (go.CompareTag("Player"))
+                {
+//                    var player = gO.gameObject.GetComponent(typeof(PlayerFacade));
+//                    player.IsDead = true;
                 }
             }
             _dynamitePool.Despawn(this);
         }
-
-        private List<GameObject> _inDamageRange = new List<GameObject>();
         
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _inDamageRange.Add(other.gameObject);
+            _overlappedGOs.Add(other.gameObject);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            _inDamageRange.Remove(other.gameObject);
+            _overlappedGOs.Remove(other.gameObject);
         }
-
-
-//        private void OnTriggerEnter2D(Collider2D other)
-//        {
-//            if (_isExploding)
-//            {
-//                Debug.Log(other.name);
-//                var damageable = other.gameObject.GetComponent<CaveIn>();
-//                if (damageable != null) damageable.BlowUp();
-//                
-//                _dynamitePool.Despawn(this);
-//            }
-//        }
 
         public class Pool : MonoMemoryPool<Dynamite>
         {
             protected override void Reinitialize(Dynamite dynamite)
             {
-                dynamite._isExploding = false;
-                dynamite._detonationTimer = Seconds;
-                dynamite._inDamageRange.Clear();
+                dynamite._fuseTimer = Seconds;
+                dynamite._overlappedGOs.Clear();
             }
         }
     }
