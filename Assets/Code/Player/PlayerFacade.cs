@@ -5,6 +5,7 @@ namespace Code
 {
     public interface IPlayer
     {
+        bool IsDead { get; }
         Vector2 Position { get; }
     }
     
@@ -13,18 +14,22 @@ namespace Code
     {
         private Player _player;
         private PlayerGroundedHandler _playerGroundedHandler;
+        private PlayerDeathHandler _playerDeathHandler;
         
-        public Vector2 Position { get; }
-
         [Inject]
         public void Construct(
             Player player,
-            PlayerGroundedHandler playerGroundedHandler)
+            PlayerGroundedHandler playerGroundedHandler,
+            PlayerDeathHandler playerDeathHandler)
         {
             _player = player;
             _playerGroundedHandler = playerGroundedHandler;
+            _playerDeathHandler = playerDeathHandler;
         }
 
+        public bool IsDead => _player.IsDead;
+        public Vector2 Position => _player.Position;
+        
         private void Update()
         {
             if (_player.IsDead)
@@ -45,5 +50,11 @@ namespace Code
                 Debug.Log("Win!");
             }
         }
+
+        public void Die()
+        {
+            _playerDeathHandler.Die();
+        }
+
     }
 }        

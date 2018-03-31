@@ -18,12 +18,14 @@ namespace Code
                     _settings.Animator,
                     _settings.Collider2D);
 
+            Container.Bind<PlayerDeathHandler>().AsSingle();
+            Container.Bind<PlayerInputState>().AsSingle();
+            Container.Bind<PlayerAnimatorHandler>().AsSingle();
+            
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovementHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();
-
-            Container.Bind<PlayerInputState>().AsSingle();
-            Container.Bind<PlayerAnimatorHandler>().AsSingle();
+            
             Container.BindInterfacesAndSelfTo<PlayerGroundedHandler>().AsSingle();
         }
     }

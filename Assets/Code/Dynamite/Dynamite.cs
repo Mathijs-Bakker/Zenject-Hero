@@ -33,28 +33,32 @@ namespace Code
 
         private void Explode()
         {
-            foreach (var go in _overlappedGOs)
+            Debug.Log(_overlappedGOs.Count);
+            if (_overlappedGOs.Count == 0)
             {
-                Debug.Log(go.name);
-                Debug.Log(_overlappedGOs.Count);
+                return;
+            }
+            
+            for (var i = _overlappedGOs.Count -1; i >= 0; i--)
+            {
+                var go = _overlappedGOs[i];
+                
                 if (go.GetComponent(typeof(Damageable)))
                 {
-                    var myVar = go.GetComponent<Damageable>();
-//                    myVar.BlowUp();
-                    myVar.BlowUp();
-                    
+                    go.GetComponent<Damageable>().BlowUp();
                 }
-                
-                Debug.Log(_overlappedGOs.Count);
+
                 if (go.CompareTag("Player"))
                 {
-//                    var player = gO.gameObject.GetComponent(typeof(PlayerFacade));
-//                    player.IsDead = true;
+                    var player = go.GetComponent<PlayerFacade>();
+                    player.Die();
                 }
+                
+                _dynamitePool.Despawn(this);
+
             }
-            _dynamitePool.Despawn(this);
         }
-        
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             _overlappedGOs.Add(other.gameObject);
