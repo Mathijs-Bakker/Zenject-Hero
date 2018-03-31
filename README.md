@@ -20,7 +20,7 @@ Download and open the project in Unity3D.
 
 ## Built With
 
-* [Unity3D - 2017](https://unity3d.com/get-unity/download)
+* [Unity3D - 2017.4](https://unity3d.com/get-unity/download)
 * [Zenject](https://assetstore.unity.com/packages/tools/integration/zenject-dependency-injection-ioc-17758) - Zenject Dependency Injection IOC
 
 ## H.E.R.O.
