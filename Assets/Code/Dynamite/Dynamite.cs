@@ -8,17 +8,15 @@ namespace Code
     {
         [Inject] private Pool _dynamitePool;
         
-        private readonly List<GameObject> _overlappedGOs = new List<GameObject>();
+        private readonly List<GameObject> _overlappedColliders = 
+            new List<GameObject>();
 
         private float _fuseTimer;
         private const float Seconds = 1f;
 
-        private Collider2D _collider;
-        
         private void Start()
         {
             _fuseTimer = Seconds;
-            _collider = GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -33,40 +31,37 @@ namespace Code
 
         private void Explode()
         {
-            Debug.Log(_overlappedGOs.Count);
-            if (_overlappedGOs.Count == 0)
+            if (_overlappedColliders.Count != 0)
             {
-                return;
-            }
-            
-            for (var i = _overlappedGOs.Count -1; i >= 0; i--)
-            {
-                var go = _overlappedGOs[i];
-                
-                if (go.GetComponent(typeof(Damageable)))
+                for(var i = _overlappedColliders.Count - 1; i > -1; i--)
                 {
-                    go.GetComponent<Damageable>().BlowUp();
-                }
+                    var go = _overlappedColliders[i];
+                    
+                    var damagableGo = go.GetComponent<Damageable>();
+                    if (damagableGo != null)
+                    {
+                        damagableGo.BlowUp();
+                        return;
+                    }
 
-                if (go.CompareTag("Player"))
-                {
                     var player = go.GetComponent<PlayerFacade>();
-                    player.Die();
+                    if (player != null)
+                    {
+                        player.Die();
+                    }
                 }
-                
-                _dynamitePool.Despawn(this);
-
             }
+            _dynamitePool.Despawn(this);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _overlappedGOs.Add(other.gameObject);
+            _overlappedColliders.Add(other.gameObject);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            _overlappedGOs.Remove(other.gameObject);
+            _overlappedColliders.Remove(other.gameObject);
         }
 
         public class Pool : MonoMemoryPool<Dynamite>
@@ -74,7 +69,7 @@ namespace Code
             protected override void Reinitialize(Dynamite dynamite)
             {
                 dynamite._fuseTimer = Seconds;
-                dynamite._overlappedGOs.Clear();
+                dynamite._overlappedColliders.Clear();
             }
         }
     }
