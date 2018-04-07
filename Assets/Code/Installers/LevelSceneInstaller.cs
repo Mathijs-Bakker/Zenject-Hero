@@ -28,12 +28,11 @@ namespace Code
                 .FromComponentInNewPrefab(_settings.DynamitePrefab)
                 .UnderTransformGroup("Dynamite");
         }
-        
+
         [Serializable]
         private class Settings
         {
             public GameObject DynamitePrefab;
         }
     }
-
 }

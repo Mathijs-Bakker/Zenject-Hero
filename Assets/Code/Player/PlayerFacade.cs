@@ -3,19 +3,12 @@ using Zenject;
 
 namespace Code
 {
-    public interface IPlayer
-    {
-        bool IsDead { get; }
-        Vector2 Position { get; }
-    }
-    
-    
-    public class PlayerFacade : MonoBehaviour, IPlayer
+    public class PlayerFacade : MonoBehaviour
     {
         private Player _player;
         private PlayerGroundedHandler _playerGroundedHandler;
         private PlayerDeathHandler _playerDeathHandler;
-        
+
         [Inject]
         public void Construct(
             Player player,
@@ -27,8 +20,8 @@ namespace Code
             _playerDeathHandler = playerDeathHandler;
         }
 
-        public bool IsDead => _player.IsDead;
         public Vector2 Position => _player.Position;
+        public bool IsFacingLeft => _player.IsFacingLeft;
         
         private void Update()
         {

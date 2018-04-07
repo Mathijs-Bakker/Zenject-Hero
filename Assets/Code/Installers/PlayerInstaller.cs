@@ -13,7 +13,7 @@ namespace Code
         {
             Container.Bind<Player>().AsSingle()
                 .WithArguments(
-                    _settings.Rigidbody2D, 
+                    _settings.Rigidbody2D,
                     _settings.SpriteRenderer,
                     _settings.Animator,
                     _settings.Collider2D);
@@ -21,7 +21,7 @@ namespace Code
             Container.Bind<PlayerDeathHandler>().AsSingle();
             Container.Bind<PlayerInputState>().AsSingle();
             Container.Bind<PlayerAnimatorHandler>().AsSingle();
-            
+
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovementHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();

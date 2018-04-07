@@ -6,11 +6,11 @@ namespace Code
     {
         [SerializeField] private int _health;
 
-        private Collider2D _collider2D;
-        
-        public void Damage(int damageReceived)
+        public override void ReceiveDamage(int damage)
         {
-            _health -= damageReceived;
+
+            _health -= damage;
+
             if (_health <= 0)
             {
                 BlowUp();
@@ -20,8 +20,8 @@ namespace Code
         public override void BlowUp()
         {
             Destroy(gameObject);
-//            gameObject.SetActive(false);
-//            _collider2D.enabled = false;
         }
+        
+        
     }
 }

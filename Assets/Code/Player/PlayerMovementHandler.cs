@@ -42,7 +42,7 @@ namespace Code
             if (_inputState.IsMovingLeft)
             {
                 _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);                
-                _player.IsFacingLeft(true);
+                _player.FaceLeft(true);
                 _player.AddForce(
                     Vector2.left * _settings.MoveSpeed);
             }
@@ -50,7 +50,7 @@ namespace Code
             if (_inputState.IsMovingRight)
             {
                 _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);                
-                _player.IsFacingLeft(false);
+                _player.FaceLeft(false);
                 _player.AddForce(
                     Vector2.right * _settings.MoveSpeed);
             }

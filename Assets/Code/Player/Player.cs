@@ -42,12 +42,12 @@ namespace Code
         }
 
         public bool IsGrounded { get; set; }
-        public bool IsAnyDynamiteActive { get; set; }
 
-        public void IsFacingLeft(bool isPlayerMovingToTheLeft)
+        public bool IsFacingLeft { get; private set; }
+        public void FaceLeft(bool isPlayerMovingToTheLeft)
         {
             _spriteRenderer.flipX = isPlayerMovingToTheLeft;
+            IsFacingLeft = isPlayerMovingToTheLeft;
         }
-        
     }
 }

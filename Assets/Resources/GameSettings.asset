@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   Player:
-    PlayerMovementHandler:
+    Movement:
       MoveSpeed: 20
+  Laser:
+    Damage:
+      Damage: 1

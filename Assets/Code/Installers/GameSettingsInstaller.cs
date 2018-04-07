@@ -19,14 +19,22 @@ namespace Code
         [Serializable]
         public class PlayerSettings
         {
-            public PlayerMovementHandler.Settings PlayerMovementHandler;
-            public PlayerAnimatorHandler PlayerAnimatorHandler;
+            public PlayerMovementHandler.Settings Movement;
+        }
+
+        public LaserSettings Laser;
+        
+        [Serializable]
+        public class LaserSettings
+        {
+            public Laser.Settings Damage;
         }
         
         public override void InstallBindings()
         {
-            Container.BindInstance(Player.PlayerMovementHandler);
-            Container.BindInstance(Player.PlayerAnimatorHandler);
+            Container.BindInstance(Player.Movement);
+
+            Container.BindInstance(Laser.Damage);
         }
     }
 }

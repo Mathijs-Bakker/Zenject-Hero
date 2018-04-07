@@ -6,24 +6,27 @@ namespace Code
     public class PlayerActionHandler : ITickable
     {
         private readonly Player _player;
-        private readonly Dynamite.Pool _dynamitePool;
         private readonly PlayerInputState _inputState;
-        
+        private readonly Dynamite.Pool _dynamitePool;
+        private readonly Laser _laser;
+
         public PlayerActionHandler(
             Player player,
+            PlayerInputState playerInputState,
             Dynamite.Pool dynamitePool,
-            PlayerInputState playerInputState)
+            Laser laser)
         {
             _player = player;
-            _dynamitePool = dynamitePool;
             _inputState = playerInputState;
+            _dynamitePool = dynamitePool;
+            _laser = laser;
         }
         
         public void Tick()
         {
             if (_player.IsDead) return;
 
-            // Todo: Input.GetKeyDown should be handled in an InputManager
+            // Todo: Input.GetKeyDown should be handled by an InputManager
             if (Input.GetKeyDown(KeyCode.DownArrow) && _player.IsGrounded)
             {
                 PlaceDynamite();                
@@ -31,8 +34,11 @@ namespace Code
 
             if (_inputState.IsFiring)
             {
-                // Todo: Fire Laser Beam
-                Debug.Log("PlayerActionHandler: Fire Laser Beam");
+                _laser.IsFiring = true;
+            }
+            else
+            {
+                _laser.IsFiring = false;
             }
         }
 
