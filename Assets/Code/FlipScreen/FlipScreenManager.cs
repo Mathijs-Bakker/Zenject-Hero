@@ -1,10 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
-using UnityEditor;
-using UnityEditor.PackageManager.Requests;
 using UnityEngine;
-using UnityEngine.Scripting.APIUpdating;
-using Zenject;
 
 namespace Code.FlipScreen
 {
@@ -20,10 +15,10 @@ namespace Code.FlipScreen
     {
         public void Start()
         {
-            ResetScreen();
+            ResetCamera();
         }
 
-        private void ResetScreen()
+        private void ResetCamera()
         {
             transform.position = new Vector2(0, 0);
         }
@@ -31,7 +26,7 @@ namespace Code.FlipScreen
         private const float OffsetY = 5f;
         private const float OffsetX = 14f;
 
-        public void FlipScreen(ScreenBorder borderPosition)
+        public void FlipCamera(ScreenBorder borderPosition)
         {
             switch (borderPosition)
             {
