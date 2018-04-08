@@ -1,4 +1,8 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using Zenject;
+
+namespace Code
 {
-  public class $CLASS$ {$END$}
+    public class UpdateScoreSignal : Signal<UpdateScoreSignal, int>
+    {
+    }
 }

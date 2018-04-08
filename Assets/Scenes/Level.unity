@@ -2093,7 +2093,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 1a37cd60dd5b947898aee9133ce67205, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4716,6 +4716,7 @@ GameObject:
   - component: {fileID: 855423463}
   - component: {fileID: 855423462}
   - component: {fileID: 855423465}
+  - component: {fileID: 855423466}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -4751,6 +4752,7 @@ MonoBehaviour:
   _installers:
   - {fileID: 855423462}
   - {fileID: 855423465}
+  - {fileID: 855423466}
   _installerPrefabs: []
   _scriptableObjectInstallers: []
   _autoRun: 1
@@ -4782,6 +4784,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a03b07f61a3904d8ca5ed3920ba4d96a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &855423466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855423461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0082bedaf3b94e228d85e9e744ae27a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiScore: {fileID: 0}
 --- !u!1001 &856703784
 Prefab:
   m_ObjectHideFlags: 0
@@ -5006,6 +5020,7 @@ GameObject:
   - component: {fileID: 889743643}
   - component: {fileID: 889743645}
   - component: {fileID: 889743644}
+  - component: {fileID: 889743646}
   m_Layer: 5
   m_Name: Score - Txt
   m_TagString: Untagged
@@ -5070,6 +5085,17 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 889743642}
+--- !u!114 &889743646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 889743642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d13c879bc9c45a783da26cff8e8bfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &896723450
 Prefab:
   m_ObjectHideFlags: 0
@@ -9126,6 +9152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 50
+  _scorePoints: 50
+  _dynamitePoints: 75
 --- !u!50 &1876841753
 Rigidbody2D:
   serializedVersion: 4
