@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Code
 {
-	public class UIScore : MonoBehaviour
+	public class ScoreManager : MonoBehaviour
 	{
 		private Text _scoreTxt;
 		private int Score { get; set; }
