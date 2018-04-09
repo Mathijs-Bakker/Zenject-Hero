@@ -9,9 +9,8 @@ namespace Code
         [SerializeField] private int _scorePoints = 50;
         [SerializeField] private int _dynamitePoints = 75;
         
-        private UpdateScoreSignal _updateScoreSignal;
+        [Inject] private readonly UpdateScoreSignal _updateScoreSignal;
 
-        [Inject]
         private CaveIn(UpdateScoreSignal updateScoreSignal)
         {
             _updateScoreSignal = updateScoreSignal;
