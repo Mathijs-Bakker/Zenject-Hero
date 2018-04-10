@@ -1585,8 +1585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &297286766
 Prefab:
@@ -2716,6 +2716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 453862142}
   - component: {fileID: 453862143}
+  - component: {fileID: 453862144}
   m_Layer: 5
   m_Name: Power - Slider
   m_TagString: Untagged
@@ -2777,7 +2778,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1802173334}
   m_HandleRect: {fileID: 0}
@@ -2785,12 +2786,24 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.852
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &453862144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 453862141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 851ae3629c3a144fa91f56a902bd971f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  powerBar: {fileID: 453862143}
 --- !u!1001 &463155984
 Prefab:
   m_ObjectHideFlags: 0
@@ -4795,7 +4808,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0082bedaf3b94e228d85e9e744ae27a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiScore: {fileID: 0}
 --- !u!1001 &856703784
 Prefab:
   m_ObjectHideFlags: 0
@@ -8895,7 +8907,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1802173335
 MonoBehaviour:
@@ -10329,7 +10341,7 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2107443934
 MonoBehaviour:
   m_ObjectHideFlags: 0
