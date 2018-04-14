@@ -1,14 +1,5 @@
-# Ultimate H.E.R.O.
-
-Remember H.E.R.O.? An ancient 8 bit game by Activision made famous on the Atari 2600. [Watch on YouTube](https://www.youtube.com/watch?v=vn8Nn69dkcM).
-Because of the 'simple'game mechanics I chose to recreate this game while learning Zenject.
-
-![](https://i.imgur.com/ABdBN3A.gif)
-
+# Zenject H.E.R.O.
 ## Dependency Inversion in Unity3D with Zenject
-
-Dependency Injection (DI) or Inversion of Control (IoC) can be tedious in Unity. 
-Here's where Zenject comes in. A framework designed for Unity3D.
 
 ## What is Zenject?
 Zenject is a lightweight dependency injection framework built specifically to target Unity 3D (however it can be used outside of Unity as well). It can be used to turn your application into a collection of loosely-coupled parts with highly segmented responsibilities. Zenject can then glue the parts together in many different configurations to allow you to easily write, re-use, refactor and test your code in a scalable and extremely flexible way.  
@@ -22,6 +13,8 @@ Download and open the project in Unity3D.
 
 * [Unity3D - 2017.4](https://unity3d.com/get-unity/download)
 * [Zenject](https://assetstore.unity.com/packages/tools/integration/zenject-dependency-injection-ioc-17758) - Zenject Dependency Injection IOC
+
+![](https://i.imgur.com/ABdBN3A.gif)
 
 ## H.E.R.O.
 
