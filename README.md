@@ -1,5 +1,8 @@
 # Zenject H.E.R.O.
 ## Dependency Inversion in Unity3D with Zenject
+Remember H.E.R.O.? An ancient 8 bit game by Activision made famous on the Atari 2600. Watch on YouTube. Because of the 'simple'game mechanics I chose to recreate this game while learning Zenject.  
+
+![](https://i.imgur.com/ABdBN3A.gif)
 
 ## What is Zenject?
 Zenject is a lightweight dependency injection framework built specifically to target Unity 3D (however it can be used outside of Unity as well). It can be used to turn your application into a collection of loosely-coupled parts with highly segmented responsibilities. Zenject can then glue the parts together in many different configurations to allow you to easily write, re-use, refactor and test your code in a scalable and extremely flexible way.  
@@ -21,8 +24,6 @@ Download and open the project in Unity3D.
 H.E.R.O. (standing for Helicopter Emergency Rescue Operation) is a video game written by John Van Ryzin and published by Activision for the Atari 2600 in March 1984. It was ported to the Apple II, Atari 5200, Atari 8-bit family, ColecoVision, Commodore 64, MSX, and ZX Spectrum. Sega released a version of the game for its SG-1000 console in Japan in 1985. While the gameplay was identical, Sega changed the backpack from a helicopter to a jetpack.
 
 The player uses a helicopter backpack and other tools to rescue victims trapped deep in a mine. The mine is made up of multiple screens using a flip screen style.  
-  
-![](https://i.imgur.com/OjU8VJW.gif)
 
 ### Gameplay
 
