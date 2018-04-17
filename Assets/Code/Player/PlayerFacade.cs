@@ -27,6 +27,7 @@ namespace Code
         {
             if (_player.IsDead)
             {
+                // Todo: Game manager death handler 
                 Debug.Log("Player Got Killed");
             }
         }

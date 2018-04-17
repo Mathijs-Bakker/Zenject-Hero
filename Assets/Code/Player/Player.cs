@@ -9,8 +9,6 @@ namespace Code
         private readonly SpriteRenderer _spriteRenderer;
         public readonly Animator Animator;
 
-        float _health = 100.0f;
-
         public Player(
             Rigidbody2D rigidbody2D,
             Collider2D collider2D,
@@ -23,11 +21,6 @@ namespace Code
             Animator = animator;
         }
         
-        public float Health
-        {
-            get { return _health; }
-        }
-
         public bool IsDead { get; set; }
         
         public Vector2 Position

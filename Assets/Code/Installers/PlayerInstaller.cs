@@ -11,7 +11,8 @@ namespace Code
 
         public override void InstallBindings()
         {
-            Container.Bind<Player>().AsSingle()
+            Container.Bind<Player>()
+                .AsSingle()
                 .WithArguments(
                     _settings.Rigidbody2D,
                     _settings.SpriteRenderer,
