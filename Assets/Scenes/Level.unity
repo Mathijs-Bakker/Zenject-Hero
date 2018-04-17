@@ -7982,7 +7982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Slider: {fileID: 453862143}
-    FillUpSound: {fileID: 1304672668}
+    RestorePowerAS: {fileID: 1304672668}
 --- !u!4 &1578446176 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4577841362685950, guid: 1dfdef8bb5f324e1d97d76168df893aa,

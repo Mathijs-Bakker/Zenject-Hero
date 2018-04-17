@@ -4,17 +4,17 @@ using Zenject;
 
 namespace Code
 {
-    public class FillUpPowerBar : ITickable
+    public class RestorePowerBar : ITickable
     {
 	    private readonly Slider _slider;
-	    private readonly AudioSource _fillUpSound;
+	    private readonly AudioSource _restorePowerAS;
 	    
-	    private FillUpPowerBar(
+	    private RestorePowerBar(
 		    Slider slider,
-		    AudioSource fillUpSound)
+		    AudioSource restorePowerAS)
 	    {
 		    _slider = slider;
-		    _fillUpSound = fillUpSound;
+		    _restorePowerAS = restorePowerAS;
 	    }
 
 	    public bool HasCompleted { get; set; }

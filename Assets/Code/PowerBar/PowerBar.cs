@@ -8,32 +8,31 @@ namespace Code
 	{
 		private readonly Slider _slider;
 
-		private PlayerFacade _player;
+		private PlayerFacade _playerFacade;
 
-		private FillUpPowerBar _fillUpPowerBar;
+		private RestorePowerBar _restorePowerBar;
 
 		private PowerBar(
 			Slider slider,
-			PlayerFacade player,
-			FillUpPowerBar fillUpPowerBar)
+			PlayerFacade playerFacade,
+			RestorePowerBar restorePowerBar)
 		{
 			_slider = slider;
-			_player = player;
-			_fillUpPowerBar = fillUpPowerBar;
+			_playerFacade = playerFacade;
+			_restorePowerBar = restorePowerBar;
 		}
 
 		public void Tick()
 		{
-			if (!_fillUpPowerBar.HasCompleted) return;
+			if (!_restorePowerBar.HasCompleted) return;
 
 			const float countDownSpeed = 0.01f;
 			_slider.value -= Time.deltaTime * countDownSpeed;
-		}
-		
-		
-		public void SetValue(float value)
-		{
-			_slider.value += value;
+
+			if (_slider.value <= 0)
+			{
+				_playerFacade.Die();
+			}
 		}
 		
 		public bool HasGameStarted { get; set; }

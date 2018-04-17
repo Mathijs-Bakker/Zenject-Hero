@@ -15,18 +15,18 @@ namespace Code
                 .AsSingle()
                 .WithArguments(_settings.Slider);
 
-            Container.BindInterfacesAndSelfTo<FillUpPowerBar>()
+            Container.BindInterfacesAndSelfTo<RestorePowerBar>()
                 .AsSingle()
                 .WithArguments(
                     _settings.Slider,
-                    _settings.FillUpSound);
+                    _settings.RestorePowerAS);
         }
 
         [Serializable]
         public class Settings
         {
             public Slider Slider;
-            public AudioSource FillUpSound;
+            public AudioSource RestorePowerAS;
         }
     }
 }
