@@ -22,6 +22,8 @@ namespace Code
 			_restorePowerBar = restorePowerBar;
 		}
 
+		public bool IsGameRunning { get; set; }
+		
 		public void Tick()
 		{
 			if (!_restorePowerBar.HasCompleted) return;
@@ -35,7 +37,6 @@ namespace Code
 			}
 		}
 		
-		public bool HasGameStarted { get; set; }
 		
 		
 		

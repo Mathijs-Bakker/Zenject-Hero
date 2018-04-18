@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code
@@ -27,11 +28,16 @@ namespace Code
         {
             if (_player.IsDead)
             {
-                // Todo: Game manager death handler 
+                // Todo: Game manager death handler.
                 Debug.Log("Player Got Killed");
             }
         }
 
+        public bool HasWon { get; set; }
+        
+        // Todo: Remove OnColisionEnter2D from facade.
+        // Needs to be in another class.
+        
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.collider.CompareTag("Floor"))
@@ -41,6 +47,7 @@ namespace Code
 
             if (other.collider.CompareTag("Miner"))
             {
+                HasWon = true;                
                 Debug.Log("Win!");
             }
         }

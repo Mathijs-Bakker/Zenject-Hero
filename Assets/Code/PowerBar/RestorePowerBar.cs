@@ -23,16 +23,16 @@ namespace Code
 	    {
 		    if (!HasCompleted)
 		    {
-			    Fill();
+			    Charge();
 		    }
 	    }
 
-	    private void Fill()
+	    private void Charge()
 	    {
 		    const float fillSpeed = 0.3f;
 		    _slider.value += Time.deltaTime * fillSpeed;
 
-		    // Todo: Audio stuff here
+		    // Todo: Audio: Charging sound (Pitch going higher)
 
 		    if (_slider.value >= 1)
 		    {
