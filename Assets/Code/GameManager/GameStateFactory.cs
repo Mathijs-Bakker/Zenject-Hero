@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Code
@@ -9,11 +8,11 @@ namespace Code
         Menu,
         Play
     }
-    
+
     public class GameStateFactory
     {
-        private readonly MenuState.Factory _menuFactory;
         private readonly PlayState.Factory _gamePlayFactory;
+        private readonly MenuState.Factory _menuFactory;
 
         public GameStateFactory(
             MenuState.Factory menuFactory,
@@ -22,18 +21,18 @@ namespace Code
             _menuFactory = menuFactory;
             _gamePlayFactory = gamePlayFactory;
         }
-        
+
         internal GameStateEntity CreateState(GameState gameState)
         {
             switch (gameState)
             {
                 case GameState.Menu:
                     return _menuFactory.Create();
-                    
+
                 case GameState.Play:
                     SceneManager.LoadSceneAsync(1);
                     return _gamePlayFactory.Create();
-                
+
                 default:
                     throw new InvalidEnumArgumentException();
             }

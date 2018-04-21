@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Code
@@ -11,16 +9,16 @@ namespace Code
         {
             Debug.Log("GamePlayState: Initialized");
         }
-        
+
         public override void Start()
         {
             Debug.Log("GamePlayState: Started");
         }
-        
+
         public override void Tick()
         {
         }
-        
+
         public override void Dispose()
         {
             Debug.Log("GamePlayState: Disposed");

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code
@@ -10,7 +9,7 @@ namespace Code
         {
             Debug.Log("MenuState: Initialized");
         }
-        
+
         public override void Start()
         {
             Debug.Log("MenuState: Started");
@@ -19,12 +18,12 @@ namespace Code
         public override void Tick()
         {
         }
-        
+
         public override void Dispose()
         {
             Debug.Log("MenuState: Disposed");
         }
-       
+
         public class Factory : Factory<MenuState>
         {
         }
