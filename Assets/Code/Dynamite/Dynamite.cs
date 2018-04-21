@@ -6,13 +6,14 @@ namespace Code
 {
     public class Dynamite : MonoBehaviour
     {
-        [Inject] private Pool _dynamitePool;
-        
-        private readonly List<GameObject> _overlappedColliders = 
+        private const float Seconds = 1f;
+
+        private readonly List<GameObject> _overlappedColliders =
             new List<GameObject>();
 
+        [Inject] private Pool _dynamitePool;
+
         private float _fuseTimer;
-        private const float Seconds = 1f;
 
         private void Start()
         {
@@ -22,21 +23,17 @@ namespace Code
         private void Update()
         {
             _fuseTimer -= Time.deltaTime;
-            
-            if (_fuseTimer <= 0)
-            {
-                Explode();
-            }
+
+            if (_fuseTimer <= 0) Explode();
         }
 
         private void Explode()
         {
             if (_overlappedColliders.Count != 0)
-            {
-                for(var i = _overlappedColliders.Count - 1; i > -1; i--)
+                for (var i = _overlappedColliders.Count - 1; i > -1; i--)
                 {
                     var go = _overlappedColliders[i];
-                    
+
                     var damagableGo = go.GetComponent<Damageable>();
                     if (damagableGo != null)
                     {
@@ -45,12 +42,9 @@ namespace Code
                     }
 
                     var player = go.GetComponent<PlayerFacade>();
-                    if (player != null)
-                    {
-                        player.Die();
-                    }
+                    if (player != null) player.Die();
                 }
-            }
+
             _dynamitePool.Despawn(this);
         }
 

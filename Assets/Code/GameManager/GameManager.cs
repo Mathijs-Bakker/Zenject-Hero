@@ -5,8 +5,8 @@ namespace Code
 {
     public class GameManager : MonoBehaviour
     {
-        private GameStateFactory _gameStateFactory;
         private GameStateEntity _gameStateEntity;
+        private GameStateFactory _gameStateFactory;
 
         [Inject]
         public void Construct(GameStateFactory gameStateFactory)

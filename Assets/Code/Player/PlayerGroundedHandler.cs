@@ -5,8 +5,8 @@ namespace Code
 {
     public class PlayerGroundedHandler : ITickable
     {
-        private readonly Player _player;
         private readonly PlayerInputState _inputState;
+        private readonly Player _player;
 
         public PlayerGroundedHandler(
             Player player,
@@ -15,21 +15,15 @@ namespace Code
             _player = player;
             _inputState = playerInputState;
         }
-    
-        public void PlayerHitFloor(Collision2D other)
-        {
-            if (other.collider.CompareTag("Floor"))
-            {
-                _player.IsGrounded = true;
-            }
-        }
 
         public void Tick()
         {
-            if (_inputState.IsMovingUp)
-            {
-                _player.IsGrounded = false;
-            }
+            if (_inputState.IsMovingUp) _player.IsGrounded = false;
+        }
+
+        public void PlayerHitFloor(Collision2D other)
+        {
+            if (other.collider.CompareTag("Floor")) _player.IsGrounded = true;
         }
     }
 }

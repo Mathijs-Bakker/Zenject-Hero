@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code
@@ -7,8 +6,13 @@ namespace Code
     public class PlayerFacade : MonoBehaviour
     {
         private Player _player;
-        private PlayerGroundedHandler _playerGroundedHandler;
         private PlayerDeathHandler _playerDeathHandler;
+        private PlayerGroundedHandler _playerGroundedHandler;
+
+        public Vector2 Position => _player.Position;
+        public bool IsFacingLeft => _player.IsFacingLeft;
+
+        public bool HasWon { get; set; }
 
         [Inject]
         public void Construct(
@@ -21,33 +25,21 @@ namespace Code
             _playerDeathHandler = playerDeathHandler;
         }
 
-        public Vector2 Position => _player.Position;
-        public bool IsFacingLeft => _player.IsFacingLeft;
-        
         private void Update()
         {
-            if (_player.IsDead)
-            {
-                // Todo: Game manager death handler.
-                Debug.Log("Player Got Killed");
-            }
+            if (_player.IsDead) Debug.Log("Player Got Killed");
         }
 
-        public bool HasWon { get; set; }
-        
         // Todo: Remove OnColisionEnter2D from facade.
         // Needs to be in another class.
-        
+
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.collider.CompareTag("Floor"))
-            {
-                _playerGroundedHandler.PlayerHitFloor(other);
-            }
+            if (other.collider.CompareTag("Floor")) _playerGroundedHandler.PlayerHitFloor(other);
 
             if (other.collider.CompareTag("Miner"))
             {
-                HasWon = true;                
+                HasWon = true;
                 Debug.Log("Win!");
             }
         }
@@ -56,6 +48,5 @@ namespace Code
         {
             _playerDeathHandler.Die();
         }
-
     }
-}        
+}

@@ -5,11 +5,10 @@ namespace Code
 {
     public class CaveIn : Damageable
     {
+        [Inject] private readonly UpdateScoreSignal _updateScoreSignal;
+        [SerializeField] private int _dynamitePoints = 75;
         [SerializeField] private int _health;
         [SerializeField] private int _scorePoints = 50;
-        [SerializeField] private int _dynamitePoints = 75;
-        
-        [Inject] private readonly UpdateScoreSignal _updateScoreSignal;
 
         private CaveIn(UpdateScoreSignal updateScoreSignal)
         {
@@ -18,7 +17,6 @@ namespace Code
 
         public override void ReceiveDamage(int damage)
         {
-
             _health -= damage;
 
             if (_health <= 0)

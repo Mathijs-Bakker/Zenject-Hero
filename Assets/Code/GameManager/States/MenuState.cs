@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Code
 {
     public class MenuState : GameStateEntity
     {
-        // Debug Methods:
         public override void Initialize()
         {
             Debug.Log("MenuState: Initialized");

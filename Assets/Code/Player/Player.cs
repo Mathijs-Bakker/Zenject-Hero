@@ -2,10 +2,10 @@
 
 namespace Code
 {
-    public class Player 
+    public class Player
     {
-        private readonly Rigidbody2D _rigidBody;
         private readonly Collider2D _collider;
+        private readonly Rigidbody2D _rigidBody;
         private readonly SpriteRenderer _spriteRenderer;
         public readonly Animator Animator;
 
@@ -20,23 +20,24 @@ namespace Code
             _spriteRenderer = spriteRenderer;
             Animator = animator;
         }
-        
+
         public bool IsDead { get; set; }
-        
+
         public Vector2 Position
         {
             get { return _rigidBody.position; }
             set { _rigidBody.position = value; }
         }
-        
+
+        public bool IsGrounded { get; set; }
+
+        public bool IsFacingLeft { get; private set; }
+
         public void AddForce(Vector2 force)
         {
             _rigidBody.AddForce(force);
         }
 
-        public bool IsGrounded { get; set; }
-
-        public bool IsFacingLeft { get; private set; }
         public void FaceLeft(bool isPlayerMovingToTheLeft)
         {
             _spriteRenderer.flipX = isPlayerMovingToTheLeft;

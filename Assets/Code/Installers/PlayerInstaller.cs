@@ -6,8 +6,7 @@ namespace Code
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField]
-        private Settings _settings;
+        [SerializeField] private Settings _settings;
 
         public override void InstallBindings()
         {
@@ -26,17 +25,17 @@ namespace Code
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovementHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<PlayerGroundedHandler>().AsSingle();
         }
     }
-    
+
     [Serializable]
     public class Settings
     {
-        public Rigidbody2D Rigidbody2D;
-        public SpriteRenderer SpriteRenderer;
         public Animator Animator;
         public Collider2D Collider2D;
+        public Rigidbody2D Rigidbody2D;
+        public SpriteRenderer SpriteRenderer;
     }
 }

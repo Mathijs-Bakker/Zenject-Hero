@@ -6,7 +6,7 @@ namespace Code
     {
         private readonly PowerBar _powerBar;
         private readonly RestorePowerBar _restorePowerBar;
-        
+
         public PowerBarFacade(
             PowerBar powerBar,
             RestorePowerBar restorePowerBar)
@@ -19,16 +19,14 @@ namespace Code
         {
             _powerBar.IsGameRunning = true;
         }
-        
+
         public bool HasPowerBarRestored()
         {
             return _restorePowerBar.HasCompleted;
         }
 
-        
         // IsPowerbarReady -> Release player controlls
         // IsPowerBarTimerEnded -> GameLevel Over
         // HasPowerBarStarted -> run timer
-        
     }
 }

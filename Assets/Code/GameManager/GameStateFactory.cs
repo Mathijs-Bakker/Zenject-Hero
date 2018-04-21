@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Code
 {
@@ -29,6 +31,7 @@ namespace Code
                     return _menuFactory.Create();
                     
                 case GameState.Play:
+                    SceneManager.LoadSceneAsync(1);
                     return _gamePlayFactory.Create();
                 
                 default:

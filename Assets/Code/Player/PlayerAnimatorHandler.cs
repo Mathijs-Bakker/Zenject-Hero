@@ -2,19 +2,19 @@
 {
     public class PlayerAnimatorHandler
     {
+        public enum AnimationState
+        {
+            Idle,
+            Fly,
+            Run
+        }
+
         private readonly Player _player;
 
         public PlayerAnimatorHandler(
             Player player)
         {
             _player = player;
-        }
-        
-        public enum AnimationState
-        {
-            Idle,
-            Fly,
-            Run
         }
 
         public void SetAnimator(AnimationState state)

@@ -5,14 +5,14 @@ namespace Code
 {
     public abstract class PlayerState : IDisposable
     {
-        public abstract void Update();
-
-        public virtual void Start()
+        public virtual void Dispose()
         {
             // optionally overridden.
         }
-        
-        public virtual void Dispose()
+
+        public abstract void Update();
+
+        public virtual void Start()
         {
             // optionally overridden.
         }
@@ -21,6 +21,5 @@ namespace Code
         {
             // optionally overridden.
         }
-        
     }
 }

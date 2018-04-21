@@ -8,7 +8,7 @@ namespace Code
     public class PowerBarInstaller : MonoInstaller
     {
         [SerializeField] private Settings _settings;
-        
+
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<PowerBar>()
@@ -20,13 +20,17 @@ namespace Code
                 .WithArguments(
                     _settings.Slider,
                     _settings.RestorePowerAS);
+
+            Container.BindSignal<StartPowerBarSignal>()
+                .To<PowerBarFacade>(x => x.StartCountDown)
+                .FromComponentInHierarchy();
         }
 
         [Serializable]
         public class Settings
         {
-            public Slider Slider;
             public AudioSource RestorePowerAS;
+            public Slider Slider;
         }
     }
 }

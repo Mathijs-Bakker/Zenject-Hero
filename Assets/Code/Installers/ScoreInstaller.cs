@@ -11,7 +11,6 @@ namespace Code
             Container.BindSignal<int, UpdateScoreSignal>()
                 .To<ScoreManager>(x => x.UpdateScore)
                 .FromComponentInHierarchy();
-
         }
     }
 }

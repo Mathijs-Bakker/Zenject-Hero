@@ -7,7 +7,7 @@ namespace Code
     public class LevelSceneInstaller : MonoInstaller<LevelSceneInstaller>
     {
         [SerializeField] private Settings _settings;
-        
+
         public override void InstallBindings()
         {
             InstallPlayer();

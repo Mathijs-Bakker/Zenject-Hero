@@ -3,7 +3,7 @@
     public class PlayerDeathHandler
     {
         private readonly Player _player;
-        
+
         public PlayerDeathHandler(Player player)
         {
             _player = player;
@@ -13,6 +13,5 @@
         {
             _player.IsDead = true;
         }
-        
     }
 }
