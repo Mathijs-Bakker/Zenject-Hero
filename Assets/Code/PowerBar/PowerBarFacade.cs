@@ -19,8 +19,6 @@ namespace Code
 
         public void StartCountDown()
         {
-            Debug.Log("sfdsf  ");
-            Debug.Log("sfdsf  d");
             _powerBar.IsGameRunning = true;
         }
 

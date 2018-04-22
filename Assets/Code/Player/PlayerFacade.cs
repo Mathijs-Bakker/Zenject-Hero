@@ -9,11 +9,6 @@ namespace Code
         private PlayerDeathHandler _playerDeathHandler;
         private PlayerGroundedHandler _playerGroundedHandler;
 
-        public Vector2 Position => _player.Position;
-        public bool IsFacingLeft => _player.IsFacingLeft;
-
-        public bool HasWon { get; set; }
-
         [Inject]
         public void Construct(
             Player player,
@@ -30,6 +25,18 @@ namespace Code
             if (_player.IsDead) Debug.Log("Player Got Killed");
         }
 
+        public Vector2 Position => _player.Position;
+        public bool IsFacingLeft => _player.IsFacingLeft;
+        public bool HasMoved => _player.HasMoved;
+
+        public bool HasWon { get; set; }
+
+        public void Die()
+        {
+            _playerDeathHandler.Die();
+        }
+        
+        
         // Todo: Remove OnColisionEnter2D from facade.
         // Needs to be in another class.
 
@@ -44,9 +51,5 @@ namespace Code
             }
         }
 
-        public void Die()
-        {
-            _playerDeathHandler.Die();
-        }
     }
 }

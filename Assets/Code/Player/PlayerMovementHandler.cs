@@ -53,6 +53,15 @@ namespace Code
                 _player.AddForce(
                     Vector2.right * _settings.MoveSpeed);
             }
+
+            if (_inputState.IsFiring ||
+                _inputState.IsMovingDown ||
+                _inputState.IsMovingLeft ||
+                _inputState.IsMovingRight ||
+                _inputState.IsMovingUp)
+            {
+                _player.HasMoved = true;
+            }
         }
 
         [Serializable]

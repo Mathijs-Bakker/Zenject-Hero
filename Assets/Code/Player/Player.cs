@@ -31,12 +31,14 @@ namespace Code
 
         public bool IsGrounded { get; set; }
 
-        public bool IsFacingLeft { get; private set; }
+        public bool HasMoved { get; set; }
 
+        
         public void AddForce(Vector2 force)
         {
             _rigidBody.AddForce(force);
         }
+        public bool IsFacingLeft { get; private set; }
 
         public void FaceLeft(bool isPlayerMovingToTheLeft)
         {

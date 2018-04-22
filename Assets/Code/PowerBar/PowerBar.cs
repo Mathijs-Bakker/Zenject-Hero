@@ -7,9 +7,7 @@ namespace Code
     public class PowerBar : ITickable
     {
         private readonly Slider _slider;
-
         private readonly PlayerFacade _playerFacade;
-
         private readonly RestorePowerBar _restorePowerBar;
 
         private PowerBar(
@@ -27,7 +25,8 @@ namespace Code
         public void Tick()
         {
             if (!_restorePowerBar.HasCompleted) return;
-
+            if (!IsGameRunning) return;
+            
             const float countDownSpeed = 0.01f;
             _slider.value -= Time.deltaTime * countDownSpeed;
 
