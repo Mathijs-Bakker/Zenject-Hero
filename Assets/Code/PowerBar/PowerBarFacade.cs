@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Code
 {
     public class PowerBarFacade : MonoBehaviour
     {
-        private readonly PowerBar _powerBar;
-        private readonly RestorePowerBar _restorePowerBar;
+        private PowerBar _powerBar;
+        private RestorePowerBar _restorePowerBar;
 
-        public PowerBarFacade(
+        [Inject]
+        public void Construct(
             PowerBar powerBar,
             RestorePowerBar restorePowerBar)
         {
@@ -17,6 +19,8 @@ namespace Code
 
         public void StartCountDown()
         {
+            Debug.Log("sfdsf  ");
+            Debug.Log("sfdsf  d");
             _powerBar.IsGameRunning = true;
         }
 
