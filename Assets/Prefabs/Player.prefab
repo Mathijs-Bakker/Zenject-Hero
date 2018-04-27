@@ -180,11 +180,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
-    Rigidbody2D: {fileID: 50460683648138156}
-    SpriteRenderer: {fileID: 212015896708696104}
     Animator: {fileID: 95486987170875970}
     Collider2D: {fileID: 70878517036463338}
-    Laser: {fileID: 0}
+    Rigidbody2D: {fileID: 50460683648138156}
+    SpriteRenderer: {fileID: 212015896708696104}
 --- !u!114 &114818274491327810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,7 +199,7 @@ MonoBehaviour:
   - {fileID: 114087954252079946}
   _identifier: 
   _context: {fileID: 0}
-  _bindType: 0
+  _bindType: 2
 --- !u!114 &114829173606794374
 MonoBehaviour:
   m_ObjectHideFlags: 1

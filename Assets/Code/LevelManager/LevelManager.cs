@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 namespace Code
 {
@@ -26,5 +25,6 @@ namespace Code
 				_powerBar.StartCountDown();
 			}
 		}
+
 	}
 }
