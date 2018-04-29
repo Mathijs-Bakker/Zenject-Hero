@@ -5,29 +5,29 @@ namespace Code
 {
     public class PlayerFacade : MonoBehaviour
     {
-        private Player _player;
+        private PlayerModel _playerModel;
         private PlayerDeathHandler _playerDeathHandler;
         private PlayerGroundedHandler _playerGroundedHandler;
 
         [Inject]
         public void Construct(
-            Player player,
+            PlayerModel playerModel,
             PlayerGroundedHandler playerGroundedHandler,
             PlayerDeathHandler playerDeathHandler)
         {
-            _player = player;
+            _playerModel = playerModel;
             _playerGroundedHandler = playerGroundedHandler;
             _playerDeathHandler = playerDeathHandler;
         }
 
         private void Update()
         {
-            if (_player.IsDead) Debug.Log("Player Got Killed");
+            if (_playerModel.IsDead) Debug.Log("Player Got Killed");
         }
 
-        public Vector2 Position => _player.Position;
-        public bool IsFacingLeft => _player.IsFacingLeft;
-        public bool HasMoved => _player.HasMoved;
+        public Vector2 Position => _playerModel.Position;
+        public bool IsFacingLeft => _playerModel.IsFacingLeft;
+        public bool HasMoved => _playerModel.HasMoved;
 
         public bool HasWon { get; set; }
 

@@ -8,15 +8,15 @@ namespace Code
         private readonly Dynamite.Pool _dynamitePool;
         private readonly PlayerInputState _inputState;
         private readonly Laser _laser;
-        private readonly Player _player;
+        private readonly PlayerModel _playerModel;
 
         public PlayerActionHandler(
-            Player player,
+            PlayerModel playerModel,
             PlayerInputState playerInputState,
             Dynamite.Pool dynamitePool,
             Laser laser)
         {
-            _player = player;
+            _playerModel = playerModel;
             _inputState = playerInputState;
             _dynamitePool = dynamitePool;
             _laser = laser;
@@ -24,10 +24,10 @@ namespace Code
 
         public void Tick()
         {
-            if (_player.IsDead) return;
+            if (_playerModel.IsDead) return;
 
             // Todo: Input.GetKeyDown should be handled by an InputManager
-            if (Input.GetKeyDown(KeyCode.DownArrow) && _player.IsGrounded) PlaceDynamite();
+            if (Input.GetKeyDown(KeyCode.DownArrow) && _playerModel.IsGrounded) PlaceDynamite();
 
             if (_inputState.IsFiring)
                 _laser.IsFiring = true;
@@ -38,7 +38,7 @@ namespace Code
         private void PlaceDynamite()
         {
             var dynamite = _dynamitePool.Spawn();
-            dynamite.transform.position = _player.Position;
+            dynamite.transform.position = _playerModel.Position;
         }
     }
 }

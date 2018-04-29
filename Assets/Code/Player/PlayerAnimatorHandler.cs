@@ -9,12 +9,12 @@
             Run
         }
 
-        private readonly Player _player;
+        private readonly PlayerModel _playerModel;
 
         public PlayerAnimatorHandler(
-            Player player)
+            PlayerModel playerModel)
         {
-            _player = player;
+            _playerModel = playerModel;
         }
 
         public void SetAnimator(AnimationState state)
@@ -23,24 +23,24 @@
             switch (state)
             {
                 case AnimationState.Idle:
-                    _player.Animator.SetBool("IsIdle", true);
+                    _playerModel.Animator.SetBool("IsIdle", true);
                     break;
 
                 case AnimationState.Fly:
-                    _player.Animator.SetBool("IsFlying", true);
+                    _playerModel.Animator.SetBool("IsFlying", true);
                     break;
 
                 case AnimationState.Run:
-                    _player.Animator.SetBool("IsRunning", true);
+                    _playerModel.Animator.SetBool("IsRunning", true);
                     break;
             }
         }
 
         private void ResetAnimationStates()
         {
-            _player.Animator.SetBool("IsIdle", false);
-            _player.Animator.SetBool("IsFlying", false);
-            _player.Animator.SetBool("IsRunning", false);
+            _playerModel.Animator.SetBool("IsIdle", false);
+            _playerModel.Animator.SetBool("IsFlying", false);
+            _playerModel.Animator.SetBool("IsRunning", false);
         }
     }
 }

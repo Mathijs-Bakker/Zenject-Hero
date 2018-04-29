@@ -10,7 +10,7 @@ namespace Code
 
         public override void InstallBindings()
         {
-            Container.Bind<Player>()
+            Container.Bind<PlayerModel>()
                 .AsSingle()
                 .WithArguments(
                     _settings.Rigidbody2D,

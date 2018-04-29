@@ -2,16 +2,16 @@
 {
     public class PlayerDeathHandler
     {
-        private readonly Player _player;
+        private readonly PlayerModel _playerModel;
 
-        public PlayerDeathHandler(Player player)
+        public PlayerDeathHandler(PlayerModel playerModel)
         {
-            _player = player;
+            _playerModel = playerModel;
         }
 
         public void Die()
         {
-            _player.IsDead = true;
+            _playerModel.IsDead = true;
         }
     }
 }

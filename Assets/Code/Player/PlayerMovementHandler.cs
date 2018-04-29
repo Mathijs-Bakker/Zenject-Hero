@@ -8,49 +8,49 @@ namespace Code
     {
         private readonly PlayerAnimatorHandler _animatorHandler;
         private readonly PlayerInputState _inputState;
-        private readonly Player _player;
+        private readonly PlayerModel _playerModel;
         private readonly Settings _settings;
 
         public PlayerMovementHandler(
             Settings settings,
-            Player player,
+            PlayerModel playerModel,
             PlayerInputState playerInputState,
             PlayerAnimatorHandler playerAnimatorHandler)
         {
             _settings = settings;
-            _player = player;
+            _playerModel = playerModel;
             _inputState = playerInputState;
             _animatorHandler = playerAnimatorHandler;
         }
 
         public void FixedTick()
         {
-            if (_player.IsDead) return;
+            if (_playerModel.IsDead) return;
 
             if (_inputState.IsMovingUp)
             {
                 _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Fly);
-                _player.AddForce(
+                _playerModel.AddForce(
                     Vector2.up * _settings.MoveSpeed);
             }
 
             if (_inputState.IsMovingDown)
-                _player.AddForce(
+                _playerModel.AddForce(
                     Vector2.down * _settings.MoveSpeed);
 
             if (_inputState.IsMovingLeft)
             {
                 _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);
-                _player.FaceLeft(true);
-                _player.AddForce(
+                _playerModel.FaceLeft(true);
+                _playerModel.AddForce(
                     Vector2.left * _settings.MoveSpeed);
             }
 
             if (_inputState.IsMovingRight)
             {
                 _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);
-                _player.FaceLeft(false);
-                _player.AddForce(
+                _playerModel.FaceLeft(false);
+                _playerModel.AddForce(
                     Vector2.right * _settings.MoveSpeed);
             }
 
@@ -60,7 +60,7 @@ namespace Code
                 _inputState.IsMovingRight ||
                 _inputState.IsMovingUp)
             {
-                _player.HasMoved = true;
+                _playerModel.HasMoved = true;
             }
         }
 
