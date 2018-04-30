@@ -16,7 +16,7 @@ namespace Code
 
         private void InstallPlayer()
         {
-            Container.Bind<Player>().AsSingle();
+            Container.Bind<PlayerModel>().AsSingle();
         }
 
         private void InstallDynamitePool()
