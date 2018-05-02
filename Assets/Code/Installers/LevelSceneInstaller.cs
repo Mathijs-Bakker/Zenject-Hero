@@ -12,6 +12,8 @@ namespace Code
         {
             InstallPlayer();
             InstallDynamitePool();
+            
+            Container.BindFactory<EnemyFacade, EnemyFacade.Factory>();
         }
 
         private void InstallPlayer()
