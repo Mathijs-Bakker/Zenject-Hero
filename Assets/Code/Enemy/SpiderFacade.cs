@@ -5,10 +5,9 @@ namespace Code
 {
 	public class EnemyFacade : MonoBehaviour 
 	{
-		
-		public class Factory : Factory<EnemyFacade>
+		public EnemyFacade()
 		{
-			
+			 
 		}
 	}
 }

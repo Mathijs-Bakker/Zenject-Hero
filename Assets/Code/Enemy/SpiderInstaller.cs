@@ -6,7 +6,7 @@ namespace Code
     {
         public override void InstallBindings()
         {
-            Container.BindFactory<EnemyFacade, EnemyFacade.Factory>();
+            Container.Bind<SpiderModel>().AsSingle();
         }
     }
 }
