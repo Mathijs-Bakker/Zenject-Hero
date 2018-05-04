@@ -14,8 +14,11 @@ Download and open the project in Unity3D.
 
 ## Built With
 
-* [Unity3D - 2017.4](https://unity3d.com/get-unity/download)
-* [Zenject](https://assetstore.unity.com/packages/tools/integration/zenject-dependency-injection-ioc-17758) - Zenject Dependency Injection IOC
+* [Unity3D - 2018.1](https://unity3d.com/get-unity/download)
+* [Zenject](https://github.com/modesttree/Zenject) - Zenject Dependency Injection IOC
+
+You can import Zenject from Unity's Asset Store. However in this project I am using a Zenject clone from GitHub.
+As this version has some optimization in the framework which is not yet in the public build (at the time of this writing).
 
 ![](https://i.imgur.com/ABdBN3A.gif)
 
