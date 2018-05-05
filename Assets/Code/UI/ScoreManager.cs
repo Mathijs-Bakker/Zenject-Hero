@@ -17,8 +17,8 @@ namespace Code
         public void UpdateScore(int points)
         {
             var temp = Score;
-            var newScore = temp + points;
-            _scoreTxt.text = newScore.ToString();
+            Score = temp + points;
+            _scoreTxt.text = Score.ToString();
         }
     }
 }
