@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zenject;
 
 namespace Code
 {
@@ -9,15 +10,26 @@ namespace Code
 	// kills player when colliding
 	// HAS-A Animating behaviour
 
-		public abstract class Killable : MonoBehaviour
-		{
-			public abstract void ReceiveDamage(int damage);
-
-			public abstract void Die();
-		}
-	
 	public class SpiderModel : Killable
 	{
-		
+		[Inject] private readonly UpdateScoreSignal _updateScoreSignal;
+
+		[SerializeField] private int _health = 50;
+		[SerializeField] private int _scorePoints = 50;
+
+		public override void ReceiveDamage(int damage)
+		{
+			_health -= damage;
+			Debug.Log(_health);
+			if (_health > 0) return;
+
+			_updateScoreSignal.Fire(_scorePoints);
+			Die();
+		}
+
+		public override void Die()
+		{
+			Destroy(gameObject);
+		}
 	}
 }
