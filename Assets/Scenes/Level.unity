@@ -1659,6 +1659,7 @@ GameObject:
   - component: {fileID: 304807256}
   - component: {fileID: 304807257}
   - component: {fileID: 304807258}
+  - component: {fileID: 304807259}
   m_Layer: 0
   m_Name: Object Dimmer
   m_TagString: Untagged
@@ -1715,6 +1716,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5bdb0b5f3a2b41adbcc6fac26641548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &304807259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 304807255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 304807258}
+  _identifier: 
+  _context: {fileID: 855423463}
+  _bindType: 0
 --- !u!1001 &316310955
 Prefab:
   m_ObjectHideFlags: 0
@@ -4965,6 +4982,7 @@ GameObject:
   - component: {fileID: 855423465}
   - component: {fileID: 855423466}
   - component: {fileID: 855423467}
+  - component: {fileID: 855423468}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -5003,6 +5021,7 @@ MonoBehaviour:
   - {fileID: 855423466}
   - {fileID: 1576308855}
   - {fileID: 855423467}
+  - {fileID: 855423468}
   _installerPrefabs: []
   _scriptableObjectInstallers: []
   _autoRun: 1
@@ -5054,6 +5073,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6912e76a63f4f4aee8bde336192f8c74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &855423468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855423461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f6aae69eeb4a999b12fa8df24e6185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &856703784
@@ -6704,6 +6734,7 @@ GameObject:
   - component: {fileID: 1184398911}
   - component: {fileID: 1184398912}
   - component: {fileID: 1184398913}
+  - component: {fileID: 1184398914}
   m_Layer: 0
   m_Name: lamp
   m_TagString: Untagged
@@ -6761,6 +6792,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98650d12f3284f778f5c11d868718f4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1184398914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184398910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 1184398913}
+  _identifier: 
+  _context: {fileID: 855423463}
+  _bindType: 0
 --- !u!1001 &1203849864
 Prefab:
   m_ObjectHideFlags: 0

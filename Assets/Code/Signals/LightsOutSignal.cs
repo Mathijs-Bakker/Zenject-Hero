@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Code.Signals
+namespace Code
 {
     public class LightsOutSignal : Signal<LightsOutSignal>
     {

@@ -1,5 +1,4 @@
-﻿using Code.Signals;
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Code
@@ -13,9 +12,10 @@ namespace Code
         {
             _lightsOutSignal = lightsOutSignal;
         }
-        
-        private void OnCollisionEnter2D(Collision2D other)
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log("Yes");
             if (other.gameObject.GetComponent<PlayerFacade>())
             {
                 _lightsOutSignal.Fire();
