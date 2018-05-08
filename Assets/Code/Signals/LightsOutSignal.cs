@@ -1,4 +1,8 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿using Zenject;
+
+namespace Code.Signals
 {
-  public class $CLASS$ {$END$}
+    public class LightsOutSignal : Signal<LightsOutSignal>
+    {
+    }
 }
