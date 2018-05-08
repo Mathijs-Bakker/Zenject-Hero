@@ -9,7 +9,7 @@ namespace Code
             Container.DeclareSignal<LightsOutSignal>();
 
             Container.BindSignal<LightsOutSignal>()
-                .To<Dimmer>(x => x.SwitchLight)
+                .To<LightSwitcher>(x => x.SwitchLight)
                 .FromComponentInHierarchy();
         }
     }
