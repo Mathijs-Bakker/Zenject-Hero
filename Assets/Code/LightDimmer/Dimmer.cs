@@ -4,16 +4,16 @@ namespace Code
 {
     public class Dimmer : MonoBehaviour
     {
-        private bool _lightsOff;
+        private bool _lightsOn = true;
 
         public void SwitchLight()
         {
-            _lightsOff = true;
+            _lightsOn = false;
         }
         
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!_lightsOff) return;
+            if (_lightsOn) return;
             
             var spriteRenderer = other.gameObject.GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer == null) return;
@@ -25,10 +25,11 @@ namespace Code
             }
             else
             {
+                Debug.Log("ffaf");
                 spriteRenderer.color = Color.black;
             }
 
-            _lightsOff = false;
+            _lightsOn = true;
         }
     }
 }
