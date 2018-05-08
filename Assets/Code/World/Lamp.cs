@@ -15,7 +15,6 @@ namespace Code
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("Yes");
             if (other.gameObject.GetComponent<PlayerFacade>())
             {
                 _lightsOutSignal.Fire();
