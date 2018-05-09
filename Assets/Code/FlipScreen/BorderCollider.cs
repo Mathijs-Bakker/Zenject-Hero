@@ -16,7 +16,8 @@ namespace Code.FlipScreen
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.GetComponent<PlayerFacade>()) _onPlayerMovedMovedOutOfScreen.Fire(_borderPosition);
+            if (other.GetComponent<PlayerFacade>()) 
+                _onPlayerMovedMovedOutOfScreen.Fire(_borderPosition);
         }
     }
 }

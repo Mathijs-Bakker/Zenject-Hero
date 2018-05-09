@@ -9,7 +9,7 @@ namespace Code.FlipScreen
             Container.DeclareSignal<PlayerMovedOutOfScreenSignal>();
 
             Container.BindSignal<ScreenBorder, PlayerMovedOutOfScreenSignal>()
-                .To<FlipScreenManager>(x => x.FlipCamera)
+                .To<FlipScreenManager>(x => x.FlipScreen)
                 .FromComponentInHierarchy();
         }
     }
