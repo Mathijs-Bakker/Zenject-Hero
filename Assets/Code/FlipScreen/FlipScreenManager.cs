@@ -13,20 +13,20 @@ namespace Code.FlipScreen
 
     public class FlipScreenManager : MonoBehaviour
     {
-        private const float OffsetY = 5f;
+        private const float OffsetY = 6f;
         private const float OffsetX = 14f;
 
         public void Start()
         {
-            ResetCamera();
+            ResetPosition();
         }
 
-        private void ResetCamera()
+        private void ResetPosition()
         {
             transform.position = new Vector2(0, 0);
         }
 
-        public void FlipCamera(ScreenBorder borderPosition)
+        public void FlipScreen(ScreenBorder borderPosition)
         {
             switch (borderPosition)
             {
