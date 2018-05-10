@@ -18,59 +18,70 @@ namespace Code
 
         public void SwitchLight()
         {
-            Vector2 flipScreenPosition = GetComponentInParent<FlipScreenManager>().transform.position;
+            Vector2 screenPos = 
+                GetComponentInParent<FlipScreenManager>().transform.position;
+            
+            var collider2Ds = GetCollidingObjects(screenPos);
+
+            foreach (var c in collider2Ds)
+            {
+                var spriteRenderer = c.gameObject.GetComponentInChildren<SpriteRenderer>();
+                Obscure(spriteRenderer);
+            }
+
+            if (!_obsuredScreens.Contains(screenPos))
+            {
+                _obsuredScreens.Add(screenPos);
+            }
+        }
+
+        private IEnumerable<Collider2D> GetCollidingObjects(Vector2 flipScreenPosition)
+        {
             var boxOffset = new Vector2(0, 3);
             var boxCenterPos = flipScreenPosition + boxOffset;
 
             const float horizontalUnits = 12f;
             const float verticalUnits = 5f;
             var boxSize = new Vector2(horizontalUnits, verticalUnits);
+
+            var collidingObjects = Physics2D.OverlapBoxAll(boxCenterPos, boxSize, 0);
             
-            var collider2Ds = Physics2D.OverlapBoxAll(boxCenterPos, boxSize, 0);
-
-            foreach (var col2D in collider2Ds)
-            {
-                Obscure(col2D);
-            }
-
-            if (!_obsuredScreens.Contains(flipScreenPosition))
-            {
-                _obsuredScreens.Add(flipScreenPosition);
-            }
+            return collidingObjects;
         }
 
-        private void Obscure(Collider2D other)
+        private void Obscure(SpriteRenderer sprite)
         {
-            var spriteRenderer = other.gameObject.GetComponentInChildren<SpriteRenderer>();
-            if (spriteRenderer == null) return;
+            if (sprite == null) return;
 
-            if (other.gameObject.GetComponent<PlayerFacade>() ||
-                other.gameObject.GetComponent<Killable>())
+            if (sprite.gameObject.GetComponentInParent<PlayerFacade>() ||
+                sprite.gameObject.GetComponentInParent<Killable>() ||
+                sprite.gameObject.GetComponentInParent<Lamp>() ||
+                sprite.gameObject.GetComponentInParent<Damageable>() ||
+                sprite.gameObject.GetComponentInParent<Miner>())
             {
-                spriteRenderer.material.shader = Shader.Find("GUI/Text Shader");
-                spriteRenderer.material.color = Color.blue;
+                sprite.material.shader = Shader.Find("GUI/Text Shader");
+                sprite.material.color = Color.blue;
             }
             else
             {
-                spriteRenderer.material.shader = Shader.Find("GUI/Text Shader");
-                spriteRenderer.color = Color.black;
+                sprite.material.shader = Shader.Find("GUI/Text Shader");
+                sprite.color = Color.black;
             }
         }
 
-        public void SetPlayerShader()
+        private void SetPlayerShader()
         {
-            var spriteRenderer = _playerFacade.GetComponentInChildren<SpriteRenderer>();
+            var playerSprite = _playerFacade.GetComponentInChildren<SpriteRenderer>();
                 
             if (_obsuredScreens.Contains(
                 GetComponentInParent<FlipScreenManager>().transform.position))
             {
-                spriteRenderer.material.shader = Shader.Find("GUI/Text Shader");
-                spriteRenderer.material.color = Color.blue;
+                Obscure(playerSprite);
             }
             else
             {
-                spriteRenderer.material.shader = Shader.Find("Sprites/Default");
-                spriteRenderer.material.color = Color.white;
+                playerSprite.material.shader = Shader.Find("Sprites/Default");
+                playerSprite.material.color = Color.white;
             }
         }
     }
