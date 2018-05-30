@@ -36,3 +36,11 @@ Assets/Editor/Tests/PowerBarTest.cs.meta
 Assets/ZenExamples/SampleGame1 (Beginner)/Media/Imported/SpaceShip/Space_Shooter.fbx
 Assets/Media/Sprites/DOtuZ4wV4AAFBpy.png-large.png
 Assets/Media/Sprites/DOtuZ4wV4AAFBpy.png-large.png.meta
+
+.DS_Store
+.idea/
+.vs/
+Assets/Plugins/Editor/JetBrains
+Assets/Plugins/Editor/JetBrains.meta
+Library/
+Temp/
