@@ -2,7 +2,7 @@
 
 namespace Code
 {
-    public class UpdateScoreSignal : Signal<UpdateScoreSignal, int>
+    public class UpdateScoreSignal : ISignal
     {
     }
 }

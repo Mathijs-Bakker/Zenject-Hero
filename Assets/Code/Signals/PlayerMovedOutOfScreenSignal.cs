@@ -2,7 +2,7 @@
 
 namespace Code.FlipScreen
 {
-    public class PlayerMovedOutOfScreenSignal : Signal<PlayerMovedOutOfScreenSignal, ScreenBorder>
+    public class PlayerMovedOutOfScreenSignal : ISignal
     {
     }
 }

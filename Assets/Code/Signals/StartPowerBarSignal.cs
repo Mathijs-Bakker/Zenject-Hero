@@ -2,7 +2,7 @@
 
 namespace Code
 {
-    public class StartPowerBarSignal : Signal<StartPowerBarSignal>
+    public class StartPowerBarSignal : ISignal
     {
     }
 }

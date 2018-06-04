@@ -2,7 +2,7 @@
 
 namespace Code
 {
-    public class LightsOutSignal : Signal<LightsOutSignal>
+    public class LightsOutSignal : ISignal
     {
     }
 }
