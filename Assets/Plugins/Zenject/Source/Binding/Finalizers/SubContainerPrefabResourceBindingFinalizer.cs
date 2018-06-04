@@ -11,17 +11,19 @@ namespace Zenject
         readonly string _resourcePath;
         readonly object _subIdentifier;
         readonly GameObjectCreationParameters _gameObjectBindInfo;
+        readonly bool _resolveAll;
 
         public SubContainerPrefabResourceBindingFinalizer(
             BindInfo bindInfo,
             GameObjectCreationParameters gameObjectBindInfo,
             string resourcePath,
-            object subIdentifier)
+            object subIdentifier, bool resolveAll)
             : base(bindInfo)
         {
             _gameObjectBindInfo = gameObjectBindInfo;
             _subIdentifier = subIdentifier;
             _resourcePath = resourcePath;
+            _resolveAll = resolveAll;
         }
 
         protected override void OnFinalizeBinding(DiContainer container)
@@ -39,21 +41,10 @@ namespace Zenject
 
         void FinalizeBindingConcrete(DiContainer container, List<Type> concreteTypes)
         {
-            switch (GetScope())
+            var scope = GetScope();
+
+            switch (scope)
             {
-                case ScopeTypes.Singleton:
-                {
-                    RegisterProvidersForAllContractsPerConcreteType(
-                        container,
-                        concreteTypes,
-                        (_, concreteType) => container.SingletonProviderCreator.CreateProviderForSubContainerPrefabResource(
-                            concreteType,
-                            BindInfo.ConcreteIdentifier,
-                            _gameObjectBindInfo,
-                            _resourcePath,
-                            _subIdentifier));
-                    break;
-                }
                 case ScopeTypes.Transient:
                 {
                     RegisterProvidersForAllContractsPerConcreteType(
@@ -62,10 +53,10 @@ namespace Zenject
                         (_, concreteType) => new SubContainerDependencyProvider(
                             concreteType, _subIdentifier,
                             new SubContainerCreatorByNewPrefab(
-                                container, new PrefabProviderResource(_resourcePath), _gameObjectBindInfo)));
+                                container, new PrefabProviderResource(_resourcePath), _gameObjectBindInfo), _resolveAll));
                     break;
                 }
-                case ScopeTypes.Cached:
+                case ScopeTypes.Singleton:
                 {
                     var containerCreator = new SubContainerCreatorCached(
                         new SubContainerCreatorByNewPrefab(container, new PrefabProviderResource(_resourcePath), _gameObjectBindInfo));
@@ -75,7 +66,7 @@ namespace Zenject
                         concreteTypes,
                         (_, concreteType) =>
                         new SubContainerDependencyProvider(
-                            concreteType, _subIdentifier, containerCreator));
+                            concreteType, _subIdentifier, containerCreator, _resolveAll));
                     break;
                 }
                 default:
@@ -87,20 +78,10 @@ namespace Zenject
 
         void FinalizeBindingSelf(DiContainer container)
         {
-            switch (GetScope())
+            var scope = GetScope();
+
+            switch (scope)
             {
-                case ScopeTypes.Singleton:
-                {
-                    RegisterProviderPerContract(
-                        container,
-                        (_, contractType) => container.SingletonProviderCreator.CreateProviderForSubContainerPrefabResource(
-                            contractType,
-                            BindInfo.ConcreteIdentifier,
-                            _gameObjectBindInfo,
-                            _resourcePath,
-                            _subIdentifier));
-                    break;
-                }
                 case ScopeTypes.Transient:
                 {
                     RegisterProviderPerContract(
@@ -108,10 +89,10 @@ namespace Zenject
                         (_, contractType) => new SubContainerDependencyProvider(
                             contractType, _subIdentifier,
                             new SubContainerCreatorByNewPrefab(
-                                container, new PrefabProviderResource(_resourcePath), _gameObjectBindInfo)));
+                                container, new PrefabProviderResource(_resourcePath), _gameObjectBindInfo), _resolveAll));
                     break;
                 }
-                case ScopeTypes.Cached:
+                case ScopeTypes.Singleton:
                 {
                     var containerCreator = new SubContainerCreatorCached(
                         new SubContainerCreatorByNewPrefab(
@@ -121,7 +102,7 @@ namespace Zenject
                         container,
                         (_, contractType) =>
                         new SubContainerDependencyProvider(
-                            contractType, _subIdentifier, containerCreator));
+                            contractType, _subIdentifier, containerCreator, _resolveAll));
                     break;
                 }
                 default:

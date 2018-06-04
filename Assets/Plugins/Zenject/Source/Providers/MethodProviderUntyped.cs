@@ -22,14 +22,16 @@ namespace Zenject
             return context.MemberType;
         }
 
-        public IEnumerator<List<object>> GetAllInstancesWithInjectSplit(InjectContext context, List<TypeValuePair> args)
+        public List<object> GetAllInstancesWithInjectSplit(
+            InjectContext context, List<TypeValuePair> args, out Action injectAction)
         {
             Assert.IsEmpty(args);
             Assert.IsNotNull(context);
 
-            if (_container.IsValidating && !DiContainer.CanCreateOrInjectDuringValidation(context.MemberType))
+            injectAction = null;
+            if (_container.IsValidating && !TypeAnalyzer.ShouldAllowDuringValidation(context.MemberType))
             {
-                yield return new List<object>() { new ValidationMarker(context.MemberType) };
+                return new List<object>() { new ValidationMarker(context.MemberType) };
             }
             else
             {
@@ -47,7 +49,7 @@ namespace Zenject
                     Assert.That(result.GetType().DerivesFromOrEqual(context.MemberType));
                 }
 
-                yield return new List<object>() { result };
+                return new List<object>() { result };
             }
         }
     }

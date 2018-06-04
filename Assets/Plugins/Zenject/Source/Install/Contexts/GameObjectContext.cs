@@ -71,16 +71,7 @@ namespace Zenject
                 _container.IsInstalling = false;
             }
 
-            _container.ResolveDependencyRoots();
-            _container.FlushInjectQueue();
-
-            if (_container.IsValidating)
-            {
-                // The root-level Container has its ValidateValidatables method
-                // called explicitly - however, this is not so for sub-containers
-                // so call it here instead
-                _container.ValidateValidatables();
-            }
+            _container.ResolveRoots();
 
             // Normally, the IInitializable.Initialize method would be called during MonoKernel.Start
             // However, this behaviour is undesirable for dynamically created objects, since Unity
@@ -101,6 +92,8 @@ namespace Zenject
 
         protected override void GetInjectableMonoBehaviours(List<MonoBehaviour> monoBehaviours)
         {
+            ZenUtilInternal.AddStateMachineBehaviourAutoInjectersUnderGameObject(this.gameObject);
+
             // We inject on all components on the root except ourself
             foreach (var monoBehaviour in GetComponents<MonoBehaviour>())
             {
@@ -129,7 +122,7 @@ namespace Zenject
 
                 if (child != null)
                 {
-                    ZenUtilInternal.GetInjectableMonoBehaviours(
+                    ZenUtilInternal.GetInjectableMonoBehavioursUnderGameObject(
                         child.gameObject, monoBehaviours);
                 }
             }

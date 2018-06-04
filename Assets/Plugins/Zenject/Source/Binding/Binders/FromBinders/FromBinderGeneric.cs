@@ -12,25 +12,38 @@ namespace Zenject
     public class FromBinderGeneric<TContract> : FromBinder
     {
         public FromBinderGeneric(
+            DiContainer bindContainer,
             BindInfo bindInfo,
             BindFinalizerWrapper finalizerWrapper)
-            : base(bindInfo, finalizerWrapper)
+            : base(bindContainer, bindInfo, finalizerWrapper)
         {
             BindingUtil.AssertIsDerivedFromTypes(typeof(TContract), BindInfo.ContractTypes);
         }
 
-        public ScopeArgConditionCopyNonLazyBinder FromFactory<TFactory>()
+        // Shortcut for FromIFactory and also for backwards compatibility
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromFactory<TFactory>()
             where TFactory : IFactory<TContract>
         {
-            return FromFactoryBase<TContract, TFactory>();
+            return FromIFactory(x => x.To<TFactory>().AsCached());
         }
 
-        public ScopeArgConditionCopyNonLazyBinder FromMethod(Func<InjectContext, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromIFactory(
+            Action<ConcreteBinderGeneric<IFactory<TContract>>> factoryBindGenerator)
+        {
+            return FromIFactoryBase<TContract>(factoryBindGenerator);
+        }
+
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethod(Func<TContract> method)
+        {
+            return FromMethodBase<TContract>(ctx => method());
+        }
+
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethod(Func<InjectContext, TContract> method)
         {
             return FromMethodBase<TContract>(method);
         }
 
-        public ScopeArgConditionCopyNonLazyBinder FromMethodMultiple(Func<InjectContext, IEnumerable<TContract>> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromMethodMultiple(Func<InjectContext, IEnumerable<TContract>> method)
         {
             return FromMethodMultipleBase<TContract>(method);
         }
@@ -42,7 +55,27 @@ namespace Zenject
 
         public ScopeConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method)
         {
-            return FromResolveGetterBase<TObj, TContract>(identifier, method);
+            return FromResolveGetter<TObj>(identifier, method, InjectSources.Any);
+        }
+
+        public ScopeConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        {
+            return FromResolveGetterBase<TObj, TContract>(identifier, method, source, false);
+        }
+
+        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(Func<TObj, TContract> method)
+        {
+            return FromResolveAllGetter<TObj>(null, method);
+        }
+
+        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method)
+        {
+            return FromResolveAllGetter<TObj>(identifier, method, InjectSources.Any);
+        }
+
+        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        {
+            return FromResolveGetterBase<TObj, TContract>(identifier, method, source, true);
         }
 
         public ScopeConditionCopyNonLazyBinder FromInstance(TContract instance)
@@ -52,14 +85,14 @@ namespace Zenject
 
 #if !NOT_UNITY3D
 
-        public ScopeArgConditionCopyNonLazyBinder FromComponentInChildren(
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInChildren(
             Func<TContract, bool> predicate, bool includeInactive = false)
         {
             return FromComponentInChildren(false, predicate, includeInactive);
         }
 
 
-        public ScopeArgConditionCopyNonLazyBinder FromComponentInChildren(
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInChildren(
             bool excludeSelf = false, Func<TContract, bool> predicate = null, bool includeInactive = false)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
@@ -86,7 +119,7 @@ namespace Zenject
         }
 
 
-        public ScopeArgConditionCopyNonLazyBinder FromComponentInParents(bool excludeSelf = false)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInParents(bool excludeSelf = false, bool includeInactive = false)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
@@ -95,7 +128,7 @@ namespace Zenject
                     Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>());
                     Assert.IsNotNull(ctx.ObjectInstance);
 
-                    var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentsInParent<TContract>()
+                    var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentsInParent<TContract>(includeInactive)
                         .Where(x => !ReferenceEquals(x, ctx.ObjectInstance));
 
                     if (excludeSelf)
@@ -107,13 +140,14 @@ namespace Zenject
                 });
         }
 
-        public ScopeArgConditionCopyNonLazyBinder FromComponentSibling()
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentSibling()
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
             return FromMethodMultiple((ctx) =>
                 {
-                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>());
+                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                        "Cannot use FromComponentSibling to inject data into non monobehaviours!");
                     Assert.IsNotNull(ctx.ObjectInstance);
 
                     return ((MonoBehaviour)ctx.ObjectInstance).GetComponents<TContract>()
@@ -121,7 +155,7 @@ namespace Zenject
                 });
         }
 
-        public ScopeArgConditionCopyNonLazyBinder FromComponentInHierarchy(
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInHierarchy(
             Func<TContract, bool> predicate = null, bool includeInactive = false)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);

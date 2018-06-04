@@ -79,7 +79,7 @@ namespace Zenject
 
             var prefab = TryGetPrefab();
 
-            bool shouldMakeActive = false;
+            var prefabWasActive = false;
 
             if (prefab == null)
             {
@@ -88,28 +88,35 @@ namespace Zenject
             }
             else
             {
-                var wasActive = prefab.activeSelf;
+                prefabWasActive = prefab.activeSelf;
 
-                shouldMakeActive = wasActive;
-
-                if (wasActive)
+                GameObject gameObjectInstance;
+#if UNITY_EDITOR
+                if(prefabWasActive)
+                {
+                    // This ensures the prefab's Awake() methods don't fire (and, if in the editor, that the prefab file doesn't get modified)
+                    gameObjectInstance = GameObject.Instantiate(prefab, ZenUtilInternal.GetOrCreateInactivePrefabParent());
+                    gameObjectInstance.SetActive(false);
+                    gameObjectInstance.transform.SetParent(null, false);
+                }
+                else
+                {
+                    gameObjectInstance = GameObject.Instantiate(prefab);
+                }
+#else
+                if(prefabWasActive)
                 {
                     prefab.SetActive(false);
+                    gameObjectInstance = GameObject.Instantiate(prefab);
+                    prefab.SetActive(true);
                 }
+                else
+                {
+                    gameObjectInstance = GameObject.Instantiate(prefab);
+                }
+#endif
 
-                try
-                {
-                    _instance = GameObject.Instantiate(prefab).GetComponent<ProjectContext>();
-                }
-                finally
-                {
-                    if (wasActive)
-                    {
-                        // Always make sure to reset prefab state otherwise this change could be saved
-                        // persistently
-                        prefab.SetActive(true);
-                    }
-                }
+                _instance = gameObjectInstance.GetComponent<ProjectContext>();
 
                 Assert.IsNotNull(_instance,
                     "Could not find ProjectContext component on prefab 'Resources/{0}.prefab'", ProjectContextResourcePath);
@@ -119,7 +126,7 @@ namespace Zenject
             // ProjectContext.Instance while ProjectContext is initializing
             _instance.Initialize();
 
-            if (shouldMakeActive)
+            if (prefabWasActive)
             {
                 // We always instantiate it as disabled so that Awake and Start events are triggered after inject
                 _instance.gameObject.SetActive(true);
@@ -178,32 +185,23 @@ namespace Zenject
                 _container.IsInstalling = false;
             }
 
-            _container.ResolveDependencyRoots();
-
-            _container.FlushInjectQueue();
+            _container.ResolveRoots();
         }
 
         protected override void GetInjectableMonoBehaviours(List<MonoBehaviour> monoBehaviours)
         {
-            ZenUtilInternal.GetInjectableMonoBehaviours(this.gameObject, monoBehaviours);
+            ZenUtilInternal.AddStateMachineBehaviourAutoInjectersUnderGameObject(this.gameObject);
+            ZenUtilInternal.GetInjectableMonoBehavioursUnderGameObject(this.gameObject, monoBehaviours);
         }
 
         void InstallBindings(List<MonoBehaviour> injectableMonoBehaviours)
         {
             _container.DefaultParent = this.transform;
 
-            // Note that adding GuiRenderableManager here doesn't instantiate it by default
-            // You still have to add GuiRenderer manually
-            // We could add the contents of GuiRenderer into MonoKernel, but this adds
-            // undesirable per-frame allocations.  See comment in IGuiRenderable.cs for usage
-            //
-            // Short answer is if you want to use IGuiRenderable then
-            // you need to include the following in project context installer:
-            // `Container.Bind<GuiRenderer>().FromNewComponentOnNewGameObject().AsSingle().CopyIntoAllSubContainers().NonLazy();`
-            _container.Bind(typeof(TickableManager), typeof(InitializableManager), typeof(DisposableManager), typeof(GuiRenderableManager))
-                .ToSelf().AsSingle().CopyIntoAllSubContainers();
+            _container.Bind<ZenjectSceneLoader>().AsSingle();
 
-            _container.Bind<SignalManager>().AsSingle();
+            StandardInterfacesRootInstaller.Install(_container);
+
             _container.Bind<Context>().FromInstance(this);
 
             _container.Bind(typeof(ProjectKernel), typeof(MonoKernel))

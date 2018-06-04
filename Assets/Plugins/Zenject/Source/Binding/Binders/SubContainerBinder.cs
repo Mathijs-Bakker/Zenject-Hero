@@ -8,15 +8,17 @@ namespace Zenject
         readonly BindInfo _bindInfo;
         readonly BindFinalizerWrapper _finalizerWrapper;
         readonly object _subIdentifier;
+        readonly bool _resolveAll;
 
         public SubContainerBinder(
             BindInfo bindInfo,
             BindFinalizerWrapper finalizerWrapper,
-            object subIdentifier)
+            object subIdentifier, bool resolveAll)
         {
             _bindInfo = bindInfo;
             _finalizerWrapper = finalizerWrapper;
             _subIdentifier = subIdentifier;
+            _resolveAll = resolveAll;
 
             // Reset in case the user ends the binding here
             finalizerWrapper.SubFinalizer = null;
@@ -39,7 +41,7 @@ namespace Zenject
                 "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
 
             SubFinalizer = new SubContainerInstallerBindingFinalizer(
-                _bindInfo, installerType, _subIdentifier);
+                _bindInfo, installerType, _subIdentifier, _resolveAll);
 
             return new ScopeConditionCopyNonLazyBinder(_bindInfo);
         }
@@ -47,7 +49,7 @@ namespace Zenject
         public ScopeConditionCopyNonLazyBinder ByMethod(Action<DiContainer> installerMethod)
         {
             SubFinalizer = new SubContainerMethodBindingFinalizer(
-                _bindInfo, installerMethod, _subIdentifier);
+                _bindInfo, installerMethod, _subIdentifier, _resolveAll);
 
             return new ScopeConditionCopyNonLazyBinder(_bindInfo);
         }
@@ -61,7 +63,7 @@ namespace Zenject
             var gameObjectInfo = new GameObjectCreationParameters();
 
             SubFinalizer = new SubContainerPrefabBindingFinalizer(
-                _bindInfo, gameObjectInfo, prefab, _subIdentifier);
+                _bindInfo, gameObjectInfo, prefab, _subIdentifier, _resolveAll);
 
             return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
         }
@@ -73,7 +75,7 @@ namespace Zenject
             var gameObjectInfo = new GameObjectCreationParameters();
 
             SubFinalizer = new SubContainerPrefabResourceBindingFinalizer(
-                _bindInfo, gameObjectInfo, resourcePath, _subIdentifier);
+                _bindInfo, gameObjectInfo, resourcePath, _subIdentifier, _resolveAll);
 
             return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
         }

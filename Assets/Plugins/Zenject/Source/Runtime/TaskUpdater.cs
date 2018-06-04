@@ -92,6 +92,7 @@ namespace Zenject
 
                 if (info.IsRemoved)
                 {
+                    //ModestTree.Log.Debug("Removed task '" + info.Task.GetType().ToString() + "'");
                     tasks.Remove(node);
                 }
 

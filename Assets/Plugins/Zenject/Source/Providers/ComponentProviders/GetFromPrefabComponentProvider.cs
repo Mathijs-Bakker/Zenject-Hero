@@ -26,17 +26,12 @@ namespace Zenject
             return _componentType;
         }
 
-        public IEnumerator<List<object>> GetAllInstancesWithInjectSplit(
-            InjectContext context, List<TypeValuePair> args)
+        public List<object> GetAllInstancesWithInjectSplit(
+            InjectContext context, List<TypeValuePair> args, out Action injectAction)
         {
             Assert.IsNotNull(context);
 
-            var gameObjectRunner = _prefabInstantiator.Instantiate(args);
-
-            // First get instance
-            bool hasMore = gameObjectRunner.MoveNext();
-
-            var gameObject = gameObjectRunner.Current;
+            var gameObject = _prefabInstantiator.Instantiate(args, out injectAction);
 
             // NOTE: Need to set includeInactive to true here, because prefabs are always
             // instantiated as disabled until injection occurs, so that Awake / OnEnabled is executed
@@ -47,13 +42,7 @@ namespace Zenject
                 "Expected to find at least one component with type '{0}' on prefab '{1}'",
                 _componentType, _prefabInstantiator.GetPrefab().name);
 
-            yield return allComponents.Cast<object>().ToList();
-
-            // Now do injection
-            while (hasMore)
-            {
-                hasMore = gameObjectRunner.MoveNext();
-            }
+            return allComponents.Cast<object>().ToList();
         }
     }
 }

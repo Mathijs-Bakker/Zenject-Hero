@@ -23,16 +23,16 @@ namespace Zenject
             return _instanceType;
         }
 
-        public IEnumerator<List<object>> GetAllInstancesWithInjectSplit(InjectContext context, List<TypeValuePair> args)
+        public List<object> GetAllInstancesWithInjectSplit(
+            InjectContext context, List<TypeValuePair> args, out Action injectAction)
         {
             Assert.IsEmpty(args);
             Assert.IsNotNull(context);
 
             Assert.That(_instanceType.DerivesFromOrEqual(context.MemberType));
 
-            yield return new List<object>() { _instance };
-
-            _container.LazyInject(_instance);
+            injectAction = () => _container.LazyInject(_instance);
+            return new List<object>() { _instance };
         }
     }
 }

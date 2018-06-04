@@ -6,14 +6,20 @@ namespace Zenject
     public class FactorySubContainerBinderBase<TContract>
     {
         public FactorySubContainerBinderBase(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo, object subIdentifier)
+            DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, object subIdentifier)
         {
             FactoryBindInfo = factoryBindInfo;
             SubIdentifier = subIdentifier;
             BindInfo = bindInfo;
+            BindContainer = bindContainer;
 
             // Reset so we get errors if we end here
             factoryBindInfo.ProviderFunc = null;
+        }
+
+        protected DiContainer BindContainer
+        {
+            get; private set;
         }
 
         protected FactoryBindInfo FactoryBindInfo
@@ -44,13 +50,13 @@ namespace Zenject
             get { return typeof(TContract); }
         }
 
-        public ArgConditionCopyNonLazyBinder ByInstaller<TInstaller>()
+        public FactoryArgumentsBinder ByInstaller<TInstaller>()
             where TInstaller : InstallerBase
         {
             return ByInstaller(typeof(TInstaller));
         }
 
-        public ArgConditionCopyNonLazyBinder ByInstaller(Type installerType)
+        public FactoryArgumentsBinder ByInstaller(Type installerType)
         {
             Assert.That(installerType.DerivesFrom<InstallerBase>(),
                 "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
@@ -59,9 +65,9 @@ namespace Zenject
                 (container) => new SubContainerDependencyProvider(
                     ContractType, SubIdentifier,
                     new SubContainerCreatorByInstaller(
-                        container, installerType, BindInfo.Arguments));
+                        container, installerType, BindInfo.Arguments), false);
 
-            return new ArgConditionCopyNonLazyBinder(BindInfo);
+            return new FactoryArgumentsBinder(BindContainer, BindInfo, FactoryBindInfo);
         }
 
 #if !NOT_UNITY3D
@@ -86,7 +92,7 @@ namespace Zenject
                     new SubContainerCreatorByNewPrefabInstaller(
                         container,
                         new PrefabProvider(prefab),
-                        gameObjectInfo, installerType, BindInfo.Arguments));
+                        gameObjectInfo, installerType, BindInfo.Arguments), false);
 
             return new NameTransformConditionCopyNonLazyBinder(BindInfo, gameObjectInfo);
         }
@@ -113,7 +119,7 @@ namespace Zenject
                     new SubContainerCreatorByNewPrefabInstaller(
                         container,
                         new PrefabProviderResource(resourcePath),
-                        gameObjectInfo, installerType, BindInfo.Arguments));
+                        gameObjectInfo, installerType, BindInfo.Arguments), false);
 
             return new NameTransformConditionCopyNonLazyBinder(BindInfo, gameObjectInfo);
         }

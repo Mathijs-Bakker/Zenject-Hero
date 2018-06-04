@@ -59,6 +59,9 @@ namespace Zenject
 
         public static ProfileBlock Start(string sampleNameFormat, object obj1, object obj2)
         {
+#if ZEN_TESTS_OUTSIDE_UNITY
+            return null;
+#else
             // We need to ensure that we do not have per-frame allocations in ProfileBlock
             // to avoid infecting the test too much, so use a cache of formatted strings given
             // the input values
@@ -74,10 +77,14 @@ namespace Zenject
             }
 
             return StartInternal(formatString);
+#endif
         }
 
         public static ProfileBlock Start(string sampleNameFormat, object obj)
         {
+#if ZEN_TESTS_OUTSIDE_UNITY
+            return null;
+#else
             // We need to ensure that we do not have per-frame allocations in ProfileBlock
             // to avoid infecting the test too much, so use a cache of formatted strings given
             // the input values
@@ -93,11 +100,16 @@ namespace Zenject
             }
 
             return StartInternal(formatString);
+#endif
         }
 
         public static ProfileBlock Start(string sampleName)
         {
+#if ZEN_TESTS_OUTSIDE_UNITY
+            return null;
+#else
             return StartInternal(sampleName);
+#endif
         }
 
         static ProfileBlock StartInternal(string sampleName)
@@ -120,8 +132,8 @@ namespace Zenject
         public void Dispose()
         {
             _blockCount--;
-            UnityEngine.Profiling.Profiler.EndSample();
             Assert.That(_blockCount >= 0);
+            UnityEngine.Profiling.Profiler.EndSample();
         }
 
 #else

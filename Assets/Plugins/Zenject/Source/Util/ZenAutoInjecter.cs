@@ -6,7 +6,7 @@ namespace Zenject
     public class ZenAutoInjecter : MonoBehaviour
     {
         [SerializeField]
-        ContainerSources _containerSource;
+        ContainerSources _containerSource = ContainerSources.SceneContext;
 
         bool _hasStarted;
 

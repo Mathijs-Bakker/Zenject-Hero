@@ -27,7 +27,13 @@ namespace Zenject
         [SetUp]
         public virtual void Setup()
         {
-            _container = new DiContainer();
+            _container = new DiContainer(StaticContext.Container);
+        }
+
+        [TearDown]
+        public virtual void Teardown()
+        {
+            StaticContext.Clear();
         }
     }
 }

@@ -4,42 +4,44 @@ using System.Collections.Generic;
 namespace Zenject
 {
     public class FactoryFromBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>
-        : FactoryFromBinderBase<TContract>
+        : FactoryFromBinderBase
     {
         public FactoryFromBinder(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
-            : base(bindInfo, factoryBindInfo)
+            DiContainer container, BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
+            : base(container, typeof(TContract), bindInfo, factoryBindInfo)
         {
         }
 
-        public ConditionCopyNonLazyBinder FromMethod(ModestTree.Util.Func<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TContract> method)
+        public ConditionCopyNonLazyBinder FromMethod(
+#if !NET_4_6
+            ModestTree.Util.
+#endif
+            Func<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TContract> method)
         {
-            ProviderFunc = 
+            ProviderFunc =
                 (container) => new MethodProviderWithContainer<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>(method);
 
             return this;
         }
 
+        // Shortcut for FromIFactory and also for backwards compatibility
         public ConditionCopyNonLazyBinder FromFactory<TSubFactory>()
             where TSubFactory : IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>
         {
-            ProviderFunc = 
-                (container) => new FactoryProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract, TSubFactory>(container, new List<TypeValuePair>());
-
-            return this;
+            return FromIFactory(x => x.To<TSubFactory>().AsCached());
         }
 
-        public ConditionCopyNonLazyBinder FromIFactoryResolve()
+        public ArgConditionCopyNonLazyBinder FromIFactory(
+            Action<ConcreteBinderGeneric<IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>>> factoryBindGenerator)
         {
-            return FromIFactoryResolve(null);
-        }
+            Guid factoryId;
+            factoryBindGenerator(
+                CreateIFactoryBinder<IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>>(out factoryId));
 
-        public ConditionCopyNonLazyBinder FromIFactoryResolve(object subIdentifier)
-        {
             ProviderFunc =
-                (container) => new IFactoryResolveProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>(container, subIdentifier);
+                (container) => { return new IFactoryProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>(container, factoryId); };
 
-            return new ConditionCopyNonLazyBinder(BindInfo);
+            return new ArgConditionCopyNonLazyBinder(BindInfo);
         }
 
         public FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract> FromSubContainerResolve()
@@ -50,7 +52,7 @@ namespace Zenject
         public FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract> FromSubContainerResolve(object subIdentifier)
         {
             return new FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>(
-                BindInfo, FactoryBindInfo, subIdentifier);
+                BindContainer, BindInfo, FactoryBindInfo, subIdentifier);
         }
     }
 }

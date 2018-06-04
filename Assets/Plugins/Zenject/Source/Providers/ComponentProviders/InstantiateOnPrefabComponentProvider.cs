@@ -26,26 +26,16 @@ namespace Zenject
             return _componentType;
         }
 
-        public IEnumerator<List<object>> GetAllInstancesWithInjectSplit(
-            InjectContext context, List<TypeValuePair> args)
+        public List<object> GetAllInstancesWithInjectSplit(
+            InjectContext context, List<TypeValuePair> args, out Action injectAction)
         {
             Assert.IsNotNull(context);
 
-            var gameObjectRunner = _prefabInstantiator.Instantiate(args);
-
-            // First get instance
-            bool hasMore = gameObjectRunner.MoveNext();
-
-            var gameObject = gameObjectRunner.Current;
+            var gameObject = _prefabInstantiator.Instantiate(args, out injectAction);
+            
             var component = gameObject.AddComponent(_componentType);
 
-            yield return new List<object>() { component };
-
-            // Now do injection
-            while (hasMore)
-            {
-                hasMore = gameObjectRunner.MoveNext();
-            }
+            return new List<object>() { component };
         }
     }
 }

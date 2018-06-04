@@ -7,8 +7,8 @@ namespace Zenject
     public class FactoryToChoiceIdBinder<TContract> : FactoryToChoiceBinder<TContract>
     {
         public FactoryToChoiceIdBinder(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
-            : base(bindInfo, factoryBindInfo)
+            DiContainer container, BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
+            : base(container, bindInfo, factoryBindInfo)
         {
         }
 

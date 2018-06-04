@@ -7,8 +7,8 @@ namespace Zenject
     public class MemoryPoolInitialSizeBinder<TContract> : MemoryPoolExpandBinder<TContract>
     {
         public MemoryPoolInitialSizeBinder(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
-            : base(bindInfo, factoryBindInfo, poolBindInfo)
+            DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
+            : base(bindContainer, bindInfo, factoryBindInfo, poolBindInfo)
         {
         }
 

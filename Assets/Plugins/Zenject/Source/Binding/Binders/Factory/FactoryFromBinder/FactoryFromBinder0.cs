@@ -5,11 +5,11 @@ using ModestTree;
 
 namespace Zenject
 {
-    public class FactoryFromBinder<TContract> : FactoryFromBinderBase<TContract>
+    public class FactoryFromBinder<TContract> : FactoryFromBinderBase
     {
         public FactoryFromBinder(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
-            : base(bindInfo, factoryBindInfo)
+            DiContainer container, BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
+            : base(container, typeof(TContract), bindInfo, factoryBindInfo)
         {
         }
 
@@ -21,8 +21,14 @@ namespace Zenject
         public ConditionCopyNonLazyBinder FromResolveGetter<TObj>(
             object subIdentifier, Func<TObj, TContract> method)
         {
+            return FromResolveGetter<TObj>(subIdentifier, method, InjectSources.Any);
+        }
+
+        public ConditionCopyNonLazyBinder FromResolveGetter<TObj>(
+            object subIdentifier, Func<TObj, TContract> method, InjectSources source)
+        {
             FactoryBindInfo.ProviderFunc =
-                (container) => new GetterProvider<TObj, TContract>(subIdentifier, method, container);
+                (container) => new GetterProvider<TObj, TContract>(subIdentifier, method, container, source, false);
 
             return this;
         }
@@ -35,37 +41,24 @@ namespace Zenject
             return this;
         }
 
-        public ConditionCopyNonLazyBinder FromInstance(object instance)
-        {
-            BindingUtil.AssertInstanceDerivesFromOrEqual(instance, AllParentTypes);
-
-            ProviderFunc =
-                (container) => new InstanceProvider(ContractType, instance, container);
-
-            return this;
-        }
-
+        // Shortcut for FromIFactory and also for backwards compatibility
         public ArgConditionCopyNonLazyBinder FromFactory<TSubFactory>()
             where TSubFactory : IFactory<TContract>
         {
+            return FromIFactory(x => x.To<TSubFactory>().AsCached());
+        }
+
+        public ArgConditionCopyNonLazyBinder FromIFactory(
+            Action<ConcreteBinderGeneric<IFactory<TContract>>> factoryBindGenerator)
+        {
+            Guid factoryId;
+            factoryBindGenerator(
+                CreateIFactoryBinder<IFactory<TContract>>(out factoryId));
+
             ProviderFunc =
-                (container) => new FactoryProvider<TContract, TSubFactory>(
-                    container, BindInfo.Arguments);
+                (container) => { return new IFactoryProvider<TContract>(container, factoryId); };
 
             return new ArgConditionCopyNonLazyBinder(BindInfo);
-        }
-
-        public ConditionCopyNonLazyBinder FromIFactoryResolve()
-        {
-            return FromIFactoryResolve(null);
-        }
-
-        public ConditionCopyNonLazyBinder FromIFactoryResolve(object subIdentifier)
-        {
-            ProviderFunc =
-                (container) => new IFactoryResolveProvider<TContract>(container, subIdentifier);
-
-            return new ConditionCopyNonLazyBinder(BindInfo);
         }
 
         public FactorySubContainerBinder<TContract> FromSubContainerResolve()
@@ -76,7 +69,7 @@ namespace Zenject
         public FactorySubContainerBinder<TContract> FromSubContainerResolve(object subIdentifier)
         {
             return new FactorySubContainerBinder<TContract>(
-                BindInfo, FactoryBindInfo, subIdentifier);
+                BindContainer, BindInfo, FactoryBindInfo, subIdentifier);
         }
 
 #if !NOT_UNITY3D
@@ -98,16 +91,6 @@ namespace Zenject
 
                     return matches.Single();
                 });
-        }
-
-        public ConditionCopyNonLazyBinder FromResource(string resourcePath)
-        {
-            BindingUtil.AssertDerivesFromUnityObject(ContractType);
-
-            ProviderFunc =
-                (container) => new ResourceProvider(resourcePath, ContractType);
-
-            return this;
         }
 #endif
     }

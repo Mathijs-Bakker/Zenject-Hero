@@ -7,8 +7,8 @@ namespace Zenject
     public class MemoryPoolExpandBinder<TContract> : FactoryToChoiceIdBinder<TContract>
     {
         public MemoryPoolExpandBinder(
-            BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
-            : base(bindInfo, factoryBindInfo)
+            DiContainer bindContainer, BindInfo bindInfo, FactoryBindInfo factoryBindInfo, MemoryPoolBindInfo poolBindInfo)
+            : base(bindContainer, bindInfo, factoryBindInfo)
         {
             MemoryPoolBindInfo = poolBindInfo;
 
