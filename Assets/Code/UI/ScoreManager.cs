@@ -14,10 +14,9 @@ namespace Code
             _scoreTxt.text = "0";
         }
 
-        public void UpdateScore(int points)
+        public void UpdateScore(int scorePoints)
         {
-            var temp = Score;
-            Score = temp + points;
+            Score += scorePoints;
             _scoreTxt.text = Score.ToString();
         }
     }

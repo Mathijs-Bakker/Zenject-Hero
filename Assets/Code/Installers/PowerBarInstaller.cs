@@ -20,10 +20,6 @@ namespace Code
                 .WithArguments(
                     _settings.Slider,
                     _settings.RestorePowerAS);
-
-            Container.BindSignal<StartPowerBarSignal>()
-                .To<PowerBarFacade>(x => x.StartCountDown)
-                .FromComponentInHierarchy();
         }
 
         [Serializable]

@@ -5,7 +5,15 @@ namespace Code
 {
 	public class SpiderModel : Killable
 	{
-		[Inject] private readonly UpdateScoreSignal _updateScoreSignal;
+//		[Inject] private readonly UpdateScoreSignal _updateScoreSignal;
+//		private readonly UpdateScoreSignal _updateScoreSignal;
+//		
+//		public SpiderModel(UpdateScoreSignal signal)
+//		{
+//			_updateScoreSignal = signal;
+//		}
+		
+		[Inject] private readonly SignalBus _signalBus;
 
 		[SerializeField] private int _health = 50;
 		[SerializeField] private int _scorePoints = 50;
@@ -15,7 +23,7 @@ namespace Code
 			_health -= damage;
 			if (_health > 0) return;
 
-			_updateScoreSignal.Fire(_scorePoints);
+			_signalBus.Fire(new UpdateScoreSignal(_scorePoints));
 			Die();
 		}
 

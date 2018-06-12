@@ -5,19 +5,20 @@ namespace Code
 {
     public class Lamp : MonoBehaviour
     {
-        private LightsOutSignal _lightsOutSignal;
+        [Inject] private readonly SignalBus _signalBus;
+//        private LightsOutSignal _lightsOutSignal;
 
-        [Inject]
-        public void Construct(LightsOutSignal lightsOutSignal)
-        {
-            _lightsOutSignal = lightsOutSignal;
-        }
+//        [Inject]
+//        public void Construct(LightsOutSignal lightsOutSignal)
+//        {
+//            _lightsOutSignal = lightsOutSignal;
+//        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.GetComponent<PlayerFacade>())
             {
-                _lightsOutSignal.Fire();
+                _signalBus.Fire(new LightsOutSignal());
             }
         }
     }

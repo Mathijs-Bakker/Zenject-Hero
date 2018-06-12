@@ -9,8 +9,9 @@ namespace Code
             Container.DeclareSignal<LightsOutSignal>();
 
             Container.BindSignal<LightsOutSignal>()
-                .To<LightSwitcher>(x => x.SwitchLight)
-                .FromComponentInHierarchy();
+                .ToMethod<LightSwitcher>(x => x.SwitchLight)
+                .FromResolve();
+//                .FromComponentInHierarchy();
         }
     }
 }
