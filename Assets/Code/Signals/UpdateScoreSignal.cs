@@ -4,9 +4,9 @@ namespace Code
 {
     public class UpdateScoreSignal : ISignal
     {
-        public UpdateScoreSignal(int scorepoints)
+        public UpdateScoreSignal(int scorePoints)
         {
-            ScorePoints = scorepoints;
+            ScorePoints = scorePoints;
         }
 
         public int ScorePoints

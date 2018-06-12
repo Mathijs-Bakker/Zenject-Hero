@@ -10,7 +10,7 @@ namespace Code
             
             Container.DeclareSignal<UpdateScoreSignal>();
 
-            Container.Bind<ScoreManager>().AsSingle();
+//            Container.Bind<ScoreManager>().AsSingle();
 
             Container.BindSignal<UpdateScoreSignal>()
                 .ToMethod<ScoreManager>((x, n) => x.UpdateScore(n.ScorePoints))
