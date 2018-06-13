@@ -24,7 +24,7 @@ namespace Code
             Debug.Log("GamePlayState: Disposed");
         }
 
-        public class Factory : Factory<PlayState>
+        public class Factory : PlaceholderFactory<PlayState>
         {
         }
     }

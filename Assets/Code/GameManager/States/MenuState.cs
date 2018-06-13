@@ -24,7 +24,7 @@ namespace Code
             Debug.Log("MenuState: Disposed");
         }
 
-        public class Factory : Factory<MenuState>
+        public class Factory : PlaceholderFactory<MenuState>
         {
         }
     }
