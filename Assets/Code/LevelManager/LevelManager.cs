@@ -4,9 +4,6 @@ namespace Code
 {
 	public class LevelManager : ITickable
 	{
-		// Prepare Player and powerbar
-		// When ready:
-
 		private readonly PowerBarFacade _powerBar;
 		private readonly PlayerFacade _player;
 

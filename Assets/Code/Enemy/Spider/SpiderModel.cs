@@ -5,14 +5,6 @@ namespace Code
 {
 	public class SpiderModel : Killable
 	{
-//		[Inject] private readonly UpdateScoreSignal _updateScoreSignal;
-//		private readonly UpdateScoreSignal _updateScoreSignal;
-//		
-//		public SpiderModel(UpdateScoreSignal signal)
-//		{
-//			_updateScoreSignal = signal;
-//		}
-		
 		[Inject] private readonly SignalBus _signalBus;
 
 		[SerializeField] private int _health = 50;

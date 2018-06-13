@@ -38,7 +38,6 @@ namespace Code
         
         
         // Todo: Remove OnColisionEnter2D from facade.
-        // Needs to be in another class.
 
         private void OnCollisionEnter2D(Collision2D other)
         {

@@ -11,7 +11,6 @@ namespace Code
             Container.BindSignal<LightsOutSignal>()
                 .ToMethod<LightSwitcher>(x => x.SwitchLight)
                 .FromResolve();
-//                .FromComponentInHierarchy();
         }
     }
 }
