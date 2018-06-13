@@ -12,6 +12,8 @@ namespace Code
         {
             InstallPlayer();
             InstallDynamitePool();
+            
+            SignalRootInstaller.Install(Container);
         }
 
         private void InstallPlayer()

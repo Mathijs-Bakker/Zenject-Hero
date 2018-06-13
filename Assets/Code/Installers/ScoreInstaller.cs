@@ -6,7 +6,6 @@ namespace Code
     {
         public override void InstallBindings()
         {
-            SignalRootInstaller.Install(Container);
             
             Container.DeclareSignal<UpdateScoreSignal>();
 

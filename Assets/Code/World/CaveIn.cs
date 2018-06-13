@@ -6,15 +6,10 @@ namespace Code
     public class CaveIn : Damageable
     {
         [Inject] private readonly SignalBus _signalBus;
-//        [Inject] private readonly UpdateScoreSignal _updateScoreSignal;
+
         [SerializeField] private int _dynamitePoints = 75;
         [SerializeField] private int _health;
         [SerializeField] private int _scorePoints = 50;
-
-//        private CaveIn(UpdateScoreSignal updateScoreSignal)
-//        {
-//            _updateScoreSignal = updateScoreSignal;
-//        }
 
         public override void ReceiveDamage(int damage)
         {
