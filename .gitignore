@@ -45,3 +45,18 @@ Assets/Plugins/Editor/JetBrains.meta
 Library/
 Temp/
 obj/Debug
+
+Assets/Plugins/Zenject/OptionalExtras/AutoMocking.zip
+Assets/Plugins/Zenject/OptionalExtras/AutoMocking.zip.meta
+Assets/Plugins/Zenject/OptionalExtras/IntegrationTests.zip
+Assets/Plugins/Zenject/OptionalExtras/IntegrationTests.zip.meta
+
+Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner).meta
+Assets/Plugins/Zenject/OptionalExtras/SampleGame1 (Beginner)/
+Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced).meta
+Assets/Plugins/Zenject/OptionalExtras/SampleGame2 (Advanced)/
+
+Assets/Plugins/Zenject/OptionalExtras/UnitTests.zip
+Assets/Plugins/Zenject/OptionalExtras/UnitTests.zip.meta
+Assets/Plugins/Zenject/OptionalExtras/ZenjectIntegrationTestFixture.zip
+Assets/Plugins/Zenject/OptionalExtras/ZenjectIntegrationTestFixture.zip.meta
