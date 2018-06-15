@@ -9,7 +9,7 @@ namespace Code
             Container.DeclareSignal<LightsOutSignal>();
 
             Container.BindSignal<LightsOutSignal>()
-                .ToMethod<LightSwitcher>(x => x.SwitchLight)
+                .ToMethod<LightSwitcher>(x => x.TurnOffLightInCurrentScreen)
                 .FromResolve();
         }
     }

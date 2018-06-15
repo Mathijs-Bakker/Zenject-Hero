@@ -7,35 +7,40 @@ namespace Code
 {
     public class LightSwitcher : MonoBehaviour
     {
-        private List<Vector2> _obsuredScreens = new List<Vector2>();
+        private List<Vector2> _obscuredScreens = new List<Vector2>();
 
         [Inject] private PlayerFacade _playerFacade;
 
         private void Update()
         {
-            SetPlayerShader();
+            SetPlayerShaderForCurrentScreen();
         }
 
-        public void SwitchLight()
+        public void TurnOffLightInCurrentScreen()
         {
-            Vector2 screenPos = 
-                GetComponentInParent<FlipScreenManager>().transform.position;
+            Vector2 currentScreenPos = GetComponentInParent
+                <FlipScreenManager>().transform.position;
             
-            var collider2Ds = GetCollidingObjects(screenPos);
-
-            foreach (var c in collider2Ds)
+            if (!_obscuredScreens.Contains(currentScreenPos))
             {
-                var spriteRenderer = c.gameObject.GetComponentInChildren<SpriteRenderer>();
+                _obscuredScreens.Add(currentScreenPos);
+            }
+            
+            ObscureGameObjects(currentScreenPos);
+        }
+
+        private void ObscureGameObjects(Vector2 currentScreenPos)
+        {
+            var collider2Ds = GetAllColliders(currentScreenPos);
+
+            foreach (var collider in collider2Ds)
+            {
+                var spriteRenderer = collider.gameObject.GetComponentInChildren<SpriteRenderer>();
                 Obscure(spriteRenderer);
             }
-
-            if (!_obsuredScreens.Contains(screenPos))
-            {
-                _obsuredScreens.Add(screenPos);
-            }
         }
 
-        private IEnumerable<Collider2D> GetCollidingObjects(Vector2 flipScreenPosition)
+        private IEnumerable<Collider2D> GetAllColliders(Vector2 flipScreenPosition)
         {
             var boxOffset = new Vector2(0, 3);
             var boxCenterPos = flipScreenPosition + boxOffset;
@@ -49,6 +54,22 @@ namespace Code
             return collidingObjects;
         }
 
+        private void SetPlayerShaderForCurrentScreen()
+        {
+            var playerSprite = _playerFacade.GetComponentInChildren<SpriteRenderer>();
+                
+            if (_obscuredScreens.Contains(
+                GetComponentInParent<FlipScreenManager>().transform.position))
+            {
+                Obscure(playerSprite);
+            }
+            else
+            {
+                playerSprite.material.color = Color.white;
+                playerSprite.material.shader = Shader.Find("Sprites/Default");
+            }
+        }
+        
         private void Obscure(SpriteRenderer sprite)
         {
             if (sprite == null) return;
@@ -64,24 +85,10 @@ namespace Code
             }
             else
             {
+                if (sprite.gameObject.GetComponentInParent<Laser>()) return;
+                
                 sprite.material.shader = Shader.Find("GUI/Text Shader");
                 sprite.color = Color.black;
-            }
-        }
-
-        private void SetPlayerShader()
-        {
-            var playerSprite = _playerFacade.GetComponentInChildren<SpriteRenderer>();
-                
-            if (_obsuredScreens.Contains(
-                GetComponentInParent<FlipScreenManager>().transform.position))
-            {
-                Obscure(playerSprite);
-            }
-            else
-            {
-                playerSprite.material.shader = Shader.Find("Sprites/Default");
-                playerSprite.material.color = Color.white;
             }
         }
     }
