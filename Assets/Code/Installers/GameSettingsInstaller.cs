@@ -7,23 +7,11 @@ namespace Code
     [CreateAssetMenu(fileName = "GameSettings", menuName = "Ultimate Hero/GameSettings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
     {
+        public GameInstaller.Settings GameInstaller;
+        public PlayerSettings Player;
+        public LaserSettings Laser;
         public GameStateSettings GameState;
 
-        public LaserSettings Laser;
-
-        public PlayerSettings Player;
-
-        public override void InstallBindings()
-        {
-            Container.BindInstance(Player.Movement);
-
-            Container.BindInstance(Laser.Damage);
-        }
-
-        [Serializable]
-        public class GameStateSettings
-        {
-        }
 
         [Serializable]
         public class PlayerSettings
@@ -35,6 +23,18 @@ namespace Code
         public class LaserSettings
         {
             public Laser.Settings Damage;
+        }
+        
+        [Serializable]
+        public class GameStateSettings
+        {
+        }
+        
+        public override void InstallBindings()
+        {
+            Container.BindInstance(GameInstaller).IfNotBound();
+            Container.BindInstance(Player.Movement);
+            Container.BindInstance(Laser.Damage);
         }
     }
 }
