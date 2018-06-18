@@ -7,7 +7,6 @@ namespace Zenject
     {
         public SignalDeclarationBindInfo(Type signalType)
         {
-            Assert.That(signalType.DerivesFromOrEqual<ISignal>());
             SignalType = signalType;
         }
 
@@ -21,7 +20,12 @@ namespace Zenject
             get; set;
         }
 
-        public bool RequireHandler
+        public int TickPriority
+        {
+            get; set;
+        }
+
+        public SignalMissingHandlerResponses MissingHandlerResponse
         {
             get; set;
         }

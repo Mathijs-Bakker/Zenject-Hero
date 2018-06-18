@@ -6,6 +6,16 @@ namespace Zenject
     // The given InjectContext values here should always be non-null
     public interface IProvider
     {
+        bool TypeVariesBasedOnMemberType
+        {
+            get;
+        }
+
+        bool IsCached
+        {
+            get;
+        }
+
         Type GetInstanceType(InjectContext context);
 
         // Return an instance which might be not yet injected to.

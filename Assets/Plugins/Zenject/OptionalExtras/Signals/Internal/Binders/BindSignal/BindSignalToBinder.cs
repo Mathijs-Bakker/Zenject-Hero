@@ -4,7 +4,6 @@ using ModestTree;
 namespace Zenject
 {
     public class BindSignalToBinder<TSignal>
-        where TSignal : ISignal
     {
         DiContainer _container;
         BindFinalizerWrapper _finalizerWrapper;
@@ -23,13 +22,11 @@ namespace Zenject
             Assert.IsNull(_finalizerWrapper.SubFinalizer);
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
-            var bindInfo = new BindInfo();
-
-            _container.Bind<IDisposable>(bindInfo)
+            var bindInfo = _container.Bind<IDisposable>()
                 .To<SignalCallbackWrapper<TSignal>>()
                 .AsCached()
                 .WithArguments(callback)
-                .NonLazy();
+                .NonLazy().BindInfo;
 
             return new SignalCopyBinder(bindInfo);
         }

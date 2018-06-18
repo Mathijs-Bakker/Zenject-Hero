@@ -43,6 +43,36 @@ namespace Zenject
             return null;
         }
 
+        public DiContainer GetContainerForScene(Scene scene)
+        {
+            var container = TryGetContainerForScene(scene);
+
+            if (container != null)
+            {
+                return container;
+            }
+
+            throw Assert.CreateException(
+                "Unable to find DiContainer for scene '{0}'", scene.name);
+        }
+
+        public DiContainer TryGetContainerForScene(Scene scene)
+        {
+            if (scene == ProjectContext.Instance.gameObject.scene)
+            {
+                return ProjectContext.Instance.Container;
+            }
+
+            var sceneContext = TryGetSceneContextForScene(scene);
+
+            if (sceneContext != null)
+            {
+                return sceneContext.Container;
+            }
+
+            return null;
+        }
+
         public void Remove(SceneContext context)
         {
             bool removed = _map.Remove(context.gameObject.scene);

@@ -1,16 +1,25 @@
+using System.Collections.Generic;
 using ModestTree;
 namespace Zenject
 {
     public class CopyNonLazyBinder : NonLazyBinder
     {
+        List<BindInfo> _secondaryBindInfos;
+
         public CopyNonLazyBinder(BindInfo bindInfo)
             : base(bindInfo)
         {
         }
 
-        public BindInfo SecondaryCopyBindInfo
+        // This is used in cases where you have multiple bindings that depend on each other so should
+        // be inherited together (eg. FromIFactory)
+        internal void AddSecondaryCopyBindInfo(BindInfo bindInfo)
         {
-            get; set;
+            if (_secondaryBindInfos == null)
+            {
+                _secondaryBindInfos = new List<BindInfo>();
+            }
+            _secondaryBindInfos.Add(bindInfo);
         }
 
         public NonLazyBinder CopyIntoAllSubContainers()
@@ -44,9 +53,12 @@ namespace Zenject
         {
             BindInfo.BindingInheritanceMethod = method;
 
-            if (SecondaryCopyBindInfo != null)
+            if (_secondaryBindInfos != null)
             {
-                SecondaryCopyBindInfo.BindingInheritanceMethod = method;
+                foreach (var secondaryBindInfo in _secondaryBindInfos)
+                {
+                    secondaryBindInfo.BindingInheritanceMethod = method;
+                }
             }
         }
     }

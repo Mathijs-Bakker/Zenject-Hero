@@ -80,7 +80,7 @@ namespace Zenject
                     RegisterProvidersForAllContractsPerConcreteType(
                         container,
                         concreteTypes,
-                        (_, concreteType) => new CachedProvider(
+                        (_, concreteType) => BindingUtil.CreateCachedProvider(
                             _providerFactory(concreteType, prefabCreator)));
                     break;
                 }
@@ -133,7 +133,7 @@ namespace Zenject
                     RegisterProviderPerContract(
                         container,
                         (_, contractType) =>
-                            new CachedProvider(
+                            BindingUtil.CreateCachedProvider(
                                 _providerFactory(contractType, prefabCreator)));
                     break;
                 }

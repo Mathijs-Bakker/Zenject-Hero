@@ -9,39 +9,32 @@ using UniRx;
 
 namespace Zenject
 {
-    public class SignalDeclaration : IDisposable
+    public class SignalDeclaration : ITickable, IDisposable
     {
-        public static readonly StaticMemoryPool<Type, bool, bool, SignalSettings, SignalDeclaration> Pool =
-            new StaticMemoryPool<Type, bool, bool, SignalSettings, SignalDeclaration>(OnSpawned, OnDespawned);
-
-        readonly List<SignalSubscription> _subscriptions;
-        readonly List<ISignal> _signalQueue;
+        readonly List<SignalSubscription> _subscriptions = new List<SignalSubscription>();
+        readonly List<object> _asyncQueue = new List<object>();
+        readonly Type _signalType;
+        readonly SignalMissingHandlerResponses _missingHandlerResponses;
+        readonly bool _isAsync;
+        readonly ZenjectSettings.SignalSettings _settings;
 
 #if ZEN_SIGNALS_ADD_UNIRX
-        Subject<object> _stream;
+        readonly Subject<object> _stream = new Subject<object>();
 #endif
 
-        Type _signalType;
-        bool _requireHandler;
-        bool _runAsync;
-        SignalSettings _settings;
-
-        static void OnDespawned(SignalDeclaration that)
+        public SignalDeclaration(
+            Type signalType,
+            SignalDeclarationBindInfo bindInfo,
+            [InjectOptional]
+            ZenjectSettings zenjectSettings)
         {
-            that.OnDespawned();
-        }
+            zenjectSettings = zenjectSettings ?? ZenjectSettings.Default;
+            _settings = zenjectSettings.Signals ?? ZenjectSettings.SignalSettings.Default;
 
-        static void OnSpawned(Type signalType, bool requireHandler, bool runAsync, SignalSettings settings, SignalDeclaration that)
-        {
-            that.OnSpawned(signalType, requireHandler, runAsync, settings);
-        }
-
-        public SignalDeclaration()
-        {
-            _subscriptions = new List<SignalSubscription>();
-            _signalQueue = new List<ISignal>();
-
-            SetDefaults();
+            _signalType = signalType;
+            _missingHandlerResponses = bindInfo.MissingHandlerResponse;
+            _isAsync = bindInfo.RunAsync;
+            TickPriority = bindInfo.TickPriority;
         }
 
 #if ZEN_SIGNALS_ADD_UNIRX
@@ -51,6 +44,16 @@ namespace Zenject
         }
 #endif
 
+        public int TickPriority
+        {
+            get; private set;
+        }
+
+        public bool IsAsync
+        {
+            get { return _isAsync; }
+        }
+
         public Type SignalType
         {
             get { return _signalType; }
@@ -58,31 +61,10 @@ namespace Zenject
 
         public void Dispose()
         {
-            Pool.Despawn(this);
-        }
-
-        void SetDefaults()
-        {
-#if ZEN_SIGNALS_ADD_UNIRX
-            // We could re-use this but let's just create a new one to be extra safe
-            // in case some objects are still subscribed to the old one
-            _stream = new Subject<object>();
-#endif
-
-            _requireHandler = false;
-            _runAsync = false;
-            _settings = null;
-            _signalType = null;
-            _subscriptions.Clear();
-            _signalQueue.Clear();
-        }
-
-        void OnDespawned()
-        {
-            if (_settings.AddAssertsForStrictDestructionOrder)
+            if (_settings.RequireStrictUnsubscribe)
             {
                 Assert.That(_subscriptions.IsEmpty(),
-                    "Found {0} signals still added to declaration {1}", _subscriptions.Count, _signalType);
+                    "Found {0} signal handlers still added to declaration {1}", _subscriptions.Count, _signalType);
             }
             else
             {
@@ -92,58 +74,51 @@ namespace Zenject
                 // might be destroyed AFTER the SceneContext.  So if you have some signal declarations
                 // in the scene context, they might get disposed before some of the subscriptions
                 // so in this case you need to disconnect from the subscription so that it doesn't
-                // try to remove itself after the declaration has been destroyed, which could be
-                // especially problematic if the declaration is re-spawned for a different purpose
+                // try to remove itself after the declaration has been destroyed
                 for (int i = 0; i < _subscriptions.Count; i++)
                 {
                     _subscriptions[i].OnDeclarationDespawned();
                 }
             }
-
-            SetDefaults();
         }
 
-        void OnSpawned(Type signalType, bool requireHandler, bool runAsync, SignalSettings settings)
-        {
-            Assert.IsNull(_signalType);
-            Assert.That(_subscriptions.IsEmpty());
-
-            _signalType = signalType;
-            _requireHandler = requireHandler;
-            _runAsync = runAsync;
-            _settings = settings;
-        }
-
-        public void Fire(ISignal signal)
+        public void Fire(object signal)
         {
             Assert.That(signal.GetType().DerivesFromOrEqual(_signalType));
 
-            if (_runAsync)
+            if (_isAsync)
             {
-                _signalQueue.Add(signal);
+                _asyncQueue.Add(signal);
             }
             else
             {
                 // Cache the callback list to allow handlers to be added from within callbacks
                 using (var block = DisposeBlock.Spawn())
                 {
-                    var subscriptions = block.AllocateList<SignalSubscription>();
+                    var subscriptions = block.SpawnList<SignalSubscription>();
                     subscriptions.AddRange(_subscriptions);
                     FireInternal(subscriptions, signal);
                 }
             }
         }
 
-        void FireInternal(List<SignalSubscription> subscriptions, ISignal signal)
+        void FireInternal(List<SignalSubscription> subscriptions, object signal)
         {
             if (subscriptions.IsEmpty()
 #if ZEN_SIGNALS_ADD_UNIRX
                 && !_stream.HasObservers
 #endif
-                && _requireHandler)
+                )
             {
-                throw Assert.CreateException(
-                    "Fired signal '{0}' but no subscriptions found!  (and signal is marked with RequireHandler)", signal.GetType());
+                if (_missingHandlerResponses == SignalMissingHandlerResponses.Warn)
+                {
+                    Log.Warn("Fired signal '{0}' but no subscriptions found!  If this is intentional then either add IgnoreMissingHandler to the binding or change the default in ZenjectSettings", signal.GetType());
+                }
+                else if (_missingHandlerResponses == SignalMissingHandlerResponses.Throw)
+                {
+                    throw Assert.CreateException(
+                        "Fired signal '{0}' but no subscriptions found!  If this is intentional then either add IgnoreMissingHandler to the binding or change the default in ZenjectSettings", signal.GetType());
+                }
             }
 
             for (int i = 0; i < subscriptions.Count; i++)
@@ -163,22 +138,24 @@ namespace Zenject
 #endif
         }
 
-        public void Update()
+        public void Tick()
         {
-            if (!_signalQueue.IsEmpty())
+            Assert.That(_isAsync);
+
+            if (!_asyncQueue.IsEmpty())
             {
                 // Cache the callback list to allow handlers to be added from within callbacks
                 using (var block = DisposeBlock.Spawn())
                 {
-                    var subscriptions = block.AllocateList<SignalSubscription>();
+                    var subscriptions = block.SpawnList<SignalSubscription>();
                     subscriptions.AddRange(_subscriptions);
 
                     // Cache the signals so that if the signal is fired again inside the handler that it
                     // is not executed until next frame
-                    var signals = block.AllocateList<ISignal>();
-                    signals.AddRange(_signalQueue);
+                    var signals = block.SpawnList<object>();
+                    signals.AddRange(_asyncQueue);
 
-                    _signalQueue.Clear();
+                    _asyncQueue.Clear();
 
                     for (int i = 0; i < signals.Count; i++)
                     {

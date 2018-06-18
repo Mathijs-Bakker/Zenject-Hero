@@ -65,7 +65,7 @@ namespace Zenject
             // Make sure we don't create any game objects since editor windows don't have a scene
             _container.AssertOnNewGameObjects = true;
 
-            StandardInterfacesRootInstaller.Install(_container);
+            ZenjectManagersInstaller.Install(_container);
 
             _container.Bind<Kernel>().AsSingle();
             _container.Bind<GuiRenderableManager>().AsSingle();

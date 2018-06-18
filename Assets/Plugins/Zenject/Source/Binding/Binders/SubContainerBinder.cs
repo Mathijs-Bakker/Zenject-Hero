@@ -56,14 +56,108 @@ namespace Zenject
 
 #if !NOT_UNITY3D
 
-        public NameTransformScopeConditionCopyNonLazyBinder ByNewPrefab(UnityEngine.Object prefab)
+        public NameTransformScopeConditionCopyNonLazyBinder ByNewPrefabMethod(
+            UnityEngine.Object prefab, Action<DiContainer> installerMethod)
         {
             BindingUtil.AssertIsValidPrefab(prefab);
 
             var gameObjectInfo = new GameObjectCreationParameters();
 
             SubFinalizer = new SubContainerPrefabBindingFinalizer(
-                _bindInfo, gameObjectInfo, prefab, _subIdentifier, _resolveAll);
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefabMethod(
+                    container,
+                    new PrefabProvider(prefab),
+                    gameObjectInfo, installerMethod));
+
+            return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
+        }
+
+        public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabInstaller<TInstaller>(
+            UnityEngine.Object prefab)
+            where TInstaller : InstallerBase
+        {
+            return ByNewPrefabInstaller(prefab, typeof(TInstaller));
+        }
+
+        public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabInstaller(
+            UnityEngine.Object prefab, Type installerType)
+        {
+            Assert.That(installerType.DerivesFrom<InstallerBase>(),
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+
+            var gameObjectInfo = new GameObjectCreationParameters();
+
+            SubFinalizer = new SubContainerPrefabBindingFinalizer(
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefabInstaller(
+                    container,
+                    new PrefabProvider(prefab),
+                    gameObjectInfo, installerType, _bindInfo.Arguments));
+
+            return new NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
+        }
+
+
+        public NameTransformScopeConditionCopyNonLazyBinder ByNewPrefabResourceMethod(
+            string resourcePath, Action<DiContainer> installerMethod)
+        {
+            BindingUtil.AssertIsValidResourcePath(resourcePath);
+
+            var gameObjectInfo = new GameObjectCreationParameters();
+
+            SubFinalizer = new SubContainerPrefabBindingFinalizer(
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefabMethod(
+                    container,
+                    new PrefabProviderResource(resourcePath),
+                    gameObjectInfo, installerMethod));
+
+            return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
+        }
+
+        public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceInstaller<TInstaller>(
+            string resourcePath)
+            where TInstaller : InstallerBase
+        {
+            return ByNewPrefabResourceInstaller(resourcePath, typeof(TInstaller));
+        }
+
+        public NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceInstaller(
+            string resourcePath, Type installerType)
+        {
+            BindingUtil.AssertIsValidResourcePath(resourcePath);
+            Assert.That(installerType.DerivesFrom<InstallerBase>(),
+                "Invalid installer type given during bind command.  Expected type '{0}' to derive from 'Installer<>'", installerType);
+
+            var gameObjectInfo = new GameObjectCreationParameters();
+
+            SubFinalizer = new SubContainerPrefabBindingFinalizer(
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefabInstaller(
+                    container,
+                    new PrefabProviderResource(resourcePath),
+                    gameObjectInfo, installerType, _bindInfo.Arguments));
+
+            return new NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
+        }
+
+        [System.Obsolete("ByNewPrefab has been renamed to ByNewContextPrefab to avoid confusion with ByNewPrefabInstaller and ByNewPrefabMethod")]
+        public NameTransformScopeConditionCopyNonLazyBinder ByNewPrefab(UnityEngine.Object prefab)
+        {
+            return ByNewContextPrefab(prefab);
+        }
+
+        public NameTransformScopeConditionCopyNonLazyBinder ByNewContextPrefab(UnityEngine.Object prefab)
+        {
+            BindingUtil.AssertIsValidPrefab(prefab);
+
+            var gameObjectInfo = new GameObjectCreationParameters();
+
+            SubFinalizer = new SubContainerPrefabBindingFinalizer(
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefab(
+                    container, new PrefabProvider(prefab), gameObjectInfo));
 
             return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
         }
@@ -74,8 +168,10 @@ namespace Zenject
 
             var gameObjectInfo = new GameObjectCreationParameters();
 
-            SubFinalizer = new SubContainerPrefabResourceBindingFinalizer(
-                _bindInfo, gameObjectInfo, resourcePath, _subIdentifier, _resolveAll);
+            SubFinalizer = new SubContainerPrefabBindingFinalizer(
+                _bindInfo, _subIdentifier, _resolveAll,
+                (container) => new SubContainerCreatorByNewPrefab(
+                    container, new PrefabProviderResource(resourcePath), gameObjectInfo));
 
             return new NameTransformScopeConditionCopyNonLazyBinder(_bindInfo, gameObjectInfo);
         }

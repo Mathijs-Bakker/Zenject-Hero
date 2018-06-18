@@ -137,7 +137,7 @@ namespace Zenject
 
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4> : ISubContainerCreator
     {
-        readonly 
+        readonly
 #if !NET_4_6
             ModestTree.Util.
 #endif
@@ -182,7 +182,7 @@ namespace Zenject
 
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5> : ISubContainerCreator
     {
-        readonly 
+        readonly
 #if !NET_4_6
             ModestTree.Util.
 #endif
@@ -225,11 +225,60 @@ namespace Zenject
         }
     }
 
+    // Six parameters
+
+    public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : ISubContainerCreator
+    {
+        readonly
+#if !NET_4_6
+            ModestTree.Util.
+#endif
+            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> _installMethod;
+        readonly DiContainer _container;
+
+        public SubContainerCreatorByMethod(
+            DiContainer container,
+#if !NET_4_6
+            ModestTree.Util.
+#endif
+            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installMethod)
+        {
+            _installMethod = installMethod;
+            _container = container;
+        }
+
+        public DiContainer CreateSubContainer(List<TypeValuePair> args, InjectContext context)
+        {
+            Assert.IsEqual(args.Count, 5);
+            Assert.That(args[0].Type.DerivesFromOrEqual<TParam1>());
+            Assert.That(args[1].Type.DerivesFromOrEqual<TParam2>());
+            Assert.That(args[2].Type.DerivesFromOrEqual<TParam3>());
+            Assert.That(args[3].Type.DerivesFromOrEqual<TParam4>());
+            Assert.That(args[4].Type.DerivesFromOrEqual<TParam5>());
+            Assert.That(args[5].Type.DerivesFromOrEqual<TParam6>());
+
+            var subContainer = _container.CreateSubContainer();
+
+            _installMethod(
+                subContainer,
+                (TParam1)args[0].Value,
+                (TParam2)args[1].Value,
+                (TParam3)args[2].Value,
+                (TParam4)args[3].Value,
+                (TParam5)args[4].Value,
+                (TParam6)args[5].Value);
+
+            subContainer.ResolveRoots();
+
+            return subContainer;
+        }
+    }
+
     // 10 parameters
 
     public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : ISubContainerCreator
     {
-        readonly 
+        readonly
 #if !NET_4_6
             ModestTree.Util.
 #endif

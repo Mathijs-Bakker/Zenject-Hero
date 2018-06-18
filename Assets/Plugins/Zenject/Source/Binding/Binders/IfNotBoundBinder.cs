@@ -7,7 +7,8 @@ namespace Zenject
             BindInfo = bindInfo;
         }
 
-        protected BindInfo BindInfo
+        // Do not use this
+        internal BindInfo BindInfo
         {
             get;
             private set;

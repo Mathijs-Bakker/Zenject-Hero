@@ -81,6 +81,13 @@ namespace Zenject.Internal
         {
             var folderPath = ZenUnityEditorUtil.GetCurrentDirectoryAssetPathFromSelection();
 
+            if (!folderPath.EndsWith("/Resources"))
+            {
+                EditorUtility.DisplayDialog("Error",
+                    "ZenjectDefaultSceneContractConfig objects must be placed directly underneath a folder named 'Resources'.  Please try again.", "Ok");
+                return;
+            }
+
             var config = ScriptableObject.CreateInstance<DefaultSceneContractConfig>();
 
             ZenUnityEditorUtil.SaveScriptableObjectAsset(

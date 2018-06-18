@@ -8,8 +8,6 @@ namespace Zenject
     {
         public SignalSubscriptionId(Type signalType, object callback)
         {
-            Assert.That(signalType.DerivesFrom<ISignal>());
-
             SignalType = signalType;
             Callback = callback;
         }

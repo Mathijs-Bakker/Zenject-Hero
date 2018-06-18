@@ -32,6 +32,16 @@ namespace Zenject
             _concreteIdentifier = concreteIdentifier;
         }
 
+        public bool IsCached
+        {
+            get { return false; }
+        }
+
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
+
         public Type GetInstanceType(InjectContext context)
         {
             return _resourceType;

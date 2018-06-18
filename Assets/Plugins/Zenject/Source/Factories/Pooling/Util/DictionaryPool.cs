@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using ModestTree;
 using Zenject;
 
-namespace ModestTree
+namespace Zenject
 {
     public class DictionaryPool<TKey, TValue> : StaticMemoryPool<Dictionary<TKey, TValue>>
     {
@@ -30,5 +31,4 @@ namespace ModestTree
         }
     }
 }
-
 

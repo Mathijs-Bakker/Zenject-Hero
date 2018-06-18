@@ -276,9 +276,53 @@ namespace Zenject
         }
     }
 
+    public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : SubContainerCreatorByNewPrefabDynamicContext
+    {
+        readonly
+#if !NET_4_6
+            ModestTree.Util.
+#endif
+            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> _installerMethod;
+
+        public SubContainerCreatorByNewPrefabMethod(
+            DiContainer container, IPrefabProvider prefabProvider,
+            GameObjectCreationParameters gameObjectBindInfo,
+#if !NET_4_6
+            ModestTree.Util.
+#endif
+            Action<DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod)
+            : base(container, prefabProvider, gameObjectBindInfo)
+        {
+            _installerMethod = installerMethod;
+        }
+
+        protected override void AddInstallers(List<TypeValuePair> args, GameObjectContext context)
+        {
+            Assert.IsEqual(args.Count, 5);
+            Assert.That(args[0].Type.DerivesFromOrEqual<TParam1>());
+            Assert.That(args[1].Type.DerivesFromOrEqual<TParam2>());
+            Assert.That(args[2].Type.DerivesFromOrEqual<TParam3>());
+            Assert.That(args[3].Type.DerivesFromOrEqual<TParam4>());
+            Assert.That(args[4].Type.DerivesFromOrEqual<TParam5>());
+            Assert.That(args[5].Type.DerivesFromOrEqual<TParam6>());
+
+            context.AddNormalInstaller(
+                new ActionInstaller((subContainer) =>
+                    {
+                        _installerMethod(subContainer,
+                            (TParam1)args[0].Value,
+                            (TParam2)args[1].Value,
+                            (TParam3)args[2].Value,
+                            (TParam4)args[3].Value,
+                            (TParam5)args[4].Value,
+                            (TParam6)args[5].Value);
+                    }));
+        }
+    }
+
     public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : SubContainerCreatorByNewPrefabDynamicContext
     {
-        readonly 
+        readonly
 #if !NET_4_6
             ModestTree.Util.
 #endif
