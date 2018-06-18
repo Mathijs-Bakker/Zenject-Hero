@@ -7,16 +7,13 @@ namespace Code
     {
         private PlayerModel _playerModel;
         private PlayerDeathHandler _playerDeathHandler;
-        private PlayerGroundedHandler _playerGroundedHandler;
 
         [Inject]
         public void Construct(
             PlayerModel playerModel,
-            PlayerGroundedHandler playerGroundedHandler,
             PlayerDeathHandler playerDeathHandler)
         {
             _playerModel = playerModel;
-            _playerGroundedHandler = playerGroundedHandler;
             _playerDeathHandler = playerDeathHandler;
         }
 
@@ -35,20 +32,5 @@ namespace Code
         {
             _playerDeathHandler.Die();
         }
-        
-        
-        // Todo: Remove OnColisionEnter2D from facade.
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.collider.CompareTag("Floor")) _playerGroundedHandler.PlayerHitFloor(other);
-
-            if (other.collider.CompareTag("Miner"))
-            {
-                HasWon = true;
-                Debug.Log("Win!");
-            }
-        }
-
     }
 }

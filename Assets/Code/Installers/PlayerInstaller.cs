@@ -23,6 +23,7 @@ namespace Code
             Container.Bind<PlayerDeathHandler>().AsSingle();
             Container.Bind<PlayerInputState>().AsSingle();
             Container.Bind<PlayerAnimatorHandler>().AsSingle();
+            Container.Bind<PlayerCollision>().AsSingle();
 
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovementHandler>().AsSingle();
