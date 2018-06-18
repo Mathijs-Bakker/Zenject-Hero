@@ -33,10 +33,6 @@ namespace Zenject
         [SerializeField]
         List<string> _contractNames = new List<string>();
 
-        [Tooltip("Note: This field is deprecated!  It will be removed in future versions.")]
-        [SerializeField]
-        string _parentContractName;
-
         [Tooltip("Optional contract names of SceneContexts in previously loaded scenes that this context depends on and to which it should be parented")]
         [SerializeField]
         List<string> _parentContractNames = new List<string>();
@@ -90,18 +86,11 @@ namespace Zenject
             get
             {
                 var result = new List<string>();
-
-                if (!string.IsNullOrEmpty(_parentContractName))
-                {
-                    result.Add(_parentContractName);
-                }
-
                 result.AddRange(_parentContractNames);
                 return result;
             }
             set
             {
-                _parentContractName = null;
                 _parentContractNames = value.ToList();
             }
         }
@@ -112,19 +101,8 @@ namespace Zenject
             set { _parentNewObjectsUnderRoot = value; }
         }
 
-        void CheckParentContractName()
-        {
-            if (!string.IsNullOrEmpty(_parentContractName))
-            {
-                Debug.LogWarning(
-                    "Field 'Parent Contract Name' is now deprecated! Please migrate to using the collection 'Parent Contract Names' instead on scene context '{0}'".Fmt(this.name));
-            }
-        }
-
         public void Awake()
         {
-            CheckParentContractName();
-
             Initialize();
         }
 
@@ -133,7 +111,6 @@ namespace Zenject
         {
             Assert.That(IsValidating);
 
-            CheckParentContractName();
             Install();
             Resolve();
         }
@@ -146,8 +123,18 @@ namespace Zenject
 
             Assert.That(!IsValidating);
 
-            Install();
-            Resolve();
+#if UNITY_EDITOR
+            using (ProfileBlock.Start("SceneContext.Install"))
+#endif
+            {
+                Install();
+            }
+#if UNITY_EDITOR
+            using (ProfileBlock.Start("SceneContext.Resolve"))
+#endif
+            {
+                Resolve();
+            }
         }
 
         public override IEnumerable<GameObject> GetRootGameObjects()

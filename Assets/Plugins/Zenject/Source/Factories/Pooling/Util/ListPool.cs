@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Zenject;
 
-namespace ModestTree
+namespace Zenject
 {
     public class ListPool<T> : StaticMemoryPool<List<T>>
     {
@@ -21,13 +21,6 @@ namespace ModestTree
         void OnDespawned(List<T> list)
         {
             list.Clear();
-        }
-
-        public DisposeWrapper<List<T>> SpawnWrapper(IEnumerable<T> values)
-        {
-            var wrapper = base.SpawnWrapper(Spawn());
-            wrapper.Value.AddRange(values);
-            return wrapper;
         }
     }
 }

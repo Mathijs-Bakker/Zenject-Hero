@@ -11,6 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53ca561bcdf8146d0a01164a45e00fd4, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
+  GameInstaller:
+    PlayerPrefab: {fileID: 1488747157914624, guid: 44cc0374c11a0442b819947ac6fbdc5a,
+      type: 2}
+    LaserPrefab: {fileID: 1888480339335436, guid: e18134810f8794647bc846d68926f886,
+      type: 2}
+    DynamitePrefab: {fileID: 1526319152292066, guid: b526c8ba28a654c6895cf42ee0b887f3,
+      type: 2}
   Player:
     Movement:
       MoveSpeed: 20

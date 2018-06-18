@@ -1,8 +1,6 @@
-﻿using Zenject;
-
-namespace Code
+﻿namespace Code
 {
-    public class LightsOutSignal : ISignal
+    public class LightsOutSignal
     {
     }
 }

@@ -61,7 +61,13 @@ namespace Zenject
             return new NameTransformConditionCopyNonLazyBinder(BindInfo, gameObjectInfo);
         }
 
+        [System.Obsolete("ByNewPrefab has been renamed to ByNewContextPrefab to avoid confusion with ByNewPrefabInstaller and ByNewPrefabMethod")]
         public NameTransformConditionCopyNonLazyBinder ByNewPrefab(UnityEngine.Object prefab)
+        {
+            return ByNewContextPrefab(prefab);
+        }
+
+        public NameTransformConditionCopyNonLazyBinder ByNewContextPrefab(UnityEngine.Object prefab)
         {
             BindingUtil.AssertIsValidPrefab(prefab);
 

@@ -85,20 +85,38 @@ namespace Zenject
 
 #if !NOT_UNITY3D
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInChildren(
-            Func<TContract, bool> predicate, bool includeInactive = false)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInChildren(bool includeInactive = true)
         {
-            return FromComponentInChildren(false, predicate, includeInactive);
+            BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
+
+            return FromMethod((ctx) => {
+                Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                    "Cannot use FromComponentInChildren to inject data into non monobehaviours!");
+                Assert.IsNotNull(ctx.ObjectInstance);
+
+                var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentInChildren<TContract>(includeInactive);
+
+                Assert.IsNotNull(res,
+                    "Could not find component '{0}' through FromComponentInChildren binding", typeof(TContract));
+
+                return res;
+            });
         }
 
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentsInChildren(
+            Func<TContract, bool> predicate, bool includeInactive = true)
+        {
+            return FromComponentsInChildren(false, predicate, includeInactive);
+        }
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInChildren(
-            bool excludeSelf = false, Func<TContract, bool> predicate = null, bool includeInactive = false)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentsInChildren(
+            bool excludeSelf = false, Func<TContract, bool> predicate = null, bool includeInactive = true)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
             return FromMethodMultiple((ctx) => {
-                Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>());
+                Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                    "Cannot use FromComponentsInChildren to inject data into non monobehaviours!");
                 Assert.IsNotNull(ctx.ObjectInstance);
 
                 var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentsInChildren<TContract>(includeInactive)
@@ -118,14 +136,42 @@ namespace Zenject
             });
         }
 
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInParents(
+            bool excludeSelf = false, bool includeInactive = true)
+        {
+            BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInParents(bool excludeSelf = false, bool includeInactive = false)
+            return FromMethod((ctx) =>
+                {
+                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                        "Cannot use FromComponentInParents to inject data into non monobehaviours!");
+                    Assert.IsNotNull(ctx.ObjectInstance);
+
+                    var matches = ((MonoBehaviour)ctx.ObjectInstance).GetComponentsInParent<TContract>(includeInactive)
+                        .Where(x => !ReferenceEquals(x, ctx.ObjectInstance));
+
+                    if (excludeSelf)
+                    {
+                        matches = matches.Where(x => (x as Component).gameObject != (ctx.ObjectInstance as Component).gameObject);
+                    }
+
+                    var result = matches.FirstOrDefault();
+
+                    Assert.IsNotNull(result, "Could not find component '{0}' through FromComponentInParents binding", typeof(TContract));
+
+                    return result;
+                });
+        }
+
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentsInParents(
+            bool excludeSelf = false, bool includeInactive = true)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
             return FromMethodMultiple((ctx) =>
                 {
-                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>());
+                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                        "Cannot use FromComponentInParents to inject data into non monobehaviours!");
                     Assert.IsNotNull(ctx.ObjectInstance);
 
                     var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentsInParent<TContract>(includeInactive)
@@ -144,6 +190,23 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
+            return FromMethod((ctx) =>
+                {
+                    Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
+                        "Cannot use FromComponentSibling to inject data into non monobehaviours!");
+                    Assert.IsNotNull(ctx.ObjectInstance);
+
+                    var match = ((MonoBehaviour)ctx.ObjectInstance).GetComponent<TContract>();
+                    Assert.IsNotNull(match,
+                        "Could not find component '{0}' through FromComponentSibling binding", typeof(TContract));
+                    return match;
+                });
+        }
+
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentsSibling()
+        {
+            BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
+
             return FromMethodMultiple((ctx) =>
                 {
                     Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
@@ -156,12 +219,29 @@ namespace Zenject
         }
 
         public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentInHierarchy(
-            Func<TContract, bool> predicate = null, bool includeInactive = false)
+            bool includeInactive = true)
+        {
+            BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
+
+            return FromMethod((ctx) => {
+                var res = BindContainer.Resolve<Context>().GetRootGameObjects()
+                    .Select(x => x.GetComponentInChildren<TContract>(includeInactive))
+                    .Where(x => x != null).FirstOrDefault();
+
+                Assert.IsNotNull(res,
+                    "Could not find component '{0}' through FromComponentInHierarchy binding", typeof(TContract));
+
+                return res;
+            });
+        }
+
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromComponentsInHierarchy(
+            Func<TContract, bool> predicate = null, bool includeInactive = true)
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
             return FromMethodMultiple((ctx) => {
-                var res = ctx.Container.Resolve<Context>().GetRootGameObjects()
+                var res = BindContainer.Resolve<Context>().GetRootGameObjects()
                     .SelectMany(x => x.GetComponentsInChildren<TContract>(includeInactive))
                     .Where(x => !ReferenceEquals(x, ctx.ObjectInstance));
 

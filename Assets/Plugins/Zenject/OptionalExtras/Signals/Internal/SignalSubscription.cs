@@ -3,44 +3,46 @@ using ModestTree;
 
 namespace Zenject
 {
-    public class SignalSubscription : IDisposable
+    public class SignalSubscription : IDisposable, IPoolable<Action<object>, SignalDeclaration>
     {
-        public static readonly StaticMemoryPool<Action<object>, SignalDeclaration, SignalSubscription> Pool =
-            new StaticMemoryPool<Action<object>, SignalDeclaration, SignalSubscription>(OnSpawned, OnDespawned);
+        readonly Pool _pool;
 
         Action<object> _callback;
         SignalDeclaration _declaration;
         Type _signalType;
 
-        public SignalSubscription()
+        public SignalSubscription(Pool pool)
         {
+            _pool = pool;
+
             SetDefaults();
-        }
-
-        static void OnDespawned(SignalSubscription that)
-        {
-            if (that._declaration != null)
-            {
-                that._declaration.Remove(that);
-            }
-
-            that.SetDefaults();
-        }
-
-        static void OnSpawned(Action<object> callback, SignalDeclaration declaration, SignalSubscription that)
-        {
-            Assert.IsNull(that._callback);
-            that._callback = callback;
-            that._declaration = declaration;
-            // Cache this in case OnDeclarationDespawned is called
-            that._signalType = declaration.SignalType;
-
-            declaration.Add(that);
         }
 
         public Type SignalType
         {
             get { return _signalType; }
+        }
+
+        public void OnSpawned(
+            Action<object> callback, SignalDeclaration declaration)
+        {
+            Assert.IsNull(_callback);
+            _callback = callback;
+            _declaration = declaration;
+            // Cache this in case OnDeclarationDespawned is called
+            _signalType = declaration.SignalType;
+
+            declaration.Add(this);
+        }
+
+        public void OnDespawned()
+        {
+            if (_declaration != null)
+            {
+                _declaration.Remove(this);
+            }
+
+            SetDefaults();
         }
 
         void SetDefaults()
@@ -52,7 +54,7 @@ namespace Zenject
 
         public void Dispose()
         {
-            Pool.Despawn(this);
+            _pool.Despawn(this);
         }
 
         // See comment in SignalDeclaration for why this exists
@@ -61,9 +63,13 @@ namespace Zenject
             _declaration = null;
         }
 
-        public void Invoke(ISignal signal)
+        public void Invoke(object signal)
         {
             _callback(signal);
+        }
+
+        public class Pool : PoolableMemoryPool<Action<object>, SignalDeclaration, SignalSubscription>
+        {
         }
     }
 }

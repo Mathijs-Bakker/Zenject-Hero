@@ -17,6 +17,16 @@ namespace Zenject
             _method = method;
         }
 
+        public bool IsCached
+        {
+            get { return false; }
+        }
+
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
+        }
+
         public Type GetInstanceType(InjectContext context)
         {
             return context.MemberType;
@@ -39,10 +49,8 @@ namespace Zenject
 
                 if (result == null)
                 {
-#if !UNITY_WSA
-                    Assert.That(context.MemberType.IsPrimitive,
+                    Assert.That(!context.MemberType.IsPrimitive(),
                         "Invalid value returned from FromMethod.  Expected non-null.");
-#endif
                 }
                 else
                 {

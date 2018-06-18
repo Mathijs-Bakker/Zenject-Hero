@@ -8,16 +8,28 @@ using UnityEngine;
 
 namespace Zenject
 {
-    public class FactoryFromBinderBase : FactoryArgumentsBinder
+    public class FactoryFromBinderBase : ArgConditionCopyNonLazyBinder
     {
         public FactoryFromBinderBase(
             DiContainer bindContainer, Type contractType, BindInfo bindInfo, FactoryBindInfo factoryBindInfo)
-            : base(bindContainer, bindInfo, factoryBindInfo)
+            : base(bindInfo)
         {
+            FactoryBindInfo = factoryBindInfo;
+            BindContainer = bindContainer;
             ContractType = contractType;
             factoryBindInfo.ProviderFunc =
                 (container) => new TransientProvider(
                     ContractType, container, BindInfo.Arguments, BindInfo.ContextInfo, BindInfo.ConcreteIdentifier);
+        }
+
+        protected DiContainer BindContainer
+        {
+            get; private set;
+        }
+
+        protected FactoryBindInfo FactoryBindInfo
+        {
+            get; private set;
         }
 
         protected Func<DiContainer, IProvider> ProviderFunc
@@ -84,15 +96,42 @@ namespace Zenject
             // conflict with anything else
             factoryId = Guid.NewGuid();
 
-            return BindContainer.Bind<T>(
-                new BindInfo(),
-                // Very important here that we call StartBinding with false otherwise our placeholder
-                // factory binding will be finalized early
-                BindContainer.StartBinding(null, false))
-                .WithId(factoryId);
+            // Very important here that we use NoFlush otherwise the main binding will be finalized early
+            return BindContainer.BindNoFlush<T>().WithId(factoryId);
         }
 
 #if !NOT_UNITY3D
+
+        public ConditionCopyNonLazyBinder FromComponentOn(GameObject gameObject)
+        {
+            BindingUtil.AssertIsValidGameObject(gameObject);
+            BindingUtil.AssertIsComponent(ContractType);
+            BindingUtil.AssertIsNotAbstract(ContractType);
+
+            ProviderFunc =
+                (container) => new GetFromGameObjectComponentProvider(
+                    ContractType, gameObject, true);
+
+            return this;
+        }
+
+        public ConditionCopyNonLazyBinder FromComponentOn(Func<InjectContext, GameObject> gameObjectGetter)
+        {
+            BindingUtil.AssertIsComponent(ContractType);
+            BindingUtil.AssertIsNotAbstract(ContractType);
+
+            ProviderFunc =
+                (container) => new GetFromGameObjectGetterComponentProvider(
+                    ContractType, gameObjectGetter, true);
+
+            return this;
+        }
+
+        public ConditionCopyNonLazyBinder FromComponentOnRoot()
+        {
+            return FromComponentOn(
+                ctx => BindContainer.Resolve<Context>().gameObject);
+        }
 
         public ConditionCopyNonLazyBinder FromNewComponentOn(GameObject gameObject)
         {
@@ -167,7 +206,7 @@ namespace Zenject
                     ContractType,
                     new PrefabInstantiator(
                         container, gameObjectInfo,
-                        ContractType, new List<TypeValuePair>(), new PrefabProvider(prefab)));
+                        ContractType, new List<TypeValuePair>(), new PrefabProvider(prefab)), true);
 
             return new NameTransformConditionCopyNonLazyBinder(BindInfo, gameObjectInfo);
         }
@@ -184,7 +223,7 @@ namespace Zenject
                     ContractType,
                     new PrefabInstantiator(
                         container, gameObjectInfo,
-                        ContractType, new List<TypeValuePair>(), new PrefabProviderResource(resourcePath)));
+                        ContractType, new List<TypeValuePair>(), new PrefabProviderResource(resourcePath)), true);
 
             return new NameTransformConditionCopyNonLazyBinder(BindInfo, gameObjectInfo);
         }
@@ -236,7 +275,7 @@ namespace Zenject
             BindingUtil.AssertDerivesFromUnityObject(ContractType);
 
             ProviderFunc =
-                (container) => new ResourceProvider(resourcePath, ContractType);
+                (container) => new ResourceProvider(resourcePath, ContractType, true);
 
             return this;
         }

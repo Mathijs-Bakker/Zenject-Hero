@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using ModestTree;
 using Zenject;
 
-namespace ModestTree
+namespace Zenject
 {
     public class HashSetPool<T> : StaticMemoryPool<HashSet<T>>
     {
@@ -30,4 +31,3 @@ namespace ModestTree
         }
     }
 }
-

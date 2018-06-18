@@ -13,6 +13,11 @@ namespace Zenject
             FactoryId = factoryId;
         }
 
+        public bool IsCached
+        {
+            get { return false; }
+        }
+
         protected Guid FactoryId
         {
             get;
@@ -23,6 +28,11 @@ namespace Zenject
         {
             get;
             private set;
+        }
+
+        public bool TypeVariesBasedOnMemberType
+        {
+            get { return false; }
         }
 
         public Type GetInstanceType(InjectContext context)
@@ -279,6 +289,55 @@ namespace Zenject
                         (TParam3)args[2].Value,
                         (TParam4)args[3].Value,
                         (TParam5)args[4].Value)
+                };
+            }
+        }
+    }
+
+    // Six parameters
+
+    public class IFactoryProvider<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> : IFactoryProviderBase<TContract>
+    {
+        public IFactoryProvider(DiContainer container, Guid factoryId)
+            : base(container, factoryId)
+        {
+        }
+
+        public override List<object> GetAllInstancesWithInjectSplit(
+            InjectContext context, List<TypeValuePair> args, out Action injectAction)
+        {
+            Assert.IsEqual(args.Count, 5);
+            Assert.IsNotNull(context);
+
+            Assert.That(typeof(TContract).DerivesFromOrEqual(context.MemberType));
+            Assert.That(args[0].Type.DerivesFromOrEqual<TParam1>());
+            Assert.That(args[1].Type.DerivesFromOrEqual<TParam2>());
+            Assert.That(args[2].Type.DerivesFromOrEqual<TParam3>());
+            Assert.That(args[3].Type.DerivesFromOrEqual<TParam4>());
+            Assert.That(args[4].Type.DerivesFromOrEqual<TParam5>());
+            Assert.That(args[5].Type.DerivesFromOrEqual<TParam6>());
+
+            // Do this even when validating in case it has its own dependencies
+            var factory = Container.ResolveId(typeof(IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract>), FactoryId);
+
+            injectAction = null;
+            if (Container.IsValidating)
+            {
+                // We assume here that we are creating a user-defined factory so there's
+                // nothing else we can validate here
+                return new List<object>() { new ValidationMarker(typeof(TContract)) };
+            }
+            else
+            {
+                return new List<object>()
+                {
+                    ((IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract>)factory).Create(
+                        (TParam1)args[0].Value,
+                        (TParam2)args[1].Value,
+                        (TParam3)args[2].Value,
+                        (TParam4)args[3].Value,
+                        (TParam5)args[4].Value,
+                        (TParam6)args[5].Value)
                 };
             }
         }

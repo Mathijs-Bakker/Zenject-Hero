@@ -240,20 +240,20 @@ namespace Zenject.Internal
 
         public static string GetCurrentDirectoryAssetPathFromSelection()
         {
-            return ZenUnityEditorUtil.ConvertFullAbsolutePathToAssetPath(
+            return ConvertFullAbsolutePathToAssetPath(
                 GetCurrentDirectoryAbsolutePathFromSelection());
         }
 
         public static string GetCurrentDirectoryAbsolutePathFromSelection()
         {
-            var folderPath = ZenUnityEditorUtil.TryGetSelectedFolderPathInProjectsTab();
+            var folderPath = TryGetSelectedFolderPathInProjectsTab();
 
             if (folderPath != null)
             {
                 return folderPath;
             }
 
-            var filePath = ZenUnityEditorUtil.TryGetSelectedFilePathInProjectsTab();
+            var filePath = TryGetSelectedFilePathInProjectsTab();
 
             if (filePath != null)
             {

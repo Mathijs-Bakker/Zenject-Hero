@@ -1,8 +1,6 @@
-﻿using Zenject;
-
-namespace Code.FlipScreen
+﻿namespace Code.FlipScreen
 {
-    public class PlayerMovedOutOfScreenSignal : ISignal
+    public class PlayerMovedOutOfScreenSignal
     {
         public PlayerMovedOutOfScreenSignal(ScreenBorder borderPosition)
         {

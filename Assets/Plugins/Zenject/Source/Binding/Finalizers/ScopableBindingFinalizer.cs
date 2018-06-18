@@ -51,7 +51,7 @@ namespace Zenject
                         container,
                         concreteTypes,
                         (_, concreteType) =>
-                            new CachedProvider(
+                            BindingUtil.CreateCachedProvider(
                                 _providerFactory(container, concreteType)));
                     break;
                 }
@@ -78,7 +78,7 @@ namespace Zenject
                     RegisterProviderPerContract(
                         container,
                         (_, contractType) =>
-                            new CachedProvider(
+                            BindingUtil.CreateCachedProvider(
                                 _providerFactory(container, contractType)));
                     break;
                 }

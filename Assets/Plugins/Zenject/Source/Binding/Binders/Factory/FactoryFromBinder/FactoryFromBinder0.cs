@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if !NOT_UNITY3D
+using UnityEngine;
+#endif
 using ModestTree;
 
 namespace Zenject
@@ -72,24 +75,59 @@ namespace Zenject
                 BindContainer, BindInfo, FactoryBindInfo, subIdentifier);
         }
 
+        public ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContractAgain>(
+            Action<MemoryPoolInitialSizeMaxSizeBinder<TContractAgain>> poolBindGenerator)
+            // Unfortunately we have to pass the same contract in again to satisfy the generic
+            // constraints below
+            where TContractAgain : IPoolable<IMemoryPool>
+        {
+            return FromPoolableMemoryPool<TContractAgain, PoolableMemoryPool<IMemoryPool, TContractAgain>>(poolBindGenerator);
+        }
+
+        public ArgConditionCopyNonLazyBinder FromPoolableMemoryPool<TContractAgain, TMemoryPool>(
+            Action<MemoryPoolInitialSizeMaxSizeBinder<TContractAgain>> poolBindGenerator)
+            // Unfortunately we have to pass the same contract in again to satisfy the generic
+            // constraints below
+            where TContractAgain : IPoolable<IMemoryPool>
+            where TMemoryPool : MemoryPool<IMemoryPool, TContractAgain>
+        {
+            Assert.IsEqual(typeof(TContractAgain), typeof(TContract));
+
+            // Use a random ID so that our provider is the only one that can find it and so it doesn't
+            // conflict with anything else
+            var poolId = Guid.NewGuid();
+
+            // Important to use NoFlush otherwise the binding will be finalized early
+            var binder = BindContainer.BindMemoryPoolCustomInterfaceNoFlush<TContractAgain, TMemoryPool, TMemoryPool>().WithId(poolId);
+
+            // Always make it non lazy by default in case the user sets an InitialSize
+            binder.NonLazy();
+
+            poolBindGenerator(binder);
+
+            ProviderFunc =
+                (container) => { return new PoolableMemoryPoolProvider<TContractAgain, TMemoryPool>(container, poolId); };
+
+            return new ArgConditionCopyNonLazyBinder(BindInfo);
+        }
+
 #if !NOT_UNITY3D
 
-        public ConditionCopyNonLazyBinder FromComponentInHierarchy()
+        public ConditionCopyNonLazyBinder FromComponentInHierarchy(
+            bool includeInactive = true)
         {
             BindingUtil.AssertIsInterfaceOrComponent(ContractType);
 
-            return FromMethod((container) =>
+            return FromMethod(_ =>
                 {
-                    var matches = container.Resolve<Context>().GetRootGameObjects()
-                        .SelectMany(x => x.GetComponentsInChildren<TContract>()).ToList();
+                    var res = BindContainer.Resolve<Context>().GetRootGameObjects()
+                        .Select(x => x.GetComponentInChildren<TContract>(includeInactive))
+                        .Where(x => x != null).FirstOrDefault();
 
-                    Assert.That(!matches.IsEmpty(),
-                        "Found zero matches when looking up type '{0}' using FromComponentInHierarchy for factory", ContractType);
+                    Assert.IsNotNull(res,
+                        "Could not find component '{0}' through FromComponentInHierarchy factory binding", typeof(TContract));
 
-                    Assert.That(matches.Count() == 1,
-                        "Found multiple matches when looking up type '{0}' using FromComponentInHierarchy for factory.  Only expected to find one!", ContractType);
-
-                    return matches.Single();
+                    return res;
                 });
         }
 #endif

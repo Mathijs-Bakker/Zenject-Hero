@@ -366,5 +366,15 @@ namespace Zenject
                     "Invalid type given during bind command.  Expected type '{0}' to derive from type '{1}'", instance.GetType(), baseType.PrettyName());
             }
         }
+
+        public static IProvider CreateCachedProvider(IProvider creator)
+        {
+            if (creator.TypeVariesBasedOnMemberType)
+            {
+                return new CachedOpenTypeProvider(creator);
+            }
+
+            return new CachedProvider(creator);
+        }
     }
 }

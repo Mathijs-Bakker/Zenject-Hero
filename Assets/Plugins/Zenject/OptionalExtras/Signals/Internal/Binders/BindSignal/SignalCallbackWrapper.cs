@@ -4,7 +4,6 @@ using ModestTree;
 namespace Zenject
 {
     public class SignalCallbackWrapper<TSignal> : IDisposable
-        where TSignal : ISignal
     {
         readonly SignalBus _signalBus;
         readonly Action<TSignal> _action;

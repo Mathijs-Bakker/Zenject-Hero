@@ -4,56 +4,6 @@ using ModestTree;
 
 namespace Zenject
 {
-    public interface IPoolableCommon
-    {
-        void OnDespawned();
-    }
-
-    public interface IPoolable : IPoolableCommon
-    {
-        void OnSpawned();
-    }
-
-    public interface IPoolable<TParam1> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1);
-    }
-
-    public interface IPoolable<TParam1, TParam2> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3, TParam4> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7);
-    }
-
-    public interface IPoolable<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8> : IPoolableCommon
-    {
-        void OnSpawned(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7, TParam8 p8);
-    }
-
     // Zero parameters
     public class PoolableMemoryPool<TValue>
         : MemoryPool<TValue>

@@ -205,9 +205,9 @@ namespace Zenject
                     continue;
                 }
 
-                if (binding.Context == null)
+                if (binding.Context == null || (binding.UseSceneContext && this is SceneContext))
                 {
-                    InstallZenjectBinding(binding);
+                    binding.Context = this;
                 }
             }
 
@@ -221,6 +221,17 @@ namespace Zenject
                 if (binding == null)
                 {
                     continue;
+                }
+
+                // This is necessary for cases where the ZenjectBinding is inside a GameObjectContext
+                // since it won't be caught in the other loop above
+                if (this is SceneContext)
+                {
+                    if (binding.Context == null && binding.UseSceneContext
+                        && binding.gameObject.scene == this.gameObject.scene)
+                    {
+                        binding.Context = this;
+                    }
                 }
 
                 if (binding.Context == this)

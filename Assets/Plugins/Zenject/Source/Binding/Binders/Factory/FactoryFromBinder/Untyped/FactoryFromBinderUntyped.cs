@@ -9,5 +9,7 @@ namespace Zenject
             : base(bindContainer, contractType, bindInfo, factoryBindInfo)
         {
         }
+
+        // TODO - add similar methods found in FactoryFromBinder<>
     }
 }

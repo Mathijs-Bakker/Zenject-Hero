@@ -56,13 +56,6 @@ namespace Zenject
                 return true;
             }
 
-#if NET_4_6
-            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Lazy<>))
-            {
-                return true;
-            }
-#endif
-
 #if !NOT_UNITY3D
             if (type.DerivesFrom<Context>())
             {
@@ -76,7 +69,7 @@ namespace Zenject
 
         public static ZenjectTypeInfo GetInfo(Type type)
         {
-#if UNITY_EDITOR && ZEN_PROFILING_ENABLED
+#if UNITY_EDITOR
             using (ProfileBlock.Start("Zenject Reflection"))
 #endif
             {

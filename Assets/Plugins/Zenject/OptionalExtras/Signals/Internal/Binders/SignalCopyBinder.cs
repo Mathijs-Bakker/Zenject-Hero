@@ -5,11 +5,26 @@ namespace Zenject
 {
     public class SignalCopyBinder
     {
-        readonly BindInfo[] _bindInfos;
+        readonly List<BindInfo> _bindInfos;
 
-        public SignalCopyBinder(params BindInfo[] bindInfos)
+        public SignalCopyBinder()
         {
-            _bindInfos = bindInfos;
+            _bindInfos = new List<BindInfo>();
+        }
+
+        public SignalCopyBinder(BindInfo bindInfo)
+        {
+            _bindInfos = new List<BindInfo>()
+            {
+                bindInfo
+            };
+        }
+
+        // This is used in cases where you have multiple bindings that depend on each other so should
+        // be inherited together
+        public void AddCopyBindInfo(BindInfo bindInfo)
+        {
+            _bindInfos.Add(bindInfo);
         }
 
         public void CopyIntoAllSubContainers()
@@ -37,7 +52,7 @@ namespace Zenject
 
         void SetInheritanceMethod(BindingInheritanceMethods method)
         {
-            for (int i = 0; i < _bindInfos.Length; i++)
+            for (int i = 0; i < _bindInfos.Count; i++)
             {
                 _bindInfos[i].BindingInheritanceMethod = method;
             }
