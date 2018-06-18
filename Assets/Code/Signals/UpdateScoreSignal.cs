@@ -1,8 +1,6 @@
-﻿using Zenject;
-
-namespace Code
+﻿namespace Code
 {
-    public class UpdateScoreSignal : ISignal
+    public class UpdateScoreSignal
     {
         public UpdateScoreSignal(int scorePoints)
         {
