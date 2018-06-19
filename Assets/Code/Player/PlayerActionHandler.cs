@@ -5,20 +5,23 @@ namespace Code
 {
     public class PlayerActionHandler : ITickable
     {
+        private readonly PlayerModel _playerModel;
         private readonly Dynamite.Pool _dynamitePool;
+        private readonly DynamiteCounter _dynamiteCounter;
         private readonly PlayerInputState _inputState;
         private readonly Laser _laser;
-        private readonly PlayerModel _playerModel;
 
         public PlayerActionHandler(
             PlayerModel playerModel,
             PlayerInputState playerInputState,
             Dynamite.Pool dynamitePool,
+            DynamiteCounter dynamiteCounter,
             Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;
             _dynamitePool = dynamitePool;
+            _dynamiteCounter = dynamiteCounter;
             _laser = laser;
         }
 
@@ -37,8 +40,10 @@ namespace Code
 
         private void PlaceDynamite()
         {
+            if (_dynamiteCounter.DynamitesLeft <= 0) return;
             var dynamite = _dynamitePool.Spawn();
             dynamite.transform.position = _playerModel.Position;
+            _dynamiteCounter.SubtractDynamite();
         }
     }
 }

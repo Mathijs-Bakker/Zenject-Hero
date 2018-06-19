@@ -8,8 +8,7 @@ namespace Code
     {
         private const float Seconds = 1f;
 
-        private readonly List<GameObject> _overlappedColliders =
-            new List<GameObject>();
+        private readonly List<GameObject> _overlappedColliders = new List<GameObject>();
 
         [Inject] private Pool _dynamitePool;
 

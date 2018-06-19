@@ -2,26 +2,34 @@
 
 namespace Code
 {
-	public class LevelManager : ITickable
+	public class LevelManager : ITickable, IInitializable
 	{
+		private readonly PlayerFacade _playerFacade;
 		private readonly PowerBarFacade _powerBar;
-		private readonly PlayerFacade _player;
+		private readonly DynamiteCounter _dynamiteCounter;
 
 		public LevelManager(
-			PowerBarFacade powerBarFacade, 
-			PlayerFacade playerFacade)
+			PlayerFacade playerFacade,
+			PowerBarFacade powerBarFacade,
+			DynamiteCounter dynamiteCounter
+			)
 		{
+			_playerFacade = playerFacade;
 			_powerBar = powerBarFacade;
-			_player = playerFacade;
+			_dynamiteCounter = dynamiteCounter;
+		}
+		
+		public void Initialize()
+		{
+			_dynamiteCounter.ResetDynamiteCounter();
 		}
 
 		public void Tick()
 		{
-			if (_player.HasMoved)
+			if (_playerFacade.HasMoved)
 			{
 				_powerBar.StartCountDown();
 			}
 		}
-
 	}
 }
