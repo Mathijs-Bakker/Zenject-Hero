@@ -53,7 +53,7 @@ Points are scored for each cave-in cleared and each creature destroyed. When the
 
 ## Authors
 
-* **Mathijs Bakker** - *Develoment* - | [LinkedIn](https://www.linkedin.com/in/mathijs-bakker-a56a453) | [GitHub](https://github.com/Mathijs-Bakker) |
+* **Mathijs Bakker** - *Development* - | [LinkedIn](https://www.linkedin.com/in/mathijs-bakker-a56a453) | [GitHub](https://github.com/Mathijs-Bakker) |
 
 ## License
 
@@ -62,3 +62,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Acknowledgments
 
 * Hat tip to the creator of Zenject - [GitHub](https://github.com/modesttree/Zenject)
+* Infallible Code for introducing the World (and me) to DI within Unity3D - [Infallible Code] (http://infalliblecode.com) 
+  And if you made it here reading than you should say 'Hi!' @ the [Discord Server] (https://discordapp.com/invite/NjjQ3BU)
