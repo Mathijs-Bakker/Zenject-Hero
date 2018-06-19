@@ -15,10 +15,7 @@ namespace Code
                 .WithArguments(
                     _settings.Rigidbody2D,
                     _settings.SpriteRenderer,
-                    _settings.Animator,
-                    _settings.Collider2D);
-
-//            Container.Bind<PlayerFacade>().AsSingle();
+                    _settings.Animator);
 
             Container.Bind<PlayerDeathHandler>().AsSingle();
             Container.Bind<PlayerInputState>().AsSingle();
@@ -37,7 +34,6 @@ namespace Code
     public class Settings
     {
         public Animator Animator;
-        public Collider2D Collider2D;
         public Rigidbody2D Rigidbody2D;
         public SpriteRenderer SpriteRenderer;
     }

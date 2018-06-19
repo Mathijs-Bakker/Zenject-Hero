@@ -4,19 +4,16 @@ namespace Code
 {
     public class PlayerModel
     {
-        private readonly Collider2D _collider;
         private readonly Rigidbody2D _rigidBody;
         private readonly SpriteRenderer _spriteRenderer;
         public readonly Animator Animator;
 
         public PlayerModel(
             Rigidbody2D rigidbody2D,
-            Collider2D collider2D,
             SpriteRenderer spriteRenderer,
             Animator animator)
         {
             _rigidBody = rigidbody2D;
-            _collider = collider2D;
             _spriteRenderer = spriteRenderer;
             Animator = animator;
         }

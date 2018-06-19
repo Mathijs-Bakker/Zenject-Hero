@@ -200,7 +200,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     Animator: {fileID: 95150612578517434}
-    Collider2D: {fileID: 70102433809395720}
     Rigidbody2D: {fileID: 50947965840212592}
     SpriteRenderer: {fileID: 212404833970098168}
 --- !u!114 &114531228100864826
