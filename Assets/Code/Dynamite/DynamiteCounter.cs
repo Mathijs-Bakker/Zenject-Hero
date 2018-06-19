@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Code
+﻿namespace Code
 {
     public class DynamiteCounter
     {
@@ -11,16 +9,12 @@ namespace Code
         public void ResetDynamiteCounter()
         {
             DynamitesLeft = MaxDynamites;
-            Debug.Log("ResetDynamiteCounter");
         }
         
         public void SubtractDynamite()
         {
             if (DynamitesLeft <=0) return;
             DynamitesLeft -= 1;
-            Debug.Log("::: SubtractDynamite :::\n" +
-                      "Dynamites Left: " + DynamitesLeft);
-            
         }
     }
 }
