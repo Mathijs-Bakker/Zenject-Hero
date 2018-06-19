@@ -6,15 +6,12 @@ namespace Code
 {
     public class RestorePowerBar : ITickable
     {
-        private readonly AudioSource _restorePowerAS;
         private readonly Slider _slider;
 
         private RestorePowerBar(
-            Slider slider,
-            AudioSource restorePowerAS)
+            Slider slider)
         {
             _slider = slider;
-            _restorePowerAS = restorePowerAS;
         }
 
         public bool HasCompleted { get; set; }
@@ -28,8 +25,6 @@ namespace Code
         {
             const float fillSpeed = 0.3f;
             _slider.value += Time.deltaTime * fillSpeed;
-
-            // Todo: Audio: Charging sound (Pitch going higher)
 
             if (_slider.value >= 1) HasCompleted = true;
         }
