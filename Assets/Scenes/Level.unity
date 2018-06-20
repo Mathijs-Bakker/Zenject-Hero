@@ -5591,7 +5591,6 @@ GameObject:
   - component: {fileID: 855423466}
   - component: {fileID: 855423467}
   - component: {fileID: 855423468}
-  - component: {fileID: 855423462}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -5599,19 +5598,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &855423462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 855423461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5f8d9be66ac4362a7fa0e4a20656384, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UIDynamitePrefab: {fileID: 1348276512789066, guid: 041098c36d8514f4c8198db5bffd1913,
-    type: 2}
 --- !u!114 &855423463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5629,7 +5615,6 @@ MonoBehaviour:
   - {fileID: 1576308855}
   - {fileID: 855423467}
   - {fileID: 855423468}
-  - {fileID: 855423462}
   _installerPrefabs: []
   _scriptableObjectInstallers: []
   _autoRun: 1
@@ -10905,6 +10890,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1765501280}
+  - component: {fileID: 1765501282}
+  - component: {fileID: 1765501281}
   m_Layer: 5
   m_Name: Dynamite HUD
   m_TagString: Untagged
@@ -10930,6 +10917,36 @@ RectTransform:
   m_AnchoredPosition: {x: 100, y: 10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1765501281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765501279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5f8d9be66ac4362a7fa0e4a20656384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIDynamitePrefab: {fileID: 1348276512789066, guid: 041098c36d8514f4c8198db5bffd1913,
+    type: 2}
+--- !u!114 &1765501282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765501279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _installers:
+  - {fileID: 1765501281}
+  _installerPrefabs: []
+  _scriptableObjectInstallers: []
+  _autoRun: 1
+  _kernel: {fileID: 0}
 --- !u!1001 &1774427894
 Prefab:
   m_ObjectHideFlags: 0
