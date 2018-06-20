@@ -11,7 +11,8 @@ namespace Code
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<UIDynamiteManager>().AsSingle();
-            Container.BindFactory<UIDynamite, UIDynamite.Factory>()
+            Container.BindMemoryPool<UIDynamite, UIDynamite.Pool>()
+                .WithInitialSize(6)
                 .FromComponentInNewPrefab(UIDynamitePrefab)
                 .UnderTransform(transform);
         }
