@@ -7,16 +7,13 @@ namespace Code
     public class UIDynamiteManager : IInitializable, ITickable
     {
         private readonly DynamiteCounter _dynamiteCounter;
-        private readonly DynamiteCounter.Settings _dynamiteCounterSettings;
         private readonly UIDynamite.Pool _uiDynamitePool;
 
         public UIDynamiteManager(
             DynamiteCounter dynamiteCounter,
-            DynamiteCounter.Settings dynamiteCounterSettings,
             UIDynamite.Pool uiDynamitePool)
         {
             _dynamiteCounter = dynamiteCounter;
-            _dynamiteCounterSettings = dynamiteCounterSettings;
             _uiDynamitePool = uiDynamitePool;
         }
 
