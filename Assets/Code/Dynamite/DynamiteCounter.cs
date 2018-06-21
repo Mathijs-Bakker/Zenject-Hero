@@ -1,20 +1,33 @@
-﻿namespace Code
+﻿using System;
+
+namespace Code
 {
     public class DynamiteCounter
     {
-        private const int MaxDynamites = 6;
+        private Settings _settings;
 
+        public DynamiteCounter(Settings settings)
+        {
+            _settings = settings;
+        }
+        
         public int DynamitesLeft { get; private set; }
         
         public void ResetDynamiteCounter()
         {
-            DynamitesLeft = MaxDynamites;
+            DynamitesLeft = _settings.TotalNumDynamites;
         }
         
         public void SubtractDynamite()
         {
             if (DynamitesLeft <=0) return;
             DynamitesLeft -= 1;
+        }
+        
+        [Serializable]
+        public class Settings
+        {
+            public int TotalNumDynamites;
         }
     }
 }

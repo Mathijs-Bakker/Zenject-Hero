@@ -10892,6 +10892,7 @@ GameObject:
   - component: {fileID: 1765501280}
   - component: {fileID: 1765501282}
   - component: {fileID: 1765501281}
+  - component: {fileID: 1765501283}
   m_Layer: 5
   m_Name: Dynamite
   m_TagString: Untagged
@@ -10914,8 +10915,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 100, y: 10}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 166.25, y: 10}
+  m_SizeDelta: {x: 232.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1765501281
 MonoBehaviour:
@@ -10947,6 +10948,28 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &1765501283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1765501279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 3
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
 --- !u!1001 &1774427894
 Prefab:
   m_ObjectHideFlags: 0

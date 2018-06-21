@@ -5,7 +5,7 @@ namespace Code
 {
     public class UIDynamite : MonoBehaviour 
     {
-        public class Pool : MemoryPool<UIDynamite>
+        public class Pool : MonoMemoryPool<UIDynamite>
         {
         }
     }

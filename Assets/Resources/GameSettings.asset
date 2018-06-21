@@ -18,9 +18,14 @@ MonoBehaviour:
       type: 2}
     DynamitePrefab: {fileID: 1526319152292066, guid: b526c8ba28a654c6895cf42ee0b887f3,
       type: 2}
+    UIDynamitePrefab: {fileID: 1348276512789066, guid: 041098c36d8514f4c8198db5bffd1913,
+      type: 2}
   Player:
     Movement:
       MoveSpeed: 20
+  Dynamite:
+    MaximumDynamites:
+      MaxDynamites: 4
   Laser:
     Damage:
       Damage: 1
