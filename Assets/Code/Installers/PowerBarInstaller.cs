@@ -18,14 +18,12 @@ namespace Code
             Container.BindInterfacesAndSelfTo<RestorePowerBar>()
                 .AsSingle()
                 .WithArguments(
-                    _settings.Slider,
-                    _settings.RestorePowerAS);
+                    _settings.Slider);
         }
 
         [Serializable]
         public class Settings
         {
-            public AudioSource RestorePowerAS;
             public Slider Slider;
         }
     }
