@@ -21,6 +21,9 @@ MonoBehaviour:
   Player:
     Movement:
       MoveSpeed: 20
+  Dynamite:
+    TotalNumDynamites:
+      TotalNumDynamites: 6
   Laser:
     Damage:
       Damage: 1

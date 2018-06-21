@@ -9,6 +9,7 @@ namespace Code
     {
         public GameInstaller.Settings GameInstaller;
         public PlayerSettings Player;
+        public DynamiteSettings Dynamite;
         public LaserSettings Laser;
         public GameStateSettings GameState;
 
@@ -17,6 +18,13 @@ namespace Code
         public class PlayerSettings
         {
             public PlayerMovementHandler.Settings Movement;
+        }
+
+        [Serializable]
+        public class DynamiteSettings
+        {
+            [Header("Restart game to take effect:")]
+            public DynamiteCounter.Settings TotalNumDynamites;
         }
 
         [Serializable]
@@ -34,6 +42,7 @@ namespace Code
         {
             Container.BindInstance(GameInstaller).IfNotBound();
             Container.BindInstance(Player.Movement);
+            Container.BindInstance(Dynamite.TotalNumDynamites);
             Container.BindInstance(Laser.Damage);
         }
     }
