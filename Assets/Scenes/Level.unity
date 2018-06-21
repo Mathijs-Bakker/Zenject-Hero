@@ -9958,7 +9958,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _settings:
-    RestorePowerAS: {fileID: 1304672668}
     Slider: {fileID: 453862143}
 --- !u!4 &1578446176 stripped
 Transform:
@@ -10894,7 +10893,7 @@ GameObject:
   - component: {fileID: 1765501281}
   - component: {fileID: 1765501283}
   m_Layer: 5
-  m_Name: Dynamite
+  m_Name: Dynamites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

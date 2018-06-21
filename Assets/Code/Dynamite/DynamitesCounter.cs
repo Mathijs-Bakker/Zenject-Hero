@@ -2,11 +2,11 @@
 
 namespace Code
 {
-    public class DynamiteCounter
+    public class DynamitesCounter
     {
         private Settings _settings;
 
-        public DynamiteCounter(Settings settings)
+        public DynamitesCounter(Settings settings)
         {
             _settings = settings;
         }

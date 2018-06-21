@@ -8,11 +8,11 @@ namespace Code
         [SerializeField]
         private GameObject UIDynamitePrefab;
 
-        [Inject] private DynamiteCounter.Settings _dynamiteCounterSettings;
+        [Inject] private DynamitesCounter.Settings _dynamiteCounterSettings;
         
         public override void InstallBindings()
         {
-            Container.BindInterfacesTo<UIDynamiteManager>().AsSingle();
+            Container.BindInterfacesTo<UIDynamitesManager>().AsSingle();
 
             Container.BindMemoryPool<UIDynamite, UIDynamite.Pool>()
                 .WithInitialSize(_dynamiteCounterSettings.TotalNumDynamites)

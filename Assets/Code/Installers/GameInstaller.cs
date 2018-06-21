@@ -43,7 +43,7 @@ namespace Code
                 .FromComponentInNewPrefab(_settings.DynamitePrefab)
                 .UnderTransformGroup("Dynamite");
 
-            Container.Bind<DynamiteCounter>().AsSingle();
+            Container.Bind<DynamitesCounter>().AsSingle();
         }
 
         private void InstallGameManager()

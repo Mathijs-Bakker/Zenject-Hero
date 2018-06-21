@@ -4,16 +4,16 @@ using Zenject;
 
 namespace Code
 {
-    public class UIDynamiteManager : IInitializable, ITickable
+    public class UIDynamitesManager : IInitializable, ITickable
     {
-        private readonly DynamiteCounter _dynamiteCounter;
+        private readonly DynamitesCounter _dynamitesCounter;
         private readonly UIDynamite.Pool _uiDynamitePool;
 
-        public UIDynamiteManager(
-            DynamiteCounter dynamiteCounter,
+        public UIDynamitesManager(
+            DynamitesCounter dynamitesCounter,
             UIDynamite.Pool uiDynamitePool)
         {
-            _dynamiteCounter = dynamiteCounter;
+            _dynamitesCounter = dynamitesCounter;
             _uiDynamitePool = uiDynamitePool;
         }
 
@@ -22,20 +22,20 @@ namespace Code
         
         public void Initialize()
         {
-            _activeDynamites = _dynamiteCounter.DynamitesLeft;
+            _activeDynamites = _dynamitesCounter.DynamitesLeft;
             SpawnDynamites();
         }
 
         public void Tick()
         {
-            if (_activeDynamites == _dynamiteCounter.DynamitesLeft) return;
+            if (_activeDynamites == _dynamitesCounter.DynamitesLeft) return;
             
             DespawnDynamites();
                 
             _activeDynamites -= 1;
             SpawnDynamites();
                 
-            _activeDynamites = _dynamiteCounter.DynamitesLeft;
+            _activeDynamites = _dynamitesCounter.DynamitesLeft;
         }
 
         private void DespawnDynamites()

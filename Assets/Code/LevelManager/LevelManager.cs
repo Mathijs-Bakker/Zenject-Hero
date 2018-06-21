@@ -6,22 +6,22 @@ namespace Code
 	{
 		private readonly PlayerFacade _playerFacade;
 		private readonly PowerBarFacade _powerBar;
-		private readonly DynamiteCounter _dynamiteCounter;
+		private readonly DynamitesCounter _dynamitesCounter;
 
 		public LevelManager(
 			PlayerFacade playerFacade,
 			PowerBarFacade powerBarFacade,
-			DynamiteCounter dynamiteCounter
+			DynamitesCounter dynamitesCounter
 			)
 		{
 			_playerFacade = playerFacade;
 			_powerBar = powerBarFacade;
-			_dynamiteCounter = dynamiteCounter;
+			_dynamitesCounter = dynamitesCounter;
 		}
 		
 		public void Initialize()
 		{
-			_dynamiteCounter.ResetDynamiteCounter();
+			_dynamitesCounter.ResetDynamiteCounter();
 		}
 
 		public void Tick()

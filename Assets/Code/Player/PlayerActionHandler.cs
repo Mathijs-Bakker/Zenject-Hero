@@ -7,7 +7,7 @@ namespace Code
     {
         private readonly PlayerModel _playerModel;
         private readonly Dynamite.Pool _dynamitePool;
-        private readonly DynamiteCounter _dynamiteCounter;
+        private readonly DynamitesCounter _dynamitesCounter;
         private readonly PlayerInputState _inputState;
         private readonly Laser _laser;
 
@@ -15,13 +15,13 @@ namespace Code
             PlayerModel playerModel,
             PlayerInputState playerInputState,
             Dynamite.Pool dynamitePool,
-            DynamiteCounter dynamiteCounter,
+            DynamitesCounter dynamitesCounter,
             Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;
             _dynamitePool = dynamitePool;
-            _dynamiteCounter = dynamiteCounter;
+            _dynamitesCounter = dynamitesCounter;
             _laser = laser;
         }
 
@@ -40,10 +40,10 @@ namespace Code
 
         private void PlaceDynamite()
         {
-            if (_dynamiteCounter.DynamitesLeft <= 0) return;
+            if (_dynamitesCounter.DynamitesLeft <= 0) return;
             var dynamite = _dynamitePool.Spawn();
             dynamite.transform.position = _playerModel.Position;
-            _dynamiteCounter.SubtractDynamite();
+            _dynamitesCounter.SubtractDynamite();
         }
     }
 }

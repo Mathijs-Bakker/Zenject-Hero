@@ -24,7 +24,7 @@ namespace Code
         public class DynamiteSettings
         {
             [Header("Restart game to take effect:")]
-            public DynamiteCounter.Settings TotalNumDynamites;
+            public DynamitesCounter.Settings TotalNumDynamites;
         }
 
         [Serializable]
@@ -42,6 +42,7 @@ namespace Code
         {
             Container.BindInstance(GameInstaller).IfNotBound();
             Container.BindInstance(Player.Movement);
+//            Container.BindInstance(LivesCounter.L)
             Container.BindInstance(Dynamite.TotalNumDynamites);
             Container.BindInstance(Laser.Damage);
         }
