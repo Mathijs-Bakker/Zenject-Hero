@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Code
 {
@@ -27,6 +28,7 @@ namespace Code
         [Serializable]
         public class Settings
         {
+            [Header("Value change does not take effect in runtime")]
             public int TotalNumDynamites;
         }
     }
