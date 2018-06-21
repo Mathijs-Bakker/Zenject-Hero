@@ -13,6 +13,7 @@ namespace Code
             SignalBusInstaller.Install(Container);
 
             InstallPlayer();
+            InstallLives();
             InstallLaser();
             InstallDynamitePool();
             
@@ -25,6 +26,11 @@ namespace Code
                 .FromComponentInNewPrefab(_settings.PlayerPrefab)
                 .UnderTransformGroup("Player")
                 .AsSingle();
+        }
+
+        private void InstallLives()
+        {
+            Container.Bind<LivesCounter>().AsSingle();
         }
 
         private void InstallLaser()

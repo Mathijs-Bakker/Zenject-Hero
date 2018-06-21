@@ -21,6 +21,9 @@ MonoBehaviour:
   Player:
     Movement:
       MoveSpeed: 20
+  Lives:
+    TotalNumLives:
+      TotalNumLives: 3
   Dynamite:
     TotalNumDynamites:
       TotalNumDynamites: 6

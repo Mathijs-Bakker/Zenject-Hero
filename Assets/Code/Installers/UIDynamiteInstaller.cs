@@ -18,6 +18,8 @@ namespace Code
                 .WithInitialSize(_dynamiteCounterSettings.TotalNumDynamites)
                 .FromComponentInNewPrefab(UIDynamitePrefab)
                 .UnderTransform(transform);
+            
+            
         }
     }
 }
