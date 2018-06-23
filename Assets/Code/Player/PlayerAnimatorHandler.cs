@@ -4,9 +4,11 @@
     {
         public enum AnimationState
         {
+            Spawn,
             Idle,
             Fly,
-            Run
+            Run,
+            Die
         }
 
         private readonly PlayerModel _playerModel;
@@ -22,6 +24,10 @@
             ResetAnimationStates();
             switch (state)
             {
+                case AnimationState.Spawn:
+                    _playerModel.Animator.SetBool("IsSpawning", true);
+                    break;
+                
                 case AnimationState.Idle:
                     _playerModel.Animator.SetBool("IsIdle", true);
                     break;
@@ -33,14 +39,20 @@
                 case AnimationState.Run:
                     _playerModel.Animator.SetBool("IsRunning", true);
                     break;
+                
+                case AnimationState.Die:
+                    _playerModel.Animator.SetBool("IsDead", true);
+                    break;
             }
         }
 
         private void ResetAnimationStates()
         {
+            _playerModel.Animator.SetBool("IsSpawning", false);
             _playerModel.Animator.SetBool("IsIdle", false);
             _playerModel.Animator.SetBool("IsFlying", false);
             _playerModel.Animator.SetBool("IsRunning", false);
+            _playerModel.Animator.SetBool("IsDead", false);
         }
     }
 }

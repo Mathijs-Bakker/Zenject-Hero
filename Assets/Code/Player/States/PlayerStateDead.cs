@@ -1,4 +1,10 @@
-﻿$HEADER$namespace $NAMESPACE$
+﻿namespace Code
 {
-  public class $CLASS$ {$END$}
+    public class PlayerStateDead : PlayerState
+    {
+        public override void Update()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

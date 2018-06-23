@@ -19,14 +19,22 @@ namespace Code
 
         private void Update()
         {
+            if (HasMoved)
+            {
+                _playerModel._rigidBody.bodyType = RigidbodyType2D.Dynamic;
+            }
             if (_playerModel.IsDead) Debug.Log("Player Got Killed");
         }
 
         public Vector2 Position => _playerModel.Position;
         public bool IsFacingLeft => _playerModel.IsFacingLeft;
         public bool HasMoved => _playerModel.HasMoved;
-
         public bool HasWon { get; set; }
+
+        public void Spawn()
+        {
+            _playerModel.Spawn();
+        }
 
         public void Die()
         {

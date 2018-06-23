@@ -26,6 +26,7 @@ namespace Code
 		{
 			_livesCounter.ResetLivesCounter();
 			_dynamitesCounter.ResetDynamiteCounter();
+			_playerFacade.Spawn();
 		}
 
 		public void Tick()
