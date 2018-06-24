@@ -4,7 +4,7 @@ namespace Code
 {
     public class PlayerModel
     {
-        public readonly Rigidbody2D _rigidBody;
+        private readonly Rigidbody2D _rigidBody;
         private readonly SpriteRenderer _spriteRenderer;
         public readonly Animator Animator;
 
@@ -23,13 +23,6 @@ namespace Code
         public bool IsGrounded { get; set; }
         public bool IsDead { get; set; }
 
-        public void Spawn()
-        {
-            _rigidBody.bodyType = RigidbodyType2D.Static;
-            IsSpawning = true;
-            Animator.SetBool("IsSpawning", true);
-        }
-        
         public Vector2 Position
         {
             get { return _rigidBody.position; }

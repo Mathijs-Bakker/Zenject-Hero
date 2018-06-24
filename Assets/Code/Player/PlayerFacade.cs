@@ -6,23 +6,30 @@ namespace Code
     public class PlayerFacade : MonoBehaviour
     {
         private PlayerModel _playerModel;
+        private PlayerSpawner _playerSpawner;
         private PlayerDeathHandler _playerDeathHandler;
+        private PlayerPhysics _playerPhysics;
 
         [Inject]
         public void Construct(
             PlayerModel playerModel,
-            PlayerDeathHandler playerDeathHandler)
+            PlayerSpawner playerSpawner,
+            PlayerDeathHandler playerDeathHandler,
+            PlayerPhysics playerPhysics)
         {
             _playerModel = playerModel;
+            _playerSpawner = playerSpawner;
             _playerDeathHandler = playerDeathHandler;
+            _playerPhysics = playerPhysics;
         }
 
         private void Update()
         {
             if (HasMoved)
             {
-                _playerModel._rigidBody.bodyType = RigidbodyType2D.Dynamic;
+                _playerPhysics.GravityOn();
             }
+            
             if (_playerModel.IsDead) Debug.Log("Player Got Killed");
         }
 
@@ -33,7 +40,7 @@ namespace Code
 
         public void Spawn()
         {
-            _playerModel.Spawn();
+            _playerSpawner.Spawn();
         }
 
         public void Die()
