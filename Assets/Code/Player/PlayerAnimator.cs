@@ -1,7 +1,11 @@
-﻿namespace Code
+﻿using UnityEngine;
+
+namespace Code
 {
     public class PlayerAnimatorHandler
     {
+        private readonly Animator _animator;
+
         public enum AnimationState
         {
             Spawn,
@@ -13,10 +17,9 @@
 
         private readonly PlayerModel _playerModel;
 
-        public PlayerAnimatorHandler(
-            PlayerModel playerModel)
+        public PlayerAnimatorHandler(Animator animator)
         {
-            _playerModel = playerModel;
+            _animator = animator;
         }
 
         public void SetAnimator(AnimationState state)
@@ -25,34 +28,34 @@
             switch (state)
             {
                 case AnimationState.Spawn:
-                    _playerModel.Animator.SetBool("IsSpawning", true);
+                    _animator.SetBool("IsSpawning", true);
                     break;
                 
                 case AnimationState.Idle:
-                    _playerModel.Animator.SetBool("IsIdle", true);
+                    _animator.SetBool("IsIdle", true);
                     break;
 
                 case AnimationState.Fly:
-                    _playerModel.Animator.SetBool("IsFlying", true);
+                    _animator.SetBool("IsFlying", true);
                     break;
 
                 case AnimationState.Run:
-                    _playerModel.Animator.SetBool("IsRunning", true);
+                    _animator.SetBool("IsRunning", true);
                     break;
                 
                 case AnimationState.Die:
-                    _playerModel.Animator.SetBool("IsDead", true);
+                    _animator.SetBool("IsDead", true);
                     break;
             }
         }
 
         private void ResetAnimationStates()
         {
-            _playerModel.Animator.SetBool("IsSpawning", false);
-            _playerModel.Animator.SetBool("IsIdle", false);
-            _playerModel.Animator.SetBool("IsFlying", false);
-            _playerModel.Animator.SetBool("IsRunning", false);
-            _playerModel.Animator.SetBool("IsDead", false);
+            _animator.SetBool("IsSpawning", false);
+            _animator.SetBool("IsIdle", false);
+            _animator.SetBool("IsFlying", false);
+            _animator.SetBool("IsRunning", false);
+            _animator.SetBool("IsDead", false);
         }
     }
 }
