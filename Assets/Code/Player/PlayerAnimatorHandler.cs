@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using UnityEngine;
+using Zenject;
 
 namespace Code
 {
@@ -20,7 +21,6 @@ namespace Code
 
         public void Tick()
         {
-            
             SpawnState();
             IdleState();
 

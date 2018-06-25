@@ -25,6 +25,7 @@ namespace Code
 
         public void PlayerReady()
         {
+            Debug.Log("Player Ready");
             IsReady = true;
         }
 
