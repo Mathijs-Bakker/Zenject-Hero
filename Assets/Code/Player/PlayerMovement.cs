@@ -56,6 +56,10 @@ namespace Code
             {
                 _playerModel.IsMoving = true;
             }
+            else
+            {
+                _playerModel.IsMoving = false;
+            }
         }
 
         [Serializable]

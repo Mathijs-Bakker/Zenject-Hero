@@ -10,7 +10,7 @@ namespace Code
         public enum State
         {
             Spawn,
-            HasMoved,
+            PlayerReady,
             Idle,
             Fly,
             Run,
@@ -34,8 +34,8 @@ namespace Code
                     _animator.SetBool("IsSpawning", true);
                     break;
                 
-                case State.HasMoved:
-                    _animator.SetBool("HasMoved", true);
+                case State.PlayerReady:
+                    _animator.SetBool("IsPlayerReady", true);
                     break;
                 
                 case State.Idle:
