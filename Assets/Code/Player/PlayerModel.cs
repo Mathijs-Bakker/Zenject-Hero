@@ -6,22 +6,27 @@ namespace Code
     {
         private readonly Rigidbody2D _rigidBody;
         private readonly SpriteRenderer _spriteRenderer;
-        public readonly Animator Animator;
 
         public PlayerModel(
             Rigidbody2D rigidbody2D,
-            SpriteRenderer spriteRenderer,
-            Animator animator)
+            SpriteRenderer spriteRenderer)
         {
             _rigidBody = rigidbody2D;
             _spriteRenderer = spriteRenderer;
-            Animator = animator;
         }
 
         public bool IsSpawning { get; set; }
-        public bool HasMoved { get; set; }
+        public bool IsReady { get; private set; }
+        public bool IsMoving { get; set; }
+        public bool IsFlying { get; set; }
+        public bool IsRunning { get; set; }
         public bool IsGrounded { get; set; }
         public bool IsDead { get; set; }
+
+        public void PlayerReady()
+        {
+            IsReady = true;
+        }
 
         public Vector2 Position
         {

@@ -10,24 +10,33 @@ namespace Code
 
         public override void InstallBindings()
         {
-            Container.Bind<PlayerModel>()
-                .AsSingle()
+            Container.Bind<PlayerModel>().AsSingle()
                 .WithArguments(
                     _settings.Rigidbody2D,
-                    _settings.SpriteRenderer,
-                    _settings.Animator);
+                    _settings.SpriteRenderer);
 
             Container.Bind<PlayerSpawner>().AsSingle();
             Container.Bind<PlayerDeathHandler>().AsSingle();
             Container.Bind<PlayerInputState>().AsSingle();
             Container.Bind<PlayerPhysics>().AsSingle().WithArguments(_settings.Rigidbody2D);
-            Container.Bind<PlayerAnimatorHandler>().AsSingle();
+            Container.Bind<PlayerAnimationStates>().AsSingle().WithArguments(_settings.Animator);
             Container.Bind<PlayerCollision>().AsSingle();
 
+            Container.BindInterfacesTo<PlayerAnimatorHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
-            Container.BindInterfacesTo<PlayerMovementHandler>().AsSingle();
+            Container.BindInterfacesTo<PlayerMovement>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerGroundedHandler>().AsSingle();
+
+            InstallPlayerReadySignal();
+        }
+
+        private void InstallPlayerReadySignal()
+        {
+            Container.DeclareSignal<PlayerReadySignal>();
+            Container.BindSignal<PlayerReadySignal>()
+                .ToMethod<PlayerModel>(x => x.PlayerReady)
+                .FromResolve();
         }
     }
 

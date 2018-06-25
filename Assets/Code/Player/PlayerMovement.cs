@@ -4,23 +4,22 @@ using Zenject;
 
 namespace Code
 {
-    public class PlayerMovementHandler : IFixedTickable
+    public class PlayerMovement : IFixedTickable
     {
-        private readonly PlayerAnimatorHandler _animatorHandler;
+        private readonly PlayerAnimationStates _animationStates;
         private readonly PlayerInputState _inputState;
         private readonly PlayerModel _playerModel;
         private readonly Settings _settings;
 
-        public PlayerMovementHandler(
+        public PlayerMovement(
             Settings settings,
             PlayerModel playerModel,
             PlayerInputState playerInputState,
-            PlayerAnimatorHandler playerAnimatorHandler)
+            PlayerAnimationStates playerAnimationStates)
         {
             _settings = settings;
             _playerModel = playerModel;
             _inputState = playerInputState;
-            _animatorHandler = playerAnimatorHandler;
         }
 
         public void FixedTick()
@@ -29,30 +28,25 @@ namespace Code
 
             if (_inputState.IsMovingUp)
             {
-                _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Fly);
-                _playerModel.AddForce(
-                    Vector2.up * _settings.MoveSpeed);
+                _playerModel.AddForce(Vector2.up * _settings.MoveSpeed);
             }
 
             if (_inputState.IsMovingDown)
-                _playerModel.AddForce(
-                    Vector2.down * _settings.MoveSpeed);
+                _playerModel.AddForce(Vector2.down * _settings.MoveSpeed);
 
             if (_inputState.IsMovingLeft)
             {
-                _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);
                 _playerModel.FaceLeft(true);
-                _playerModel.AddForce(
-                    Vector2.left * _settings.MoveSpeed);
+                _playerModel.AddForce(Vector2.left * _settings.MoveSpeed);
             }
 
             if (_inputState.IsMovingRight)
             {
-                _animatorHandler.SetAnimator(PlayerAnimatorHandler.AnimationState.Run);
                 _playerModel.FaceLeft(false);
-                _playerModel.AddForce(
-                    Vector2.right * _settings.MoveSpeed);
+                _playerModel.AddForce(Vector2.right * _settings.MoveSpeed);
             }
+            
+            // Todo: Idle state
 
             if (_inputState.IsFiring ||
                 _inputState.IsMovingDown ||
@@ -60,7 +54,7 @@ namespace Code
                 _inputState.IsMovingRight ||
                 _inputState.IsMovingUp)
             {
-                _playerModel.HasMoved = true;
+                _playerModel.IsMoving = true;
             }
         }
 

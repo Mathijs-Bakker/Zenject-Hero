@@ -35,7 +35,7 @@ namespace Code
 
         public Vector2 Position => _playerModel.Position;
         public bool IsFacingLeft => _playerModel.IsFacingLeft;
-        public bool HasMoved => _playerModel.HasMoved;
+        public bool HasMoved => _playerModel.IsMoving;
         public bool HasWon { get; set; }
 
         public void Spawn()

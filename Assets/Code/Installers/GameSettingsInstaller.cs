@@ -18,7 +18,7 @@ namespace Code
         [Serializable]
         public class PlayerSettings
         {
-            public PlayerMovementHandler.Settings Movement;
+            public PlayerMovement.Settings Movement;
         }
         
         [Serializable]
