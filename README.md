@@ -2,7 +2,7 @@
 ## A complete Unity3D example project using Zenject 
 Remember H.E.R.O.? An ancient 8 bit game by Activision made famous on the Atari 2600. Watch on YouTube. Because of the 'simple'game mechanics I chose to recreate this game while learning Zenject.  
 
-![](https://i.imgur.com/ABdBN3A.gif)
+![](https://i.imgur.com/ABdBN3A.gif)  
 (images from the original game)
 
 ## SOLID Principles
@@ -31,7 +31,7 @@ Download and open the project in Unity3D.
 ## THIS PROJECT NOW USES ZENJECT 6.
 Zenject 6 is a prerelease. It's still in development. Main changes that hits the eye are to the Factories and the new Signal system. But under the hood it delivers better performance. Hence it's not production ready (yet) but it's already awesome!
 
-![](https://imgur.com/Y28u4Nh)
+![](https://i.imgur.com/Y28u4Nh.png)  
 (Screenshot from this game)
 
 ## H.E.R.O.
