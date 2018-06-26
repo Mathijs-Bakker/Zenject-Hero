@@ -62,7 +62,6 @@ namespace Code
         private void ResetAnimationStates()
         {
             _animator.SetBool("IsSpawning", false);
-            _animator.SetBool("HasMoved", false);
             _animator.SetBool("IsIdle", false);
             _animator.SetBool("IsFlying", false);
             _animator.SetBool("IsRunning", false);
