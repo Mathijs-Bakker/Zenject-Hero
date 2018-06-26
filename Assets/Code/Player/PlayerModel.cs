@@ -25,14 +25,13 @@ namespace Code
 
         public void PlayerReady()
         {
-            Debug.Log("Player Ready");
             IsReady = true;
         }
 
         public Vector2 Position
         {
             get { return _rigidBody.position; }
-            set { _rigidBody.position = value; }
+            private set { _rigidBody.position = value; }
         }
         
         public void AddForce(Vector2 force)

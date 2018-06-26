@@ -11,6 +11,7 @@ namespace Code
         private readonly List<GameObject> _overlappedColliders = new List<GameObject>();
 
         [Inject] private Pool _dynamitePool;
+        [Inject] private DynamitesActive _dynamitesActive;
 
         private float _fuseTimer;
 
@@ -44,6 +45,7 @@ namespace Code
                     if (player != null) player.Die();
                 }
 
+            _dynamitesActive.IsDynamiteActive = false;
             _dynamitePool.Despawn(this);
         }
 

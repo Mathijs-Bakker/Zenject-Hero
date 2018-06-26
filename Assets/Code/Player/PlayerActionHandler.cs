@@ -8,6 +8,7 @@ namespace Code
         private readonly PlayerModel _playerModel;
         private readonly Dynamite.Pool _dynamitePool;
         private readonly DynamitesCounter _dynamitesCounter;
+        private readonly DynamitesActive _dynamitesActive;
         private readonly PlayerInputState _inputState;
         private readonly Laser _laser;
 
@@ -16,12 +17,14 @@ namespace Code
             PlayerInputState playerInputState,
             Dynamite.Pool dynamitePool,
             DynamitesCounter dynamitesCounter,
+            DynamitesActive dynamitesActive,
             Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;
             _dynamitePool = dynamitePool;
             _dynamitesCounter = dynamitesCounter;
+            _dynamitesActive = dynamitesActive;
             _laser = laser;
         }
 
@@ -29,20 +32,21 @@ namespace Code
         {
             if (_playerModel.IsDead) return;
 
-            // Todo: Input.GetKeyDown should be handled by an InputManager
-            if (Input.GetKeyDown(KeyCode.DownArrow) && _playerModel.IsGrounded) PlaceDynamite();
+            if (_inputState.IsMovingDown && _playerModel.IsGrounded)
+                PlaceDynamite();
 
-            if (_inputState.IsFiring)
-                _laser.IsFiring = true;
-            else
-                _laser.IsFiring = false;
+            _laser.IsFiring = _inputState.IsFiring;
         }
 
         private void PlaceDynamite()
         {
             if (_dynamitesCounter.DynamitesLeft <= 0) return;
+            if (_dynamitesActive.IsDynamiteActive) return;
+
             var dynamite = _dynamitePool.Spawn();
             dynamite.transform.position = _playerModel.Position;
+            
+            _dynamitesActive.IsDynamiteActive = true;
             _dynamitesCounter.SubtractDynamite();
         }
     }

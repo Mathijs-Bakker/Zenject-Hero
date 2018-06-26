@@ -44,11 +44,13 @@ namespace Code
         private void InstallDynamitePool()
         {
             Container.Bind<Dynamite>().AsSingle();
+            
             Container.BindMemoryPool<Dynamite, Dynamite.Pool>()
                 .WithInitialSize(20)
                 .FromComponentInNewPrefab(_settings.DynamitePrefab)
                 .UnderTransformGroup("Dynamite");
 
+            Container.Bind<DynamitesActive>().AsSingle();
             Container.Bind<DynamitesCounter>().AsSingle();
         }
 
