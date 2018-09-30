@@ -25,11 +25,8 @@ Download and open the project in Unity3D.
 
 ## Built With
 
-* [Unity3D - 2018.1](https://unity3d.com/get-unity/download)
-* [Zenject 6 prerelease](https://github.com/modesttree/Zenject) - Zenject Dependency Injection IOC
-
-## THIS PROJECT NOW USES ZENJECT 6.
-Zenject 6 is a prerelease. It's still in development. Main changes that hits the eye are to the Factories and the new Signal system. But under the hood it delivers better performance. Hence it's not production ready (yet) but it's already awesome!
+* [Unity3D - 2018.2.10f1](https://unity3d.com/get-unity/download)
+* [Zenject 7.2.0](https://github.com/svermeulen/Zenject/releases) - Zenject Dependency Injection IOC
 
 ![](https://i.imgur.com/Y28u4Nh.png)  
 (Screenshot from this game)
