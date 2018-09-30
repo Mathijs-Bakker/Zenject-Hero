@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Code;
+using Enemies.Contracts;
+using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Enemies.Spider.Code
 {
-	public class SpiderModel : Killable
+	public class SpiderModel : Enemy
 	{
 		[Inject] private readonly SignalBus _signalBus;
 

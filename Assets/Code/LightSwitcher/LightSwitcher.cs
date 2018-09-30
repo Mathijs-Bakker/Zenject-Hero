@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.FlipScreen;
+using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
@@ -75,8 +76,8 @@ namespace Code
             if (sprite == null) return;
 
             if (sprite.gameObject.GetComponentInParent<PlayerFacade>() ||
-                sprite.gameObject.GetComponentInParent<Killable>() ||
-                sprite.gameObject.GetComponentInParent<Lamp>() ||
+                sprite.gameObject.GetComponentInParent<Enemy>() ||
+                sprite.gameObject.GetComponentInParent<Lamp.Code.Lamp>() ||
                 sprite.gameObject.GetComponentInParent<Damageable>() ||
                 sprite.gameObject.GetComponentInParent<Miner>())
             {

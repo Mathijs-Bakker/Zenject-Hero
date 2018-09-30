@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Code;
+using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Lamp.Code
 {
     public class Lamp : MonoBehaviour
     {

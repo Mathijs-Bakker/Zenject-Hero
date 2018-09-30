@@ -1,4 +1,5 @@
 ﻿using System;
+using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
@@ -37,8 +38,8 @@ namespace Code
         {
             if (!IsFiring) return;
 
-            var killableGo = other.GetComponent<Killable>();
-            if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
+            var enemy = other.GetComponent<Enemy>();
+            if (enemy != null) enemy.ReceiveDamage(_settings.Damage);
             
             var damagableGo = other.GetComponent<Damageable>();
             if (damagableGo != null) damagableGo.ReceiveDamage(_settings.Damage);
@@ -48,8 +49,8 @@ namespace Code
         {
             if (!IsFiring) return;
 
-            var killableGo = other.GetComponent<Killable>();
-            if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
+            var enemy = other.GetComponent<Enemy>();
+            if (enemy != null) enemy.ReceiveDamage(_settings.Damage);
             
             var damagableGo = other.GetComponent<Damageable>();
             if (damagableGo != null) damagableGo.ReceiveDamage(_settings.Damage);
