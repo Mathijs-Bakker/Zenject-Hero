@@ -29,8 +29,6 @@ namespace Code
             {
                 _playerPhysics.GravityOn();
             }
-            
-            if (_playerModel.IsDead) Debug.Log("Player Got Killed");
         }
 
         public Vector2 Position => _playerModel.Position;
