@@ -5,22 +5,22 @@ namespace Code
 {
     public class PlayerCollision : MonoBehaviour
     {
-        private PlayerGroundedHandler _playerGroundedHandler;
+        private PlayerGrounded _playerGrounded;
         private PlayerFacade _playerFacade;
 
         [Inject]
         public void Construct(
-            PlayerGroundedHandler playerGroundedHandler,
+            PlayerGrounded playerGrounded,
             PlayerFacade playerFacade)
         {
-            _playerGroundedHandler = playerGroundedHandler;
+            _playerGrounded = playerGrounded;
             _playerFacade = playerFacade;
         }
 
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.collider.CompareTag("Floor")) _playerGroundedHandler.PlayerHitFloor(other);
+            _playerGrounded.PlayerHitFloor(other);
 
             if (other.collider.CompareTag("Miner"))
             {

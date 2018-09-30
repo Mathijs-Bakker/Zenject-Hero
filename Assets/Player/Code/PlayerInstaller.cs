@@ -26,7 +26,7 @@ namespace Code
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovement>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();
-            Container.BindInterfacesAndSelfTo<PlayerGroundedHandler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerGrounded>().AsSingle();
 
             InstallPlayerReadySignal();
         }

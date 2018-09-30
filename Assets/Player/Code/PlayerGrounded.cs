@@ -3,12 +3,12 @@ using Zenject;
 
 namespace Code
 {
-    public class PlayerGroundedHandler : ITickable
+    public class PlayerGrounded : ITickable
     {
         private readonly PlayerInputState _inputState;
         private readonly PlayerModel _playerModel;
 
-        public PlayerGroundedHandler(
+        public PlayerGrounded(
             PlayerModel playerModel,
             PlayerInputState playerInputState)
         {
