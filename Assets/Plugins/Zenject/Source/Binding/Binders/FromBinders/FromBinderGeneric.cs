@@ -48,37 +48,37 @@ namespace Zenject
             return FromMethodMultipleBase<TContract>(method);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveGetter<TObj>(Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj>(Func<TObj, TContract> method)
         {
             return FromResolveGetter<TObj>(null, method);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method)
         {
             return FromResolveGetter<TObj>(identifier, method, InjectSources.Any);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
         {
             return FromResolveGetterBase<TObj, TContract>(identifier, method, source, false);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(Func<TObj, TContract> method)
         {
             return FromResolveAllGetter<TObj>(null, method);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method)
         {
             return FromResolveAllGetter<TObj>(identifier, method, InjectSources.Any);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromResolveAllGetter<TObj>(object identifier, Func<TObj, TContract> method, InjectSources source)
         {
             return FromResolveGetterBase<TObj, TContract>(identifier, method, source, true);
         }
 
-        public ScopeConditionCopyNonLazyBinder FromInstance(TContract instance)
+        public ScopeConcreteIdArgConditionCopyNonLazyBinder FromInstance(TContract instance)
         {
             return FromInstanceBase(instance);
         }
@@ -89,17 +89,21 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-            return FromMethod((ctx) => {
+            // Use FromMethodMultiple so that we can return the empty list when context is optional
+            return FromMethodMultiple((ctx) => {
                 Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
                     "Cannot use FromComponentInChildren to inject data into non monobehaviours!");
                 Assert.IsNotNull(ctx.ObjectInstance);
 
                 var res = ((MonoBehaviour)ctx.ObjectInstance).GetComponentInChildren<TContract>(includeInactive);
 
-                Assert.IsNotNull(res,
-                    "Could not find component '{0}' through FromComponentInChildren binding", typeof(TContract));
+                if (res == null)
+                {
+                    Assert.That(ctx.Optional, "Could not find component '{0}' through FromComponentInChildren binding", typeof(TContract));
+                    return Enumerable.Empty<TContract>();
+                }
 
-                return res;
+                return new TContract[] { res };
             });
         }
 
@@ -141,7 +145,8 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-            return FromMethod((ctx) =>
+            // Use FromMethodMultiple so that we can return the empty list when context is optional
+            return FromMethodMultiple((ctx) =>
                 {
                     Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
                         "Cannot use FromComponentInParents to inject data into non monobehaviours!");
@@ -157,9 +162,13 @@ namespace Zenject
 
                     var result = matches.FirstOrDefault();
 
-                    Assert.IsNotNull(result, "Could not find component '{0}' through FromComponentInParents binding", typeof(TContract));
+                    if (result == null)
+                    {
+                        Assert.That(ctx.Optional, "Could not find component '{0}' through FromComponentInParents binding", typeof(TContract));
+                        return Enumerable.Empty<TContract>();
+                    }
 
-                    return result;
+                    return new TContract[] { result };
                 });
         }
 
@@ -190,16 +199,22 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-            return FromMethod((ctx) =>
+            // Use FromMethodMultiple so that we can return the empty list when context is optional
+            return FromMethodMultiple((ctx) =>
                 {
                     Assert.That(ctx.ObjectType.DerivesFromOrEqual<MonoBehaviour>(),
                         "Cannot use FromComponentSibling to inject data into non monobehaviours!");
                     Assert.IsNotNull(ctx.ObjectInstance);
 
                     var match = ((MonoBehaviour)ctx.ObjectInstance).GetComponent<TContract>();
-                    Assert.IsNotNull(match,
-                        "Could not find component '{0}' through FromComponentSibling binding", typeof(TContract));
-                    return match;
+
+                    if (match == null)
+                    {
+                        Assert.That(ctx.Optional, "Could not find component '{0}' through FromComponentSibling binding", typeof(TContract));
+                        return Enumerable.Empty<TContract>();
+                    }
+
+                    return new TContract[] { match };
                 });
         }
 
@@ -223,15 +238,19 @@ namespace Zenject
         {
             BindingUtil.AssertIsInterfaceOrComponent(AllParentTypes);
 
-            return FromMethod((ctx) => {
+            // Use FromMethodMultiple so that we can return the empty list when context is optional
+            return FromMethodMultiple((ctx) => {
                 var res = BindContainer.Resolve<Context>().GetRootGameObjects()
                     .Select(x => x.GetComponentInChildren<TContract>(includeInactive))
                     .Where(x => x != null).FirstOrDefault();
 
-                Assert.IsNotNull(res,
-                    "Could not find component '{0}' through FromComponentInHierarchy binding", typeof(TContract));
+                if (res == null)
+                {
+                    Assert.That(ctx.Optional, "Could not find component '{0}' through FromComponentInHierarchy binding", typeof(TContract));
+                    return Enumerable.Empty<TContract>();
+                }
 
-                return res;
+                return new TContract[] { res };
             });
         }
 

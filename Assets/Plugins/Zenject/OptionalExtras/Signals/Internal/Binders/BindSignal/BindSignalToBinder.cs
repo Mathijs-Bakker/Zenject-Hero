@@ -23,9 +23,12 @@ namespace Zenject
             _finalizerWrapper.SubFinalizer = new NullBindingFinalizer();
 
             var bindInfo = _container.Bind<IDisposable>()
-                .To<SignalCallbackWrapper<TSignal>>()
+                .To<SignalCallbackWrapper>()
                 .AsCached()
-                .WithArguments(callback)
+                // Note that there's a reason we don't just make SignalCallbackWrapper have a generic
+                // argument for signal type - because when using struct type signals it throws
+                // exceptions on AOT platforms
+                .WithArguments(typeof(TSignal), (Action<object>)((o) => callback((TSignal)o)))
                 .NonLazy().BindInfo;
 
             return new SignalCopyBinder(bindInfo);

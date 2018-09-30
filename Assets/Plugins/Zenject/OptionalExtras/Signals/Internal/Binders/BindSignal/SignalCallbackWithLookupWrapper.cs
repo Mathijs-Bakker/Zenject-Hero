@@ -3,35 +3,49 @@ using ModestTree;
 
 namespace Zenject
 {
-    public class SignalCallbackWithLookupWrapper<TObject, TSignal> : IDisposable
+    // Note that there's a reason we don't just have a generic
+    // argument for signal type - because when using struct type signals it throws
+    // exceptions on AOT platforms
+    public class SignalCallbackWithLookupWrapper : IDisposable
     {
         readonly DiContainer _container;
         readonly SignalBus _signalBus;
         readonly Guid _lookupId;
-        readonly Func<TObject, Action<TSignal>> _methodGetter;
+        readonly Func<object, Action<object>> _methodGetter;
+        readonly Type _objectType;
+        readonly Type _signalType;
 
         public SignalCallbackWithLookupWrapper(
-            Func<TObject, Action<TSignal>> methodGetter,
+            Type signalType,
+            Type objectType,
             Guid lookupId,
+            Func<object, Action<object>> methodGetter,
             SignalBus signalBus,
             DiContainer container)
         {
+            _objectType = objectType;
+            _signalType = signalType;
             _container = container;
             _methodGetter = methodGetter;
             _signalBus = signalBus;
             _lookupId = lookupId;
 
-            signalBus.Subscribe<TSignal>(OnSignalFired);
+            signalBus.Subscribe(signalType, OnSignalFired);
         }
 
-        void OnSignalFired(TSignal signal)
+        void OnSignalFired(object signal)
         {
-            _methodGetter(_container.ResolveId<TObject>(_lookupId))(signal);
+            var objects = _container.ResolveIdAll(_objectType, _lookupId);
+
+            for (int i = 0; i < objects.Count; i++)
+            {
+                _methodGetter(objects[i])(signal);
+            }
         }
 
         public void Dispose()
         {
-            _signalBus.Unsubscribe<TSignal>(OnSignalFired);
+            _signalBus.Unsubscribe(_signalType, OnSignalFired);
         }
     }
 }

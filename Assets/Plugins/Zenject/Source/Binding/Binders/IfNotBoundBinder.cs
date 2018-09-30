@@ -8,7 +8,7 @@ namespace Zenject
         }
 
         // Do not use this
-        internal BindInfo BindInfo
+        public BindInfo BindInfo
         {
             get;
             private set;

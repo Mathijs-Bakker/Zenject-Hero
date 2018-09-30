@@ -3,29 +3,35 @@ using ModestTree;
 
 namespace Zenject
 {
-    public class SignalCallbackWrapper<TSignal> : IDisposable
+    // Note that there's a reason we don't just have a generic
+    // argument for signal type - because when using struct type signals it throws
+    // exceptions on AOT platforms
+    public class SignalCallbackWrapper : IDisposable
     {
         readonly SignalBus _signalBus;
-        readonly Action<TSignal> _action;
+        readonly Action<object> _action;
+        readonly Type _signalType;
 
         public SignalCallbackWrapper(
-            Action<TSignal> action,
+            Type signalType,
+            Action<object> action,
             SignalBus signalBus)
         {
+            _signalType = signalType;
             _signalBus = signalBus;
             _action = action;
 
-            signalBus.Subscribe<TSignal>(OnSignalFired);
+            signalBus.Subscribe(signalType, OnSignalFired);
         }
 
-        void OnSignalFired(TSignal signal)
+        void OnSignalFired(object signal)
         {
             _action(signal);
         }
 
         public void Dispose()
         {
-            _signalBus.Unsubscribe<TSignal>(OnSignalFired);
+            _signalBus.Unsubscribe(_signalType, OnSignalFired);
         }
     }
 }

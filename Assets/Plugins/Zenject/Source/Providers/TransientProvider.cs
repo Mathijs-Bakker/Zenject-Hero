@@ -11,10 +11,13 @@ namespace Zenject
         readonly Type _concreteType;
         readonly List<TypeValuePair> _extraArguments;
         readonly object _concreteIdentifier;
+        readonly Action<InjectContext, object> _instantiateCallback;
 
         public TransientProvider(
             Type concreteType, DiContainer container,
-            List<TypeValuePair> extraArguments, string bindingContext, object concreteIdentifier)
+            List<TypeValuePair> extraArguments, string bindingContext,
+            object concreteIdentifier,
+            Action<InjectContext, object> instantiateCallback)
         {
             Assert.That(!concreteType.IsAbstract(),
                 "Expected non-abstract type for given binding but instead found type '{0}'{1}",
@@ -24,6 +27,7 @@ namespace Zenject
             _concreteType = concreteType;
             _extraArguments = extraArguments ?? new List<TypeValuePair>();
             _concreteIdentifier = concreteIdentifier;
+            _instantiateCallback = instantiateCallback;
         }
 
         public bool IsCached
@@ -38,6 +42,11 @@ namespace Zenject
 
         public Type GetInstanceType(InjectContext context)
         {
+            if (!_concreteType.DerivesFromOrEqual(context.MemberType))
+            {
+                return null;
+            }
+
             return GetTypeToCreate(context.MemberType);
         }
 
@@ -45,8 +54,6 @@ namespace Zenject
             InjectContext context, List<TypeValuePair> args, out Action injectAction)
         {
             Assert.IsNotNull(context);
-
-            bool autoInject = false;
 
             var instanceType = GetTypeToCreate(context.MemberType);
 
@@ -58,9 +65,19 @@ namespace Zenject
             };
 
             var instance = _container.InstantiateExplicit(
-                instanceType, autoInject, injectArgs);
+                instanceType, false, injectArgs);
 
-            injectAction = () => _container.InjectExplicit(instance, instanceType, injectArgs);
+            injectAction = () =>
+                {
+                    _container.InjectExplicit(
+                        instance, instanceType, injectArgs);
+
+                    if (_instantiateCallback != null)
+                    {
+                        _instantiateCallback(context, instance);
+                    }
+                };
+
             return new List<object>() { instance };
         }
 

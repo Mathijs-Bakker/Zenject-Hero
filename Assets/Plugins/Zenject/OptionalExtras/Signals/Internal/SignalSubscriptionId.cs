@@ -6,20 +6,23 @@ namespace Zenject
     [System.Diagnostics.DebuggerStepThrough]
     public struct SignalSubscriptionId : IEquatable<SignalSubscriptionId>
     {
+        Type _signalType;
+        object _callback;
+
         public SignalSubscriptionId(Type signalType, object callback)
         {
-            SignalType = signalType;
-            Callback = callback;
+            _signalType = signalType;
+            _callback = callback;
         }
 
         public Type SignalType
         {
-            get; private set;
+            get { return _signalType; }
         }
 
         public object Callback
         {
-            get; private set;
+            get { return _callback; }
         }
 
         public override int GetHashCode()
@@ -27,8 +30,8 @@ namespace Zenject
             unchecked // Overflow is fine, just wrap
             {
                 int hash = 17;
-                hash = hash * 29 + SignalType.GetHashCode();
-                hash = hash * 29 + Callback.GetHashCode();
+                hash = hash * 29 + _signalType.GetHashCode();
+                hash = hash * 29 + _callback.GetHashCode();
                 return hash;
             }
         }

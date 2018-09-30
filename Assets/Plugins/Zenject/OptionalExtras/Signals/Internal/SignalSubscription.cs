@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using ModestTree;
 
 namespace Zenject
@@ -54,7 +55,13 @@ namespace Zenject
 
         public void Dispose()
         {
-            _pool.Despawn(this);
+            // Allow calling this twice since signals automatically unsubscribe in SignalBus.LateDispose
+            // and so this causes issues if users also unsubscribe in a MonoBehaviour OnDestroy on a
+            // root game object
+            if (!_pool.InactiveItems.Contains(this))
+            {
+                _pool.Despawn(this);
+            }
         }
 
         // See comment in SignalDeclaration for why this exists

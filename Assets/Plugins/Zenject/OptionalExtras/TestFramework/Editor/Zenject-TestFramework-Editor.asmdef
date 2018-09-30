@@ -1,0 +1,16 @@
+{
+    "name": "Zenject-TestFramework-Editor",
+    "references": [
+        "Zenject-TestFramework",
+        "Zenject-Editor",
+        "Zenject"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

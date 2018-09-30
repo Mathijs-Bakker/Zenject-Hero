@@ -47,6 +47,8 @@ namespace Zenject
             }
             else
             {
+                // We cannot do a null assert here because in some cases they might intentionally
+                // return null
                 return new List<object>() { _method(context) };
             }
         }

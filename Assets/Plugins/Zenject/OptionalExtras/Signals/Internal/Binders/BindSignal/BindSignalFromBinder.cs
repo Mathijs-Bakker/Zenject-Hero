@@ -23,6 +23,11 @@ namespace Zenject
             return From(x => x.FromResolve().AsCached());
         }
 
+        public SignalCopyBinder FromResolveAll()
+        {
+            return From(x => x.FromResolveAll().AsCached());
+        }
+
         public SignalCopyBinder FromNew()
         {
             return From(x => x.FromNew().AsCached());
@@ -40,10 +45,15 @@ namespace Zenject
 
             objectBindCallback(objectBinder);
 
+            // We need to do this to make sure SignalCallbackWithLookupWrapper does not have
+            // generic types to avoid AOT issues
+            Func<object, Action<object>> methodGetterMapper =
+                (obj) => (s) => _methodGetter((TObject)obj)((TSignal)s);
+
             var wrapperBinder = _container.Bind<IDisposable>()
-                .To<SignalCallbackWithLookupWrapper<TObject, TSignal>>()
+                .To<SignalCallbackWithLookupWrapper>()
                 .AsCached()
-                .WithArguments(_methodGetter, objectLookupId)
+                .WithArguments(typeof(TSignal), typeof(TObject), objectLookupId, methodGetterMapper)
                 .NonLazy();
 
             var copyBinder = new SignalCopyBinder( wrapperBinder.BindInfo);

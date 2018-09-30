@@ -10,10 +10,12 @@ namespace Zenject
     {
         static Dictionary<Type, ZenjectTypeInfo> _typeInfo = new Dictionary<Type, ZenjectTypeInfo>();
 
+#if UNITY_EDITOR
         // We store this separately from ZenjectTypeInfo because this flag is needed for contract
         // types whereas ZenjectTypeInfo is only needed for types that are instantiated, and
         // we want to minimize the types that generate ZenjectTypeInfo for
         static Dictionary<Type, bool> _allowDuringValidation = new Dictionary<Type, bool>();
+#endif
 
         public static ZenjectTypeInfo GetInfo<T>()
         {
