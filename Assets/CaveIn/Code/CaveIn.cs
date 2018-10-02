@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using CaveIn.Contracts;
+using UnityEngine;
 using Zenject;
 
 namespace Code
 {
-    public class CaveIn : Damageable
+    public class CaveIn : Explodable
     {
         [Inject] private readonly SignalBus _signalBus = null;
 

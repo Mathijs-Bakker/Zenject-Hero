@@ -1,4 +1,5 @@
 ﻿using System;
+using CaveIn.Contracts;
 using Code;
 using Enemies.Contracts;
 using UnityEngine;
@@ -42,8 +43,8 @@ namespace Laser.Code
             var killableGo = other.GetComponent<Killable>();
             if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
             
-            var damageableGo = other.GetComponent<Damageable>();
-            if (damageableGo != null) damageableGo.ReceiveDamage(_settings.Damage);
+            var explodableGo = other.GetComponent<Explodable>();
+            if (explodableGo != null) explodableGo.ReceiveDamage(_settings.Damage);
         }
 
         private void OnTriggerStay2D(Collider2D other)
@@ -52,13 +53,9 @@ namespace Laser.Code
 
             var killableGo = other.GetComponent<Killable>();
             if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
-            if (killableGo != null)
-            {
-                Debug.Log("Hit!");
-            }
             
-            var damageable = other.GetComponent<Damageable>();
-            if (damageable != null) damageable.ReceiveDamage(_settings.Damage);
+            var explodableGo = other.GetComponent<Explodable>();
+            if (explodableGo != null) explodableGo.ReceiveDamage(_settings.Damage);
             
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CaveIn.Contracts;
 using Code.FlipScreen;
 using Enemies.Contracts;
 using UnityEngine;
@@ -78,7 +79,7 @@ namespace Code
             if (sprite.gameObject.GetComponentInParent<PlayerFacade>() ||
                 sprite.gameObject.GetComponentInParent<Killable>() ||
                 sprite.gameObject.GetComponentInParent<Lamp.Code.Lamp>() ||
-                sprite.gameObject.GetComponentInParent<Damageable>() ||
+                sprite.gameObject.GetComponentInParent<Explodable>() ||
                 sprite.gameObject.GetComponentInParent<Miner>())
             {
                 sprite.material.shader = Shader.Find("GUI/Text Shader");

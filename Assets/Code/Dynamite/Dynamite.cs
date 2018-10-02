@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using CaveIn.Contracts;
 using UnityEngine;
 using Zenject;
 
@@ -34,7 +35,7 @@ namespace Code
                 {
                     var go = _overlappedColliders[i];
 
-                    var damagableGo = go.GetComponent<Damageable>();
+                    var damagableGo = go.GetComponent<Explodable>();
                     if (damagableGo != null)
                     {
                         damagableGo.BlowUp();

@@ -16,4 +16,4 @@ MonoBehaviour:
       type: 2}
   Laser:
     Damage:
-      Damage: 50
+      Damage: 5
