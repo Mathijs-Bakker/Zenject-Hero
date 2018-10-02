@@ -1,9 +1,10 @@
 ﻿using System;
+using Code;
 using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Laser.Code
 {
     public class Laser : MonoBehaviour
     {

@@ -11,7 +11,7 @@ namespace Code
 //        public PlayerSettings Player;
         public LivesSettings Lives;
         public DynamiteSettings Dynamite;
-        public LaserSettings Laser;
+//        public LaserSettings Laser;
         public GameStateSettings GameState;
 
 
@@ -33,11 +33,11 @@ namespace Code
             public DynamitesCounter.Settings TotalNumDynamites;
         }
 
-        [Serializable]
-        public class LaserSettings
-        {
-            public Laser.Settings Damage;
-        }
+//        [Serializable]
+//        public class LaserSettings
+//        {
+//            public Laser.Code.Laser.Settings Damage;
+//        }
         
         [Serializable]
         public class GameStateSettings
@@ -50,7 +50,7 @@ namespace Code
 //            Container.BindInstance(Player.Movement);
             Container.BindInstance(Lives.TotalNumLives);
             Container.BindInstance(Dynamite.TotalNumDynamites);
-            Container.BindInstance(Laser.Damage);
+//            Container.BindInstance(Laser.Damage);
         }
     }
 }

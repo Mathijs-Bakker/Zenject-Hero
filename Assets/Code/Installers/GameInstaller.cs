@@ -14,7 +14,7 @@ namespace Code
 
 //            InstallPlayer();
             InstallLives();
-            InstallLaser();
+//            InstallLaser();
             InstallDynamitePool();
             
             InstallGameManager();
@@ -33,13 +33,13 @@ namespace Code
             Container.Bind<LivesCounter>().AsSingle();
         }
 
-        private void InstallLaser()
-        {
-            Container.Bind<Laser>()
-                .FromComponentInNewPrefab(_settings.LaserPrefab)
-                .UnderTransformGroup("Player")
-                .AsSingle();
-        }
+//        private void InstallLaser()
+//        {
+//            Container.Bind<Laser.Code.Laser>()
+//                .FromComponentInNewPrefab(_settings.LaserPrefab)
+//                .UnderTransformGroup("Player")
+//                .AsSingle();
+//        }
 
         private void InstallDynamitePool()
         {

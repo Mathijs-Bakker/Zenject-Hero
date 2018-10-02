@@ -10,7 +10,7 @@ namespace Code
         private readonly DynamitesCounter _dynamitesCounter;
         private readonly DynamitesActive _dynamitesActive;
         private readonly PlayerInputState _inputState;
-        private readonly Laser _laser;
+        private readonly Laser.Code.Laser _laser;
 
         public PlayerActionHandler(
             PlayerModel playerModel,
@@ -18,7 +18,7 @@ namespace Code
             Dynamite.Pool dynamitePool,
             DynamitesCounter dynamitesCounter,
             DynamitesActive dynamitesActive,
-            Laser laser)
+            Laser.Code.Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;

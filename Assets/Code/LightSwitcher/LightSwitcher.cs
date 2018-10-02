@@ -86,7 +86,7 @@ namespace Code
             }
             else
             {
-                if (sprite.gameObject.GetComponentInParent<Laser>()) return;
+                if (sprite.gameObject.GetComponentInParent<Laser.Code.Laser>()) return;
                 
                 sprite.material.shader = Shader.Find("GUI/Text Shader");
                 sprite.color = Color.black;
