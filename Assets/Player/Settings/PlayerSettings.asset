@@ -16,4 +16,4 @@ MonoBehaviour:
       type: 2}
   Player:
     Movement:
-      MoveSpeed: 3
+      MoveSpeed: 15
