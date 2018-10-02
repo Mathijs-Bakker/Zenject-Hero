@@ -1,8 +1,9 @@
 using System;
+using Code;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Player.Code.Installers
 {
     public class PlayerInstaller : MonoInstaller
     {

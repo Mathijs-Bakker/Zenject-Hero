@@ -12,7 +12,7 @@ namespace Code
         {
             SignalBusInstaller.Install(Container);
 
-            InstallPlayer();
+//            InstallPlayer();
             InstallLives();
             InstallLaser();
             InstallDynamitePool();
@@ -20,13 +20,13 @@ namespace Code
             InstallGameManager();
         }
 
-        private void InstallPlayer()
-        {
-            Container.Bind<PlayerFacade>()
-                .FromComponentInNewPrefab(_settings.PlayerPrefab)
-                .UnderTransformGroup("Player")
-                .AsSingle();
-        }
+//        private void InstallPlayer()
+//        {
+//            Container.Bind<PlayerFacade>()
+//                .FromComponentInNewPrefab(_settings.PlayerPrefab)
+//                .UnderTransformGroup("Player")
+//                .AsSingle();
+//        }
 
         private void InstallLives()
         {
@@ -68,7 +68,7 @@ namespace Code
         [Serializable]
         public class Settings
         {
-            public GameObject PlayerPrefab;
+//            public GameObject PlayerPrefab;
             public GameObject LaserPrefab;
             public GameObject DynamitePrefab;
         }

@@ -5522,6 +5522,7 @@ GameObject:
   - component: {fileID: 855423466}
   - component: {fileID: 855423467}
   - component: {fileID: 855423468}
+  - component: {fileID: 855423462}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -5529,6 +5530,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &855423462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 855423461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0999b9c329f454dc98e8dfc47229abc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &855423463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5546,8 +5558,10 @@ MonoBehaviour:
   - {fileID: 1576308855}
   - {fileID: 855423467}
   - {fileID: 855423468}
+  - {fileID: 855423462}
   _installerPrefabs: []
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: 6a5ff5967985e47c68b495fc0478326a, type: 2}
   _autoRun: 1
   _parentNewObjectsUnderRoot: 0
   _contractNames: []
@@ -7894,7 +7908,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4413553207937628, guid: c178b35705eef4ea89b914f8bf31f343, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c178b35705eef4ea89b914f8bf31f343, type: 2}
@@ -11181,7 +11195,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4094954300689728, guid: 478f74891abdb45cf89f826df532503f, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 212254707294178792, guid: 478f74891abdb45cf89f826df532503f,
         type: 2}
@@ -11708,7 +11722,7 @@ Transform:
   m_Children:
   - {fileID: 797957791}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1876841751
 BoxCollider2D:
@@ -12804,7 +12818,7 @@ RectTransform:
   - {fileID: 1758044112}
   - {fileID: 120696659}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

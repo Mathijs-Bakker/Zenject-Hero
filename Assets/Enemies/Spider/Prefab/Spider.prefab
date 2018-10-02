@@ -37,7 +37,7 @@ GameObject:
   - component: {fileID: 4791052687730578}
   - component: {fileID: 212944196805800142}
   m_Layer: 0
-  m_Name: View
+  m_Name: Spider View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 60502303153081600}
   - component: {fileID: 114133778522495564}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: Spider Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

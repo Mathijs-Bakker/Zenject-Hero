@@ -10,7 +10,7 @@ namespace Code
     {
         private List<Vector2> _obscuredScreens = new List<Vector2>();
 
-        [Inject] private PlayerFacade _playerFacade;
+        [Inject] private readonly PlayerFacade _playerFacade;
 
         private void Update()
         {
