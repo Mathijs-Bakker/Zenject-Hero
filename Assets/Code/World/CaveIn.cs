@@ -5,7 +5,7 @@ namespace Code
 {
     public class CaveIn : Damageable
     {
-        [Inject] private readonly SignalBus _signalBus;
+        [Inject] private readonly SignalBus _signalBus = null;
 
         [SerializeField] private int _dynamitePoints = 75;
         [SerializeField] private int _health;

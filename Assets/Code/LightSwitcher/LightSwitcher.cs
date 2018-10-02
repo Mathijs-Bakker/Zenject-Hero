@@ -76,7 +76,7 @@ namespace Code
             if (sprite == null) return;
 
             if (sprite.gameObject.GetComponentInParent<PlayerFacade>() ||
-                sprite.gameObject.GetComponentInParent<Enemy>() ||
+                sprite.gameObject.GetComponentInParent<Killable>() ||
                 sprite.gameObject.GetComponentInParent<Lamp.Code.Lamp>() ||
                 sprite.gameObject.GetComponentInParent<Damageable>() ||
                 sprite.gameObject.GetComponentInParent<Miner>())

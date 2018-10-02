@@ -38,23 +38,27 @@ namespace Laser.Code
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!IsFiring) return;
-
-            var enemy = other.GetComponent<Enemy>();
-            if (enemy != null) enemy.ReceiveDamage(_settings.Damage);
             
-            var damagableGo = other.GetComponent<Damageable>();
-            if (damagableGo != null) damagableGo.ReceiveDamage(_settings.Damage);
+            var killableGo = other.GetComponent<Killable>();
+            if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
+            
+            var damageableGo = other.GetComponent<Damageable>();
+            if (damageableGo != null) damageableGo.ReceiveDamage(_settings.Damage);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
             if (!IsFiring) return;
 
-            var enemy = other.GetComponent<Enemy>();
-            if (enemy != null) enemy.ReceiveDamage(_settings.Damage);
+            var killableGo = other.GetComponent<Killable>();
+            if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
+            if (killableGo != null)
+            {
+                Debug.Log("Hit!");
+            }
             
-            var damagableGo = other.GetComponent<Damageable>();
-            if (damagableGo != null) damagableGo.ReceiveDamage(_settings.Damage);
+            var damageable = other.GetComponent<Damageable>();
+            if (damageable != null) damageable.ReceiveDamage(_settings.Damage);
             
         }
 

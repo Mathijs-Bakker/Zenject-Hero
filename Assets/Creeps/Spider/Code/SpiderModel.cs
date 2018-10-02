@@ -5,9 +5,9 @@ using Zenject;
 
 namespace Enemies.Spider.Code
 {
-	public class SpiderModel : Enemy
+	public class SpiderModel : Killable
 	{
-		[Inject] private readonly SignalBus _signalBus;
+		[Inject] private readonly SignalBus _signalBus = null;
 
 		[SerializeField] private int _health = 50;
 		[SerializeField] private int _scorePoints = 50;
