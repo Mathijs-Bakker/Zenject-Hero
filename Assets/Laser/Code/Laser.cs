@@ -56,7 +56,6 @@ namespace Laser.Code
             
             var explodableGo = other.GetComponent<Explodable>();
             if (explodableGo != null) explodableGo.ReceiveDamage(_settings.Damage);
-            
         }
 
         private void UpdateLaser()

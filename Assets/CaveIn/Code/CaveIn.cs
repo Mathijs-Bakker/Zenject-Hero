@@ -1,8 +1,9 @@
 ﻿using CaveIn.Contracts;
+using Code;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace CaveIn.Code
 {
     public class CaveIn : Explodable
     {
