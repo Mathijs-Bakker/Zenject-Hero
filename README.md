@@ -1,5 +1,5 @@
 # Zenject H.E.R.O. (WIP)
-## A complete Unity3D example project using Zenject 
+## A Unity3D game using a dependency injection framework.
 Remember H.E.R.O.? An ancient 8 bit game by Activision made famous on the Atari 2600. Watch on YouTube. Because of the 'simple'game mechanics I chose to recreate this game while learning Zenject.  
 
 ![](https://i.imgur.com/ABdBN3A.gif)  
