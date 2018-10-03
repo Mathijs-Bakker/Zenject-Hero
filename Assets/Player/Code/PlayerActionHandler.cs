@@ -6,7 +6,7 @@ namespace Code
     public class PlayerActionHandler : ITickable
     {
         private readonly PlayerModel _playerModel;
-        private readonly Dynamite.Pool _dynamitePool;
+        private readonly Dynamite.Code.Dynamite.Pool _dynamitePool;
         private readonly DynamitesCounter _dynamitesCounter;
         private readonly DynamitesActive _dynamitesActive;
         private readonly PlayerInputState _inputState;
@@ -15,7 +15,7 @@ namespace Code
         public PlayerActionHandler(
             PlayerModel playerModel,
             PlayerInputState playerInputState,
-            Dynamite.Pool dynamitePool,
+            Dynamite.Code.Dynamite.Pool dynamitePool,
             DynamitesCounter dynamitesCounter,
             DynamitesActive dynamitesActive,
             Laser.Code.Laser laser)

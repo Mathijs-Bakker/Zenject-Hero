@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Code.Installers
 {
     public class GameInstaller : MonoInstaller
     {
@@ -12,47 +12,29 @@ namespace Code
         {
             SignalBusInstaller.Install(Container);
 
-//            InstallPlayer();
             InstallLives();
-//            InstallLaser();
-            InstallDynamitePool();
+//            InstallDynamitePool();
             
             InstallGameManager();
         }
-
-//        private void InstallPlayer()
-//        {
-//            Container.Bind<PlayerFacade>()
-//                .FromComponentInNewPrefab(_settings.PlayerPrefab)
-//                .UnderTransformGroup("Player")
-//                .AsSingle();
-//        }
 
         private void InstallLives()
         {
             Container.Bind<LivesCounter>().AsSingle();
         }
 
-//        private void InstallLaser()
+//        private void InstallDynamitePool()
 //        {
-//            Container.Bind<Laser.Code.Laser>()
-//                .FromComponentInNewPrefab(_settings.LaserPrefab)
-//                .UnderTransformGroup("Player")
-//                .AsSingle();
+//            Container.Bind<Dynamite.Code.Dynamite>().AsSingle();
+//            
+//            Container.BindMemoryPool<Dynamite.Code.Dynamite, Dynamite.Code.Dynamite.Pool>()
+//                .WithInitialSize(20)
+//                .FromComponentInNewPrefab(_settings.DynamitePrefab)
+//                .UnderTransformGroup("Dynamite");
+//
+//            Container.Bind<DynamitesActive>().AsSingle();
+//            Container.Bind<DynamitesCounter>().AsSingle();
 //        }
-
-        private void InstallDynamitePool()
-        {
-            Container.Bind<Dynamite>().AsSingle();
-            
-            Container.BindMemoryPool<Dynamite, Dynamite.Pool>()
-                .WithInitialSize(20)
-                .FromComponentInNewPrefab(_settings.DynamitePrefab)
-                .UnderTransformGroup("Dynamite");
-
-            Container.Bind<DynamitesActive>().AsSingle();
-            Container.Bind<DynamitesCounter>().AsSingle();
-        }
 
         private void InstallGameManager()
         {
@@ -68,9 +50,7 @@ namespace Code
         [Serializable]
         public class Settings
         {
-//            public GameObject PlayerPrefab;
-            public GameObject LaserPrefab;
-            public GameObject DynamitePrefab;
+//            public GameObject DynamitePrefab;
         }
     }
 }

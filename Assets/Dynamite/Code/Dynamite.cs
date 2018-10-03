@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using CaveIn.Contracts;
+using Code;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Dynamite.Code
 {
     public class Dynamite : MonoBehaviour
     {
@@ -11,10 +12,17 @@ namespace Code
 
         private readonly List<GameObject> _overlappedColliders = new List<GameObject>();
 
-        [Inject] private Pool _dynamitePool;
-        [Inject] private DynamitesActive _dynamitesActive;
+        private Pool _dynamitePool;
+        private DynamitesActive _dynamitesActive;
 
         private float _fuseTimer;
+
+        [Inject]
+        public void Construct(Pool dynamitePool, DynamitesActive dynamitesActive)
+        {
+            _dynamitePool = dynamitePool;
+            _dynamitesActive = dynamitesActive;
+        }
 
         private void Start()
         {
