@@ -1,5 +1,6 @@
 ﻿using Code;
 using Enemies.Contracts;
+using UI.Score.Code;
 using UnityEngine;
 using Zenject;
 

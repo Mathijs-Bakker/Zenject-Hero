@@ -6,14 +6,13 @@ namespace Code.Installers
 {
     public class GameInstaller : MonoInstaller
     {
-        [Inject] private readonly Settings _settings = null;
+//        [Inject] private readonly Settings _settings = null;
         
         public override void InstallBindings()
         {
             SignalBusInstaller.Install(Container);
 
             InstallLives();
-//            InstallDynamitePool();
             
             InstallGameManager();
         }
@@ -22,19 +21,6 @@ namespace Code.Installers
         {
             Container.Bind<LivesCounter>().AsSingle();
         }
-
-//        private void InstallDynamitePool()
-//        {
-//            Container.Bind<Dynamite.Code.Dynamite>().AsSingle();
-//            
-//            Container.BindMemoryPool<Dynamite.Code.Dynamite, Dynamite.Code.Dynamite.Pool>()
-//                .WithInitialSize(20)
-//                .FromComponentInNewPrefab(_settings.DynamitePrefab)
-//                .UnderTransformGroup("Dynamite");
-//
-//            Container.Bind<DynamitesActive>().AsSingle();
-//            Container.Bind<DynamitesCounter>().AsSingle();
-//        }
 
         private void InstallGameManager()
         {

@@ -5,13 +5,13 @@ using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace Code.LightSwitcher
 {
     public class LightSwitcher : MonoBehaviour
     {
         private List<Vector2> _obscuredScreens = new List<Vector2>();
 
-        [Inject] private readonly PlayerFacade _playerFacade;
+        [Inject] private readonly PlayerFacade _playerFacade = null;
 
         private void Update()
         {
@@ -35,9 +35,9 @@ namespace Code
         {
             var collider2Ds = GetAllColliders(currentScreenPos);
 
-            foreach (var collider in collider2Ds)
+            foreach (var c in collider2Ds)
             {
-                var spriteRenderer = collider.gameObject.GetComponentInChildren<SpriteRenderer>();
+                var spriteRenderer = c.gameObject.GetComponentInChildren<SpriteRenderer>();
                 Obscure(spriteRenderer);
             }
         }

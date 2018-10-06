@@ -1,4 +1,5 @@
 ﻿using Code;
+using Code.LightSwitcher;
 using UnityEngine;
 using Zenject;
 
@@ -12,7 +13,7 @@ namespace Lamp.Code
         {
             if (other.gameObject.GetComponent<PlayerFacade>())
             {
-                _signalBus.Fire(new LightsOutSignal());
+                _signalBus.Fire(new LightsOffSignal());
             }
         }
     }
