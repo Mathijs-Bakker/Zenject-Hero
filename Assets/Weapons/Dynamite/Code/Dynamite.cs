@@ -43,10 +43,10 @@ namespace Dynamite.Code
                 {
                     var go = _overlappedColliders[i];
 
-                    var damagableGo = go.GetComponent<Explodable>();
-                    if (damagableGo != null)
+                    var explodableGo = go.GetComponent<Explodable>();
+                    if (explodableGo != null)
                     {
-                        damagableGo.BlowUp();
+                        explodableGo.BlowUp();
                         return;
                     }
 

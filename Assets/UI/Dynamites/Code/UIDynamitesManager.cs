@@ -29,7 +29,7 @@ namespace Code
         {
             if (_activeDynamites == _dynamitesCounter.DynamitesLeft) return;
             
-            DespawnDynamites();
+            DestroyDynamite();
                 
             _activeDynamites -= 1;
             SpawnDynamites();
@@ -37,7 +37,7 @@ namespace Code
             _activeDynamites = _dynamitesCounter.DynamitesLeft;
         }
 
-        private void DespawnDynamites()
+        private void DestroyDynamite()
         {
             foreach (var uiDynamite in _uiDynamites)
             {
