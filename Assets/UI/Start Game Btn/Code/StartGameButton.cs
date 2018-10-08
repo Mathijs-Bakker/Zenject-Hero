@@ -1,13 +1,13 @@
-﻿using UnityEngine;
+﻿using Code;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code
+namespace UI.Start_Game_Btn.Code
 {
     public class StartGameButton : MonoBehaviour
     {
-        [Inject] private GameManager _gameManager;
-
         private Button _startGameBtn;
 
         private void Start()
@@ -18,7 +18,7 @@ namespace Code
 
         private void StartGame()
         {
-            _gameManager.ChangeState(GameState.Play);
+            SceneManager.LoadScene(1);
         }
     }
 }

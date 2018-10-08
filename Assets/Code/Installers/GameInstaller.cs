@@ -13,24 +13,11 @@ namespace Code.Installers
             SignalBusInstaller.Install(Container);
 
             InstallLives();
-            
-            InstallGameManager();
         }
 
         private void InstallLives()
         {
             Container.Bind<LivesCounter>().AsSingle();
-        }
-
-        private void InstallGameManager()
-        {
-            Container.Bind<GameStateFactory>().AsSingle();
-
-            Container.BindFactory<MenuState, MenuState.Factory>()
-                .WhenInjectedInto<GameStateFactory>();
-
-            Container.BindFactory<PlayState, PlayState.Factory>()
-                .WhenInjectedInto<GameStateFactory>();
         }
 
         [Serializable]
