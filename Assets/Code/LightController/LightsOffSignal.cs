@@ -1,4 +1,4 @@
-﻿namespace Code.LightSwitcher
+﻿namespace Code.LightController
 {
     public class LightsOffSignal
     {

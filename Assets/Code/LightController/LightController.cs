@@ -5,7 +5,7 @@ using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Light
+namespace Code.LightController
 {
     public class LightController : MonoBehaviour
     {

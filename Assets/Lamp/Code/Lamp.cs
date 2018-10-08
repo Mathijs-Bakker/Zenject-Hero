@@ -1,4 +1,5 @@
 ﻿using Code;
+using Code.LightController;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace Lamp.Code
 {
     public class Lamp : MonoBehaviour
     {
-        [Inject] private readonly SignalBus _signalBus;
+        [Inject] private readonly SignalBus _signalBus = null;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
