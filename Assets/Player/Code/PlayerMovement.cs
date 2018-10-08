@@ -26,10 +26,7 @@ namespace Code
         {
             if (_playerModel.IsDead) return;
 
-            if (_inputState.IsMovingUp)
-            {
-                _playerModel.AddForce(Vector2.up * _settings.MoveSpeed);
-            }
+            if (_inputState.IsMovingUp) _playerModel.AddForce(Vector2.up * _settings.MoveSpeed);
 
             if (_inputState.IsMovingDown)
                 _playerModel.AddForce(Vector2.down * _settings.MoveSpeed);
@@ -45,7 +42,7 @@ namespace Code
                 _playerModel.FaceLeft(false);
                 _playerModel.AddForce(Vector2.right * _settings.MoveSpeed);
             }
-            
+
             // Todo: Idle state
 
             if (_inputState.IsFiring ||
@@ -53,13 +50,9 @@ namespace Code
                 _inputState.IsMovingLeft ||
                 _inputState.IsMovingRight ||
                 _inputState.IsMovingUp)
-            {
                 _playerModel.IsMoving = true;
-            }
             else
-            {
                 _playerModel.IsMoving = false;
-            }
         }
 
         [Serializable]

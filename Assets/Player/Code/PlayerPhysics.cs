@@ -15,7 +15,7 @@ namespace Code
         {
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         }
-        
+
         public void GravityOff()
         {
             _rigidbody2D.bodyType = RigidbodyType2D.Static;

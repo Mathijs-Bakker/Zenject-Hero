@@ -2,9 +2,9 @@
 {
     public class PlayerDeathHandler
     {
-        private readonly PlayerModel _playerModel;
         private readonly LivesCounter _livesCounter;
         private readonly PlayerAnimationStates _playerAnimationStates;
+        private readonly PlayerModel _playerModel;
 
         public PlayerDeathHandler(
             PlayerModel playerModel,

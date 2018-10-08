@@ -7,9 +7,6 @@
             BorderPosition = borderPosition;
         }
 
-        public ScreenBorder BorderPosition
-        {
-            get; private set;
-        }
+        public ScreenBorder BorderPosition { get; }
     }
 }

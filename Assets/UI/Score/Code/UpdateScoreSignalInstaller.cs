@@ -6,7 +6,6 @@ namespace UI.Score.Code
     {
         public override void InstallBindings()
         {
-            
             Container.DeclareSignal<UpdateScoreSignal>();
 
             Container.BindSignal<UpdateScoreSignal>()

@@ -9,7 +9,7 @@ namespace Code
         private readonly PlayerModel _playerModel;
 
         public PlayerInputHandler(
-            PlayerInputState inputState, 
+            PlayerInputState inputState,
             PlayerModel playerModel)
         {
             _inputState = inputState;

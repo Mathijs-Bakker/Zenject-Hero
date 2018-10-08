@@ -2,7 +2,7 @@
 
 namespace Code
 {
-    public class Miner : MonoBehaviour 
+    public class Miner : MonoBehaviour
     {
     }
 }

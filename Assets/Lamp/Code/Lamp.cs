@@ -1,5 +1,4 @@
 ﻿using Code;
-using Code.LightSwitcher;
 using UnityEngine;
 using Zenject;
 
@@ -11,10 +10,7 @@ namespace Lamp.Code
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.GetComponent<PlayerFacade>())
-            {
-                _signalBus.Fire(new LightsOffSignal());
-            }
+            if (other.gameObject.GetComponent<PlayerFacade>()) _signalBus.Fire(new LightsOffSignal());
         }
     }
 }

@@ -5,23 +5,23 @@ namespace Code
 {
     public class LivesCounter
     {
-        private Settings _settings;
+        private readonly Settings _settings;
 
         public LivesCounter(Settings settings)
         {
             _settings = settings;
         }
-        
+
         public int LivesLeft { get; private set; }
-        
+
         public void ResetLivesCounter()
         {
             LivesLeft = _settings.TotalNumLives;
         }
-        
+
         public void SubtractLive()
         {
-            if (LivesLeft <=0) return;
+            if (LivesLeft <= 0) return;
             LivesLeft -= 1;
         }
 
@@ -30,7 +30,7 @@ namespace Code
             if (LivesLeft <= 0) return;
             LivesLeft += 1;
         }
-        
+
         [Serializable]
         public class Settings
         {

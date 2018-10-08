@@ -1,5 +1,3 @@
-using System;
-using Code;
 using UnityEngine;
 using Zenject;
 
@@ -9,11 +7,10 @@ namespace Dynamite.Code.Installers
     public class DynamiteSettingsInstaller : ScriptableObjectInstaller<DynamiteSettingsInstaller>
     {
         public DynamitePoolInstaller.Settings DynamitePool;
-        
+
         public override void InstallBindings()
         {
             Container.BindInstance(DynamitePool).IfNotBound();
         }
     }
-
 }

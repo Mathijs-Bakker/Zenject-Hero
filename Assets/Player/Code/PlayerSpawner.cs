@@ -2,9 +2,9 @@
 {
     public class PlayerSpawner
     {
+        private readonly PlayerAnimationStates _playerAnimationStates;
         private readonly PlayerModel _playerModel;
         private readonly PlayerPhysics _playerPhysics;
-        private readonly PlayerAnimationStates _playerAnimationStates;
 
         public PlayerSpawner(
             PlayerModel playerModel,
@@ -15,6 +15,7 @@
             _playerPhysics = playerPhysics;
             _playerAnimationStates = playerAnimationStates;
         }
+
         public void Spawn()
         {
             _playerPhysics.GravityOff();

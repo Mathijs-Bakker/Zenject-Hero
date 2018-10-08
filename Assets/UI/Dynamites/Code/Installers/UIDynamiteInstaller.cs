@@ -6,11 +6,10 @@ namespace UI.Dynamites.Code.Installers
 {
     public class UIDynamiteInstaller : MonoInstaller
     {
-        [SerializeField]
-        private GameObject UIDynamitePrefab;
-
         [Inject] private DynamitesCounter.Settings _dynamiteCounterSettings;
-        
+
+        [SerializeField] private GameObject UIDynamitePrefab;
+
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<UIDynamitesManager>().AsSingle();
@@ -19,8 +18,6 @@ namespace UI.Dynamites.Code.Installers
                 .WithInitialSize(_dynamiteCounterSettings.TotalNumDynamites)
                 .FromComponentInNewPrefab(UIDynamitePrefab)
                 .UnderTransform(transform);
-            
-            
         }
     }
 }

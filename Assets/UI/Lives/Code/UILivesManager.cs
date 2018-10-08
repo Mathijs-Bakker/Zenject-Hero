@@ -8,6 +8,9 @@ namespace Code
         private readonly LivesCounter _livesCounter;
         private readonly UILife.Pool _uiLivePool;
 
+        private int _activeLives;
+        private readonly List<UILife> _uiLives = new List<UILife>();
+
         public UILivesManager(
             LivesCounter livesCounter,
             UILife.Pool uiLivePool)
@@ -16,9 +19,6 @@ namespace Code
             _uiLivePool = uiLivePool;
         }
 
-        private int _activeLives;
-        private List<UILife> _uiLives = new List<UILife>();
-        
         public void Initialize()
         {
             _activeLives = _livesCounter.LivesLeft;
@@ -28,21 +28,18 @@ namespace Code
         public void Tick()
         {
             if (_activeLives == _livesCounter.LivesLeft) return;
-            
+
             DespawnLives();
-                
+
             _activeLives -= 1;
             SpawnLives();
-                
+
             _activeLives = _livesCounter.LivesLeft;
         }
 
         private void DespawnLives()
         {
-            foreach (var uiLife in _uiLives)
-            {
-                _uiLivePool.Despawn(uiLife);
-            }
+            foreach (var uiLife in _uiLives) _uiLivePool.Despawn(uiLife);
             _uiLives.Clear();
         }
 

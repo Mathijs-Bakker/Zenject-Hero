@@ -1,16 +1,15 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
 
 namespace Code
 {
     public class PlayerActionHandler : ITickable
     {
-        private readonly PlayerModel _playerModel;
         private readonly Dynamite.Code.Dynamite.Pool _dynamitePool;
-        private readonly DynamitesCounter _dynamitesCounter;
         private readonly DynamitesActive _dynamitesActive;
+        private readonly DynamitesCounter _dynamitesCounter;
         private readonly PlayerInputState _inputState;
         private readonly Laser.Code.Laser _laser;
+        private readonly PlayerModel _playerModel;
 
         public PlayerActionHandler(
             PlayerModel playerModel,
@@ -45,7 +44,7 @@ namespace Code
 
             var dynamite = _dynamitePool.Spawn();
             dynamite.transform.position = _playerModel.Position;
-            
+
             _dynamitesActive.IsDynamiteActive = true;
             _dynamitesCounter.SubtractDynamite();
         }

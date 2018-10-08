@@ -5,10 +5,15 @@ namespace Code
 {
     public class PlayerFacade : MonoBehaviour
     {
-        private PlayerModel _playerModel;
-        private PlayerSpawner _playerSpawner;
         private PlayerDeathHandler _playerDeathHandler;
+        private PlayerModel _playerModel;
         private PlayerPhysics _playerPhysics;
+        private PlayerSpawner _playerSpawner;
+
+        public Vector2 Position => _playerModel.Position;
+        public bool IsFacingLeft => _playerModel.IsFacingLeft;
+        public bool HasMoved => _playerModel.IsMoving;
+        public bool HasWon { get; set; }
 
         [Inject]
         public void Construct(
@@ -25,16 +30,8 @@ namespace Code
 
         private void Update()
         {
-            if (HasMoved)
-            {
-                _playerPhysics.GravityOn();
-            }
+            if (HasMoved) _playerPhysics.GravityOn();
         }
-
-        public Vector2 Position => _playerModel.Position;
-        public bool IsFacingLeft => _playerModel.IsFacingLeft;
-        public bool HasMoved => _playerModel.IsMoving;
-        public bool HasWon { get; set; }
 
         public void Spawn()
         {

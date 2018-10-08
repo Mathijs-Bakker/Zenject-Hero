@@ -9,6 +9,9 @@ namespace UI.Dynamites.Code
         private readonly DynamitesCounter _dynamitesCounter;
         private readonly UIDynamite.Pool _uiDynamitePool;
 
+        private int _activeDynamites;
+        private readonly List<UIDynamite> _uiDynamites = new List<UIDynamite>();
+
         public UIDynamitesManager(
             DynamitesCounter dynamitesCounter,
             UIDynamite.Pool uiDynamitePool)
@@ -17,9 +20,6 @@ namespace UI.Dynamites.Code
             _uiDynamitePool = uiDynamitePool;
         }
 
-        private int _activeDynamites;
-        private List<UIDynamite> _uiDynamites = new List<UIDynamite>();
-        
         public void Initialize()
         {
             _activeDynamites = _dynamitesCounter.DynamitesLeft;
@@ -29,21 +29,18 @@ namespace UI.Dynamites.Code
         public void Tick()
         {
             if (_activeDynamites == _dynamitesCounter.DynamitesLeft) return;
-            
+
             DestroyDynamite();
-                
+
             _activeDynamites -= 1;
             SpawnDynamites();
-                
+
             _activeDynamites = _dynamitesCounter.DynamitesLeft;
         }
 
         private void DestroyDynamite()
         {
-            foreach (var uiDynamite in _uiDynamites)
-            {
-                _uiDynamitePool.Despawn(uiDynamite);
-            }
+            foreach (var uiDynamite in _uiDynamites) _uiDynamitePool.Despawn(uiDynamite);
             _uiDynamites.Clear();
         }
 

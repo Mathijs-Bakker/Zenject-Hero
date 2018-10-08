@@ -5,8 +5,6 @@ namespace Code
 {
     public class PlayerAnimationStates
     {
-        private readonly Animator _animator;
-
         public enum State
         {
             Spawn,
@@ -16,6 +14,8 @@ namespace Code
             Run,
             Die
         }
+
+        private readonly Animator _animator;
 
         private readonly PlayerModel _playerModel;
 
@@ -27,17 +27,17 @@ namespace Code
         public void SetAnimator(State state)
         {
             ResetAnimationStates();
-            
+
             switch (state)
             {
                 case State.Spawn:
                     _animator.SetBool("IsSpawning", true);
                     break;
-                
+
                 case State.PlayerReady:
                     _animator.SetBool("IsPlayerReady", true);
                     break;
-                
+
                 case State.Idle:
                     _animator.SetBool("IsIdle", true);
                     break;
@@ -49,11 +49,11 @@ namespace Code
                 case State.Run:
                     _animator.SetBool("IsRunning", true);
                     break;
-                
+
                 case State.Die:
                     _animator.SetBool("IsDead", true);
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(state), state, null);
             }

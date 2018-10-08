@@ -7,9 +7,6 @@
             ScorePoints = scorePoints;
         }
 
-        public int ScorePoints
-        {
-            get; private set;
-        }
+        public int ScorePoints { get; }
     }
 }

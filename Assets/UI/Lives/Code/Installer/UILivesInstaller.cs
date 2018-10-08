@@ -5,11 +5,10 @@ namespace Code.Installers
 {
     public class UILivesInstaller : MonoInstaller
     {
-        [SerializeField]
-        private GameObject UILifePrefab;
-
         [Inject] private LivesCounter.Settings _livesCounterSettings;
-        
+
+        [SerializeField] private GameObject UILifePrefab;
+
         public override void InstallBindings()
         {
             Container.BindInterfacesTo<UILivesManager>().AsSingle();
@@ -18,6 +17,6 @@ namespace Code.Installers
                 .WithInitialSize(_livesCounterSettings.TotalNumLives)
                 .FromComponentInNewPrefab(UILifePrefab)
                 .UnderTransform(transform);
-        } 
+        }
     }
 }

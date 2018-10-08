@@ -7,19 +7,19 @@ namespace Laser.Code.Installers
     [CreateAssetMenu(fileName = "LaserSettings", menuName = "Scriptable Objects/LaserSettingsInstaller")]
     public class LaserSettingsInstaller : ScriptableObjectInstaller<LaserSettingsInstaller>
     {
-        public LaserPrefabInstaller.Settings LaserPrefabInstaller;
         public LaserSettings Laser;
-        
-        [Serializable]
-        public class LaserSettings
-        {
-            public Laser.Settings Damage;
-        }
-        
+        public LaserPrefabInstaller.Settings LaserPrefabInstaller;
+
         public override void InstallBindings()
         {
             Container.BindInstance(LaserPrefabInstaller).IfNotBound();
             Container.BindInstance(Laser.Damage);
+        }
+
+        [Serializable]
+        public class LaserSettings
+        {
+            public Laser.Settings Damage;
         }
     }
 }

@@ -8,19 +8,19 @@ namespace Player.Code.Installers
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Scriptable Objects/PlayerSettings")]
     public class PlayerSettingsInstaller : ScriptableObjectInstaller<PlayerSettingsInstaller>
     {
-        public PlayerPrefabInstaller.Settings PlayerPrefabInstaller;
         public PlayerSettings Player;
-
-        [Serializable]
-        public class PlayerSettings
-        {
-            public PlayerMovement.Settings Movement;
-        }
+        public PlayerPrefabInstaller.Settings PlayerPrefabInstaller;
 
         public override void InstallBindings()
         {
             Container.BindInstance(PlayerPrefabInstaller).IfNotBound();
             Container.BindInstance(Player.Movement);
+        }
+
+        [Serializable]
+        public class PlayerSettings
+        {
+            public PlayerMovement.Settings Movement;
         }
     }
 }

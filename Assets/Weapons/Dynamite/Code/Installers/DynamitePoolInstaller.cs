@@ -8,7 +8,7 @@ namespace Dynamite.Code.Installers
     public class DynamitePoolInstaller : MonoInstaller
     {
         [Inject] private readonly Settings _settings = null;
-        
+
         public override void InstallBindings()
         {
             InstallDynamitePool();
@@ -17,7 +17,7 @@ namespace Dynamite.Code.Installers
         private void InstallDynamitePool()
         {
             Container.Bind<Dynamite>().AsSingle();
-            
+
             Container.BindMemoryPool<Dynamite, Dynamite.Pool>()
                 .WithInitialSize(20)
                 .FromComponentInNewPrefab(_settings.DynamitePrefab)

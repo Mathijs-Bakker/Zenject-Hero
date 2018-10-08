@@ -5,8 +5,8 @@ namespace Code
 {
     public class PlayerCollision : MonoBehaviour
     {
-        private PlayerGrounded _playerGrounded;
         private PlayerFacade _playerFacade;
+        private PlayerGrounded _playerGrounded;
 
         [Inject]
         public void Construct(
@@ -17,7 +17,7 @@ namespace Code
             _playerFacade = playerFacade;
         }
 
-        
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             _playerGrounded.PlayerHitFloor(other);

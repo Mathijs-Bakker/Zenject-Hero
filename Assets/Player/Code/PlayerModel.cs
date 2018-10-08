@@ -23,23 +23,24 @@ namespace Code
         public bool IsGrounded { get; set; }
         public bool IsDead { get; set; }
 
-        public void PlayerReady()
-        {
-            IsReady = true;
-        }
-
         public Vector2 Position
         {
             get { return _rigidBody.position; }
             private set { _rigidBody.position = value; }
         }
-        
+
+        public bool IsFacingLeft { get; private set; }
+
+        public void PlayerReady()
+        {
+            IsReady = true;
+        }
+
         public void AddForce(Vector2 force)
         {
             _rigidBody.AddForce(force);
         }
-        
-        public bool IsFacingLeft { get; private set; }
+
         public void FaceLeft(bool isPlayerMovingToTheLeft)
         {
             _spriteRenderer.flipX = isPlayerMovingToTheLeft;

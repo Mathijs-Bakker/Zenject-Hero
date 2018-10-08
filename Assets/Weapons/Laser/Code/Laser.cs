@@ -39,10 +39,10 @@ namespace Laser.Code
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!IsFiring) return;
-            
+
             var killableGo = other.GetComponent<Killable>();
             if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
-            
+
             var explodableGo = other.GetComponent<Explodable>();
             if (explodableGo != null) explodableGo.ReceiveDamage(_settings.Damage);
         }
@@ -53,7 +53,7 @@ namespace Laser.Code
 
             var killableGo = other.GetComponent<Killable>();
             if (killableGo != null) killableGo.ReceiveDamage(_settings.Damage);
-            
+
             var explodableGo = other.GetComponent<Explodable>();
             if (explodableGo != null) explodableGo.ReceiveDamage(_settings.Damage);
         }

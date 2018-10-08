@@ -7,7 +7,7 @@ namespace Laser.Code.Installers
     public class LaserPrefabInstaller : MonoInstaller<LaserPrefabInstaller>
     {
         [Inject] private readonly Settings _settings = null;
-        
+
         public override void InstallBindings()
         {
             InstallLaser();
