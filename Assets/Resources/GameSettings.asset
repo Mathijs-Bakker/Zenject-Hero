@@ -3,7 +3,7 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: GameSettings
   m_EditorClassIdentifier: 
   GameInstaller:
-    PlayerPrefab: {fileID: 1488747157914624, guid: 44cc0374c11a0442b819947ac6fbdc5a,
+    PlayerPrefab: {fileID: 1306124711000602, guid: be2823cd47fdc4dbdb0ddac0cf0aec07,
       type: 2}
     LaserPrefab: {fileID: 1888480339335436, guid: e18134810f8794647bc846d68926f886,
       type: 2}
