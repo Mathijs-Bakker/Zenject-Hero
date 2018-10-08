@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Code;
+using UnityEngine;
 using Zenject;
 
-namespace Code.AnimationEvents
+namespace Player.Code.AnimationEvents
 {
     public class PlayerReadyEvent : MonoBehaviour
     {
-        [Inject] private SignalBus _signalBus;
+        [Inject] private readonly SignalBus _signalBus = null;
         
         public void PlayerReady()
         {

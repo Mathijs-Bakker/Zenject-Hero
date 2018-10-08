@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 222999408394086752}
   - component: {fileID: 114361481092223124}
   - component: {fileID: 114608368191688694}
-  - component: {fileID: 114282927404360668}
   - component: {fileID: 114405441932019848}
+  - component: {fileID: 114282927404360668}
   m_Layer: 5
   m_Name: Start Game - Btn
   m_TagString: Untagged
@@ -152,7 +152,7 @@ MonoBehaviour:
   _components:
   - {fileID: 114282927404360668}
   _identifier: 
-  _useSceneContext: 0
+  _useSceneContext: 1
   _context: {fileID: 0}
   _bindType: 0
 --- !u!114 &114608368191688694

@@ -5,11 +5,11 @@ using Enemies.Contracts;
 using UnityEngine;
 using Zenject;
 
-namespace Code.LightSwitcher
+namespace Code.Light
 {
-    public class LightSwitcher : MonoBehaviour
+    public class LightController : MonoBehaviour
     {
-        private List<Vector2> _obscuredScreens = new List<Vector2>();
+        private readonly List<Vector2> _obscuredScreens = new List<Vector2>();
 
         [Inject] private readonly PlayerFacade _playerFacade = null;
 

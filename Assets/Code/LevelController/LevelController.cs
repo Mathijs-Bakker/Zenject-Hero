@@ -2,23 +2,23 @@
 
 namespace Code
 {
-	public class LevelManager : ITickable, IInitializable
+	public class LevelController : ITickable, IInitializable
 	{
 		private readonly PlayerFacade _playerFacade;
 		private readonly PowerBarFacade _powerBar;
 		private readonly LivesCounter _livesCounter;
 		private readonly DynamitesCounter _dynamitesCounter;
 
-		public LevelManager(
+		public LevelController(
 			PlayerFacade playerFacade,
 			PowerBarFacade powerBarFacade,
-			LivesCounter livescounter,
+			LivesCounter livesCounter,
 			DynamitesCounter dynamitesCounter
 			)
 		{
 			_playerFacade = playerFacade;
 			_powerBar = powerBarFacade;
-			_livesCounter = livescounter;
+			_livesCounter = livesCounter;
 			_dynamitesCounter = dynamitesCounter;
 		}
 		
