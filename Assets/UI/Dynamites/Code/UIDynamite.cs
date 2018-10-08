@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace UI.Dynamites.Code
 {
     public class UIDynamite : MonoBehaviour 
     {

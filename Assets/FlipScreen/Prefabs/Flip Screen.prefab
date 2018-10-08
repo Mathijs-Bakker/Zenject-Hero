@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4944312436841382}
   - component: {fileID: 212323145814255842}
   m_Layer: 0
-  m_Name: ui-black (1)
+  m_Name: Right (black)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -139,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4456354397722712}
   m_Layer: 0
-  m_Name: Level Mask
+  m_Name: Screen Border Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4648386779447096}
   - component: {fileID: 212693130624857624}
   m_Layer: 0
-  m_Name: ui-black (2)
+  m_Name: Top (black)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 4823493305636036}
   - component: {fileID: 212952746811101332}
   m_Layer: 0
-  m_Name: ui-black
+  m_Name: Left (black)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 4347069594954504}
   - component: {fileID: 212554315615936258}
   m_Layer: 0
-  m_Name: ui-gray
+  m_Name: Bottom (grey)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

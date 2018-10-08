@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Code;
 using Zenject;
 
-namespace Code
+namespace UI.Dynamites.Code
 {
     public class UIDynamitesManager : IInitializable, ITickable
     {
