@@ -4,7 +4,7 @@ using Code;
 using UnityEngine;
 using Zenject;
 
-namespace Dynamite.Code
+namespace Weapons.Dynamite.Code
 {
     public class Dynamite : MonoBehaviour
     {

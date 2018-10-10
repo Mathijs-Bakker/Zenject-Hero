@@ -16,9 +16,9 @@ namespace Dynamite.Code.Installers
 
         private void InstallDynamitePool()
         {
-            Container.Bind<Dynamite>().AsSingle();
+            Container.Bind<Weapons.Dynamite.Code.Dynamite>().AsSingle();
 
-            Container.BindMemoryPool<Dynamite, Dynamite.Pool>()
+            Container.BindMemoryPool<Weapons.Dynamite.Code.Dynamite, Weapons.Dynamite.Code.Dynamite.Pool>()
                 .WithInitialSize(20)
                 .FromComponentInNewPrefab(_settings.DynamitePrefab)
                 .UnderTransformGroup("Dynamite");
