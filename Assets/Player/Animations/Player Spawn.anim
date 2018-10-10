@@ -3,9 +3,9 @@
 --- !u!74 &7400000
 AnimationClip:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Player Restart
+  m_Name: Player Spawn
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
