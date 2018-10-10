@@ -45,6 +45,7 @@ Assets/Plugins/Editor/JetBrains.meta
 Library/
 Temp/
 obj/Debug
+obj/
 
 Assets/Plugins/Zenject/OptionalExtras/AutoMocking.zip
 Assets/Plugins/Zenject/OptionalExtras/AutoMocking.zip.meta
