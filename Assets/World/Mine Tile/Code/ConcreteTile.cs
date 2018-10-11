@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code
+namespace World.Mine_Tile.Code
 {
     public class ConcreteTile : MonoBehaviour
     {

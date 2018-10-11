@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Code.Installers
+namespace UI.Lives.Code.Installer
 {
     public class UILivesInstaller : MonoInstaller
     {

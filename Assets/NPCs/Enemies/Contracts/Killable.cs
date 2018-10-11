@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Enemies.Contracts
+namespace NPCs.Enemies.Contracts
 {
     public abstract class Killable : MonoBehaviour
     {

@@ -1,9 +1,9 @@
-﻿using Enemies.Contracts;
+﻿using NPCs.Enemies.Contracts;
 using UI.Score.Code;
 using UnityEngine;
 using Zenject;
 
-namespace Enemies.Spider.Code
+namespace NPCs.Enemies.Spider.Code
 {
     public class SpiderModel : Killable
     {

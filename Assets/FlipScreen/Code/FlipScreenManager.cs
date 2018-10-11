@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code.FlipScreen
+namespace FlipScreen.Code
 {
     public enum ScreenBorder
     {

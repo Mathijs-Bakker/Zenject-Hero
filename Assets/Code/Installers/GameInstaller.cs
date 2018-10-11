@@ -1,3 +1,4 @@
+using UI.Lives.Code;
 using Zenject;
 
 namespace Code.Installers

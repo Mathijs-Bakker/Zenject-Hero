@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Laser.Code.Installers
+namespace Weapons.Laser.Code.Installers
 {
     public class LaserPrefabInstaller : MonoInstaller<LaserPrefabInstaller>
     {

@@ -1,6 +1,6 @@
 using Zenject;
 
-namespace Code.LevelManager
+namespace Code.LevelController
 {
     public class LevelControllerInstaller : MonoInstaller<LevelControllerInstaller>
     {

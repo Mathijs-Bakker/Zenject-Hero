@@ -1,4 +1,4 @@
-﻿namespace Code.FlipScreen
+﻿namespace FlipScreen.Code.Signals
 {
     public class PlayerMovedOutOfScreenSignal
     {

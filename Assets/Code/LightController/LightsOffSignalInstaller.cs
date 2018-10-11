@@ -1,7 +1,6 @@
-﻿using Code.LightController;
-using Zenject;
+﻿using Zenject;
 
-namespace Code.LightSwitcher
+namespace Code.LightController
 {
     public class LightsOffSignalInstaller : MonoInstaller<LightsOffSignalInstaller>
     {
@@ -10,7 +9,7 @@ namespace Code.LightSwitcher
             Container.DeclareSignal<LightsOffSignal>();
 
             Container.BindSignal<LightsOffSignal>()
-                .ToMethod<LightController.LightController>(x => x.TurnOffLightInCurrentScreen)
+                .ToMethod<LightController>(x => x.TurnOffLightInCurrentScreen)
                 .FromResolve();
         }
     }

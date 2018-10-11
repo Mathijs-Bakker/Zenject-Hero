@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using FlipScreen.Code.Signals;
+using Player.Code;
+using UnityEngine;
 using Zenject;
 
-namespace Code.FlipScreen
+namespace FlipScreen.Code
 {
     public class BorderCollider : MonoBehaviour
     {

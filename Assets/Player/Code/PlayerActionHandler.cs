@@ -1,6 +1,9 @@
-﻿using Zenject;
+﻿using Code;
+using Weapons.Dynamite.Code;
+using Weapons.Laser.Code;
+using Zenject;
 
-namespace Code
+namespace Player.Code
 {
     public class PlayerActionHandler : ITickable
     {
@@ -8,7 +11,7 @@ namespace Code
         private readonly DynamitesActive _dynamitesActive;
         private readonly DynamitesCounter _dynamitesCounter;
         private readonly PlayerInputState _inputState;
-        private readonly Laser.Code.Laser _laser;
+        private readonly Laser _laser;
         private readonly PlayerModel _playerModel;
 
         public PlayerActionHandler(
@@ -17,7 +20,7 @@ namespace Code
             Weapons.Dynamite.Code.Dynamite.Pool dynamitePool,
             DynamitesCounter dynamitesCounter,
             DynamitesActive dynamitesActive,
-            Laser.Code.Laser laser)
+            Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;

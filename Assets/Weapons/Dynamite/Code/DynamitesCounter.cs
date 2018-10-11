@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code
+namespace Weapons.Dynamite.Code
 {
     public class DynamitesCounter
     {

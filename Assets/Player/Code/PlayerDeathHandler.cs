@@ -1,4 +1,7 @@
-﻿namespace Code
+﻿using Code;
+using UI.Lives.Code;
+
+namespace Player.Code
 {
     public class PlayerDeathHandler
     {

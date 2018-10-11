@@ -1,5 +1,6 @@
 ﻿using Code;
 using UnityEngine;
+using Weapons.Dynamite.Code;
 using Zenject;
 
 namespace UI.Dynamites.Code.Installers

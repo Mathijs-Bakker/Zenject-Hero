@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CaveIn.Contracts
+namespace Explodables.CaveIn.Contracts
 {
     public abstract class Explodable : MonoBehaviour
     {

@@ -1,4 +1,4 @@
-﻿namespace Code
+﻿namespace Player.Code
 {
     public class PlayerSpawner
     {

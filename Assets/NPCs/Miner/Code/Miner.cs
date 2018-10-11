@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code
+namespace NPCs.Miner.Code
 {
     public class Miner : MonoBehaviour
     {

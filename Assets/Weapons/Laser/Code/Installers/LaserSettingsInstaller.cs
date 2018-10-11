@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-namespace Laser.Code.Installers
+namespace Weapons.Laser.Code.Installers
 {
     [CreateAssetMenu(fileName = "LaserSettings", menuName = "Scriptable Objects/LaserSettingsInstaller")]
     public class LaserSettingsInstaller : ScriptableObjectInstaller<LaserSettingsInstaller>

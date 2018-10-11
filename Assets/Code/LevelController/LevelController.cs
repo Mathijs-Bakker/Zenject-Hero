@@ -1,6 +1,10 @@
-﻿using Zenject;
+﻿using Player.Code;
+using UI.Lives.Code;
+using UI.PowerBar.Code;
+using Weapons.Dynamite.Code;
+using Zenject;
 
-namespace Code
+namespace Code.LevelController
 {
 	public class LevelController : ITickable, IInitializable
 	{

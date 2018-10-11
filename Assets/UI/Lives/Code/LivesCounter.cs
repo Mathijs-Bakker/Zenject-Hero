@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Code
+namespace UI.Lives.Code
 {
     public class LivesCounter
     {

@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Player.Code;
+using UnityEngine;
 
-namespace Code
+namespace NPCs.Enemies.Spider.Code
 {
     public class SpiderCollider : MonoBehaviour
     {

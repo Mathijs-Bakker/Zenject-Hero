@@ -1,5 +1,6 @@
 using System;
 using Code;
+using Player.Code.Signals;
 using UnityEngine;
 using Zenject;
 
@@ -23,7 +24,7 @@ namespace Player.Code.Installers
             Container.Bind<PlayerAnimationStates>().AsSingle().WithArguments(_settings.Animator);
             Container.Bind<PlayerCollision>().AsSingle();
 
-            Container.BindInterfacesTo<PlayerAnimatorHandler>().AsSingle();
+            Container.BindInterfacesTo<PlayerAnimatorController>().AsSingle();
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
             Container.BindInterfacesTo<PlayerMovement>().AsSingle();
             Container.BindInterfacesTo<PlayerActionHandler>().AsSingle();

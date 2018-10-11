@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Player.Code;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code
+namespace UI.PowerBar.Code
 {
     public class PowerBar : ITickable
     {

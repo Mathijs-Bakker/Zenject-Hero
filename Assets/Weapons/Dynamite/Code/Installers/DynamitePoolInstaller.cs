@@ -1,9 +1,8 @@
 using System;
-using Code;
 using UnityEngine;
 using Zenject;
 
-namespace Dynamite.Code.Installers
+namespace Weapons.Dynamite.Code.Installers
 {
     public class DynamitePoolInstaller : MonoInstaller
     {

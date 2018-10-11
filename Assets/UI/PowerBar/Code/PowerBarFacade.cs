@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace UI.PowerBar.Code
 {
     public class PowerBarFacade : MonoBehaviour
     {

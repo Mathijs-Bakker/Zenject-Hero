@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace Code
+namespace UI.Lives.Code
 {
     public class UILife : MonoBehaviour
     {

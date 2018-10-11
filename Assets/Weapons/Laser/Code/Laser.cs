@@ -1,11 +1,11 @@
 ﻿using System;
-using CaveIn.Contracts;
-using Code;
-using Enemies.Contracts;
+using Explodables.CaveIn.Contracts;
+using NPCs.Enemies.Contracts;
+using Player.Code;
 using UnityEngine;
 using Zenject;
 
-namespace Laser.Code
+namespace Weapons.Laser.Code
 {
     public class Laser : MonoBehaviour
     {

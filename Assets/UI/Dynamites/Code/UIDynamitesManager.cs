@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code;
+using Weapons.Dynamite.Code;
 using Zenject;
 
 namespace UI.Dynamites.Code

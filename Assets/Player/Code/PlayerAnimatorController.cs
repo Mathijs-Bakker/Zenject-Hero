@@ -1,13 +1,13 @@
 ﻿using Zenject;
 
-namespace Code
+namespace Player.Code
 {
-    public class PlayerAnimatorHandler : ITickable
+    public class PlayerAnimatorController : ITickable
     {
         private readonly PlayerAnimationStates _playerAnimationStates;
         private readonly PlayerModel _playerModel;
 
-        public PlayerAnimatorHandler(
+        public PlayerAnimatorController(
             PlayerAnimationStates playerAnimationStates,
             PlayerModel playerModel)
         {

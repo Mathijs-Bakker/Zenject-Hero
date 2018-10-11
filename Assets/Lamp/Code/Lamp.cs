@@ -1,5 +1,6 @@
 ﻿using Code;
 using Code.LightController;
+using Player.Code;
 using UnityEngine;
 using Zenject;
 

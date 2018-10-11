@@ -1,6 +1,7 @@
+using FlipScreen.Code.Signals;
 using Zenject;
 
-namespace Code.FlipScreen
+namespace FlipScreen.Code.Installers
 {
     public class FlipScreenInstaller : MonoInstaller<FlipScreenInstaller>
     {

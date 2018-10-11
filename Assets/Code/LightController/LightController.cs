@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
-using CaveIn.Contracts;
-using Code.FlipScreen;
-using Enemies.Contracts;
+using Explodables.CaveIn.Contracts;
+using FlipScreen.Code;
+using NPCs.Enemies.Contracts;
+using NPCs.Miner.Code;
+using Player.Code;
 using UnityEngine;
+using Weapons.Laser.Code;
 using Zenject;
 
 namespace Code.LightController
@@ -87,7 +90,7 @@ namespace Code.LightController
             }
             else
             {
-                if (sprite.gameObject.GetComponentInParent<Laser.Code.Laser>()) return;
+                if (sprite.gameObject.GetComponentInParent<Laser>()) return;
                 
                 sprite.material.shader = Shader.Find("GUI/Text Shader");
                 sprite.color = Color.black;

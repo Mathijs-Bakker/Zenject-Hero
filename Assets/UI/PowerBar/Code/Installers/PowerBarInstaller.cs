@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace Code
+namespace UI.PowerBar.Code.Installers
 {
     public class PowerBarInstaller : MonoInstaller
     {

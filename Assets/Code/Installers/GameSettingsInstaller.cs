@@ -1,8 +1,10 @@
 using System;
+using UI.Lives.Code;
 using UnityEngine;
+using Weapons.Dynamite.Code;
 using Zenject;
 
-namespace Code
+namespace Code.Installers
 {
     [CreateAssetMenu(fileName = "GameSettings", menuName = "Ultimate Hero/GameSettings")]
     public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller>
