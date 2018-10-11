@@ -2,12 +2,12 @@
 
 namespace Player.Code
 {
-    public class PlayerAnimatorController : ITickable
+    public class PlayerAnimationController : ITickable
     {
         private readonly PlayerAnimationStates _playerAnimationStates;
         private readonly PlayerModel _playerModel;
 
-        public PlayerAnimatorController(
+        public PlayerAnimationController(
             PlayerAnimationStates playerAnimationStates,
             PlayerModel playerModel)
         {

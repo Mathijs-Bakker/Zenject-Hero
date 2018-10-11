@@ -9,14 +9,8 @@ namespace Weapons.Dynamite.Code
 {
     public class Dynamite : MonoBehaviour
     {
-        private const float Seconds = 1f;
-
-        private readonly List<GameObject> _overlappedColliders = new List<GameObject>();
-
         private Pool _dynamitePool;
         private DynamitesActive _dynamitesActive;
-
-        private float _fuseTimer;
 
         [Inject]
         public void Construct(Pool dynamitePool, DynamitesActive dynamitesActive)
@@ -24,6 +18,11 @@ namespace Weapons.Dynamite.Code
             _dynamitePool = dynamitePool;
             _dynamitesActive = dynamitesActive;
         }
+        
+        private const float Seconds = 1f;
+
+        private readonly List<GameObject> _overlappedColliders = new List<GameObject>();
+        private float _fuseTimer;
 
         private void Start()
         {
