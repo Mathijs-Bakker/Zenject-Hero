@@ -3,7 +3,7 @@ using UI.Score.Code;
 using UnityEngine;
 using Zenject;
 
-namespace Explodables.Code
+namespace Explodables.CaveIn.Code
 {
     public class CaveIn : Explodable
     {
