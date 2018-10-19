@@ -199,10 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8096b7bde799418cbc6514f4f17ac4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settings:
-    Animator: {fileID: 95142938401467166}
-    Rigidbody2D: {fileID: 50354615484198054}
-    SpriteRenderer: {fileID: 212497903480284618}
+  settings:
+    animator: {fileID: 95142938401467166}
+    rigidbody2D: {fileID: 50354615484198054}
+    spriteRenderer: {fileID: 212497903480284618}
 --- !u!114 &114516165067449746
 MonoBehaviour:
   m_ObjectHideFlags: 1

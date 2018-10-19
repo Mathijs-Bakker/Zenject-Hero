@@ -17,7 +17,7 @@ namespace Player.Code.Installers
         private void InstallPlayer()
         {
             Container.Bind<PlayerFacade>()
-                .FromComponentInNewPrefab(_settings.PlayerPrefab)
+                .FromComponentInNewPrefab(_settings.playerPrefab)
                 .UnderTransformGroup("Player")
                 .AsSingle();
         }
@@ -25,7 +25,7 @@ namespace Player.Code.Installers
         [Serializable]
         public class Settings
         {
-            public GameObject PlayerPrefab;
+            public GameObject playerPrefab;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Code;
+﻿using GameSystem.Dynamites;
+using UI.Dynamites.Code;
+using UnityEngine;
 using Weapons.Dynamite.Code;
 using Weapons.Laser.Code;
 using Zenject;
@@ -7,9 +9,9 @@ namespace Player.Code
 {
     public class PlayerActionHandler : ITickable
     {
-        private readonly Weapons.Dynamite.Code.Dynamite.Pool _dynamitePool;
-        private readonly DynamitesActive _dynamitesActive;
-        private readonly DynamitesCounter _dynamitesCounter;
+        private readonly DynamiteController.Pool _dynamitePool;
+        private readonly DynamitesController _dynamitesController;
+        private readonly DynamitesCount _dynamitesCount;
         private readonly PlayerInputState _inputState;
         private readonly Laser _laser;
         private readonly PlayerModel _playerModel;
@@ -17,16 +19,16 @@ namespace Player.Code
         public PlayerActionHandler(
             PlayerModel playerModel,
             PlayerInputState playerInputState,
-            Weapons.Dynamite.Code.Dynamite.Pool dynamitePool,
-            DynamitesCounter dynamitesCounter,
-            DynamitesActive dynamitesActive,
+            DynamiteController.Pool dynamitePool,
+            DynamitesCount dynamitesCount,
+            DynamitesController dynamitesController,
             Laser laser)
         {
             _playerModel = playerModel;
             _inputState = playerInputState;
             _dynamitePool = dynamitePool;
-            _dynamitesCounter = dynamitesCounter;
-            _dynamitesActive = dynamitesActive;
+            _dynamitesCount = dynamitesCount;
+            _dynamitesController = dynamitesController;
             _laser = laser;
         }
 
@@ -42,14 +44,17 @@ namespace Player.Code
 
         private void PlaceDynamite()
         {
-            if (_dynamitesCounter.DynamitesLeft <= 0) return;
-            if (_dynamitesActive.IsDynamiteActive) return;
+            if (_dynamitesCount.DynamitesLeft <= 0) return;
+            if(_dynamitesController.HasMaxAmountExceeded) return;
+//            if (_dynamitesTracker.IsDynamiteActive) return;
 
             var dynamite = _dynamitePool.Spawn();
+            Debug.Log("dynamite");
             dynamite.transform.position = _playerModel.Position;
-
-            _dynamitesActive.IsDynamiteActive = true;
-            _dynamitesCounter.SubtractDynamite();
+            
+            
+//            _dynamitesTracker.IsDynamiteActive = true;
+            _dynamitesCount.SubtractDynamite();
         }
     }
 }

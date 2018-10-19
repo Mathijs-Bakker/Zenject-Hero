@@ -15,21 +15,16 @@ namespace Weapons.Dynamite.Code.Installers
 
         private void InstallDynamitePool()
         {
-            Container.Bind<Weapons.Dynamite.Code.Dynamite>().AsSingle();
-
-            Container.BindMemoryPool<Weapons.Dynamite.Code.Dynamite, Weapons.Dynamite.Code.Dynamite.Pool>()
-                .WithInitialSize(20)
-                .FromComponentInNewPrefab(_settings.DynamitePrefab)
+            Container.BindMemoryPool<DynamiteController, DynamiteController.Pool>()
+                .WithInitialSize(10)
+                .FromComponentInNewPrefab(_settings.dynamitePrefab)
                 .UnderTransformGroup("Dynamite");
-
-            Container.Bind<DynamitesActive>().AsSingle();
-            Container.Bind<DynamitesCounter>().AsSingle();
         }
 
         [Serializable]
         public class Settings
         {
-            public GameObject DynamitePrefab;
+            public GameObject dynamitePrefab;
         }
     }
 }

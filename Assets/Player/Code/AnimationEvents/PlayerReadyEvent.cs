@@ -1,5 +1,4 @@
-﻿using Code;
-using Player.Code.Signals;
+﻿using Player.Code.Signals;
 using UnityEngine;
 using Zenject;
 

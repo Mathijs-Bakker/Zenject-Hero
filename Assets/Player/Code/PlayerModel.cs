@@ -18,8 +18,6 @@ namespace Player.Code
         public bool IsSpawning { get; set; }
         public bool IsReady { get; private set; }
         public bool IsMoving { get; set; }
-        public bool IsFlying { get; set; }
-        public bool IsRunning { get; set; }
         public bool IsGrounded { get; set; }
         public bool IsDead { get; set; }
 

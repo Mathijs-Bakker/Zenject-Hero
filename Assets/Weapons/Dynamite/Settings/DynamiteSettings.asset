@@ -11,6 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d356b742342c74ccdb66f14f9bf46296, type: 3}
   m_Name: DynamiteSettings
   m_EditorClassIdentifier: 
-  DynamitePool:
-    DynamitePrefab: {fileID: 1526319152292066, guid: b526c8ba28a654c6895cf42ee0b887f3,
+  dynamitePool:
+    dynamitePrefab: {fileID: 1526319152292066, guid: b526c8ba28a654c6895cf42ee0b887f3,
       type: 2}
+  fuse:
+    fuseTimer:
+      fuseTimeInSeconds: 1

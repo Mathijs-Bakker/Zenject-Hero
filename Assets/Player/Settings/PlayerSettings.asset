@@ -11,9 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0ae43e39a0b45cab33e90e7c5224e1, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  PlayerPrefabInstaller:
-    PlayerPrefab: {fileID: 1306124711000602, guid: be2823cd47fdc4dbdb0ddac0cf0aec07,
+  player:
+    movement:
+      moveSpeed: 15
+  playerPrefabInstaller:
+    playerPrefab: {fileID: 1306124711000602, guid: be2823cd47fdc4dbdb0ddac0cf0aec07,
       type: 2}
-  Player:
-    Movement:
-      MoveSpeed: 15

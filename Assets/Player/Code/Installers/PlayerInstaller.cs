@@ -1,5 +1,4 @@
 using System;
-using Code;
 using Player.Code.Signals;
 using UnityEngine;
 using Zenject;
@@ -8,21 +7,21 @@ namespace Player.Code.Installers
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField] private Settings _settings;
+        [SerializeField] private Settings settings;
 
         public override void InstallBindings()
         {
             Container.Bind<PlayerModel>().AsSingle()
                 .WithArguments(
-                    _settings.Rigidbody2D,
-                    _settings.SpriteRenderer);
+                    settings.rigidbody2D,
+                    settings.spriteRenderer);
 
             Container.Bind<PlayerSpawner>().AsSingle();
             Container.Bind<PlayerDeathHandler>().AsSingle();
             Container.Bind<PlayerInputState>().AsSingle();
-            Container.Bind<PlayerPhysics>().AsSingle().WithArguments(_settings.Rigidbody2D);
-            Container.Bind<PlayerAnimationStates>().AsSingle().WithArguments(_settings.Animator);
-            Container.Bind<PlayerCollision>().AsSingle();
+            Container.Bind<PlayerPhysics>().AsSingle().WithArguments(settings.rigidbody2D);
+            Container.Bind<PlayerAnimationStates>().AsSingle().WithArguments(settings.animator);
+//            Container.Bind<PlayerCollision>().AsSingle();
 
             Container.BindInterfacesTo<PlayerAnimationController>().AsSingle();
             Container.BindInterfacesTo<PlayerInputHandler>().AsSingle();
@@ -45,8 +44,8 @@ namespace Player.Code.Installers
     [Serializable]
     public class Settings
     {
-        public Animator Animator;
-        public Rigidbody2D Rigidbody2D;
-        public SpriteRenderer SpriteRenderer;
+        public Animator animator;
+        public Rigidbody2D rigidbody2D;
+        public SpriteRenderer spriteRenderer;
     }
 }
