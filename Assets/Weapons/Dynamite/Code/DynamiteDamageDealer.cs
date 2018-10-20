@@ -1,19 +1,29 @@
 using Explodables.CaveIn.Contracts;
 using Player.Code;
 using UnityEngine;
+using Zenject;
 
 namespace Weapons.Dynamite.Code
 {
-    public class DynamiteDamageDealer
+    public class DynamiteDamageDealer : ITickable
     {
         private readonly Collider2D _dynamiteCollider;
+        private readonly DynamiteModel _dynamiteModel;
 
-        public DynamiteDamageDealer(Collider2D collider2D)
+        public DynamiteDamageDealer(Collider2D collider2D,
+            DynamiteModel dynamiteModel)
         {
             _dynamiteCollider = collider2D;
+            _dynamiteModel = dynamiteModel;
         }
 
-        public void GetCollidingGameObjects()
+        public void Tick()
+        {
+            if(!_dynamiteModel.HasFinished) return;
+            HandleCollidingGameObjects();
+        }
+
+        private void HandleCollidingGameObjects()
         {
             const int maxCollidersToFetch = 20;
             var overlappingColliders = new Collider2D[maxCollidersToFetch];
@@ -45,5 +55,6 @@ namespace Weapons.Dynamite.Code
                 explodableGo.BlowUp();
             }
         }
+
     }
 }

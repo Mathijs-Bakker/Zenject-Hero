@@ -11,7 +11,7 @@ namespace Weapons.Dynamite.Code.Installers
         public override void InstallBindings()
         {
             Container
-                .BindInterfacesAndSelfTo<DynamiteModel>()
+                .Bind<DynamiteModel>()
                 .AsSingle();
             
             Container
@@ -24,7 +24,7 @@ namespace Weapons.Dynamite.Code.Installers
                 .AsSingle();
             
             Container
-                .Bind<DynamiteAnimation>()
+                .BindInterfacesAndSelfTo<DynamiteAnimation>()
                 .AsSingle()
                 .WithArguments(settings.animator);
         }

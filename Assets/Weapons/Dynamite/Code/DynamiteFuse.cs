@@ -33,6 +33,7 @@ namespace Weapons.Dynamite.Code
             if (_fuseTime <= 0)
             {
                 _dynamiteModel.IsFusing = false;
+                _dynamiteModel.IsExploding = true;
                 ResetTimer();
                 return;
             }

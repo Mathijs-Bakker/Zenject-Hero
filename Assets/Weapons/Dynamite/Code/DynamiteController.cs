@@ -16,15 +16,26 @@ namespace Weapons.Dynamite.Code
             _dynamiteModel = dynamiteModel;
         }
 
+        private void Start()
+        {
+            IsFusing(true);
+        }
+
         private void Update()
         {
-            if(!_dynamiteModel.HasFinished) return;
+            _dynamiteModel.IsFusing = true;
+            Despawn();
+        }
+
+        private void Despawn()
+        {
+            if (!_dynamiteModel.HasFinished) return;
             _dynamitePool.Despawn(this);
         }
 
-        private bool IsFusing
+        private void IsFusing(bool b)
         {
-            set { _dynamiteModel.IsFusing = value; }
+            _dynamiteModel.IsFusing = b;
         }
 
         private bool IsExploding
@@ -34,9 +45,9 @@ namespace Weapons.Dynamite.Code
         
         public class Pool : MonoMemoryPool<DynamiteController>
         {
-            protected override void OnSpawned(DynamiteController dynamiteController)
+            protected override void Reinitialize(DynamiteController dynamiteController)
             {
-                dynamiteController.IsFusing = true;
+                dynamiteController.IsFusing(true);
                 dynamiteController.IsExploding = false;
             }
         }

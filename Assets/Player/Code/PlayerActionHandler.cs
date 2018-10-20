@@ -49,7 +49,6 @@ namespace Player.Code
 //            if (_dynamitesTracker.IsDynamiteActive) return;
 
             var dynamite = _dynamitePool.Spawn();
-            Debug.Log("dynamite");
             dynamite.transform.position = _playerModel.Position;
             
             
